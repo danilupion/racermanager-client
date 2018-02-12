@@ -4,7 +4,7 @@ import { UsersService } from '../../../services/api/users.service';
 @Component({
   selector: 'rm-auth-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css'],
+  styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent {
   username = '';

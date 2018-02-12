@@ -5,7 +5,7 @@ import { AuthService } from '../../services/api/auth.service';
 @Component({
   selector: 'rm-auth-dialog',
   templateUrl: './authDialog.component.html',
-  styleUrls: ['./authDialog.component.css'],
+  styleUrls: ['./authDialog.component.scss'],
 })
 export class AuthDialogComponent {
   username = '';
@@ -19,12 +19,5 @@ export class AuthDialogComponent {
 
   onNoClick(): void {
     this.dialogRef.close();
-  }
-
-  login(): void {
-    console.log('asdf');
-    const a = this.apiService.token(this.username, this.password);
-    console.log(a);
-    a.subscribe(data => console.log(data));
   }
 }

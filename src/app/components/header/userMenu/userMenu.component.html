@@ -1,0 +1,10 @@
+<mat-menu #userMenu="matMenu">
+  <button mat-menu-item (click)="logout()">
+    <mat-icon>power_settings_new</mat-icon>
+    <span>Logout</span>
+  </button>
+</mat-menu>
+
+<button mat-button [matMenuTriggerFor]="userMenu">
+  <span>{{authStore.username}}</span>
+</button>

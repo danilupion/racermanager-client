@@ -3,5 +3,6 @@
   <!-- This fills the remaining space of the current row -->
   <span class="fill-remaining-space"></span>
 
-  <button mat-button (click)="showLoginDialog()">Login / Register</button>
+  <button *ngIf="!authStore.token" mat-button (click)="showLoginDialog()">Login / Register</button>
+  <rm-header-user-menu *ngIf="authStore.token"></rm-header-user-menu>
 </mat-toolbar>

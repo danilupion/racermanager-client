@@ -1,6 +1,6 @@
 <mat-tab-group [dynamicHeight]="true">
   <mat-tab label="Login">
-    <rm-auth-login></rm-auth-login>
+    <rm-auth-login (success)="onNoClick()"></rm-auth-login>
   </mat-tab>
   <mat-tab label="Register">
     <rm-auth-register></rm-auth-register>
