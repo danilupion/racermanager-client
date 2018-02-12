@@ -93,6 +93,13 @@
       true,
       "always"
     ],
+    "trailing-comma": [
+      true,
+      {
+        "multiline": "always",
+        "singleline": "never"
+      }
+    ],
     "triple-equals": [
       true,
       "allow-null-check"
@@ -120,13 +127,13 @@
     "directive-selector": [
       true,
       "attribute",
-      "app",
+      "rm",
       "camelCase"
     ],
     "component-selector": [
       true,
       "element",
-      "app",
+      "rm",
       "kebab-case"
     ],
     "no-output-on-prefix": true,

@@ -1,1 +1,10 @@
-/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/pink-bluegrey.css";
+
+html, body {
+  margin: 0;
+}
+
+rm-auth-dialog .mat-tab-body-content {
+  margin-top: 12px;
+  margin-bottom: 12px;
+}

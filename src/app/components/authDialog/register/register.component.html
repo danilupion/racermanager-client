@@ -1,0 +1,17 @@
+<div mat-dialog-content>
+  <mat-form-field>
+    <input matInput [(ngModel)]="username" placeholder="Username">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput type="email" [(ngModel)]="email" placeholder="Email">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput type="password" [(ngModel)]="password" placeholder="Password">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput type="password" [(ngModel)]="repeatedPassword" placeholder="Repeat Password">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="register()">Register</button>
+</div>

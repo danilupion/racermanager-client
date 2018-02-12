@@ -1,0 +1,6 @@
+<button mat-button [disabled]="disabled || loading" (click)="doClick()">
+  <span [style.visibility]="!loading ? 'visible' : 'hidden'">
+    <ng-content></ng-content>
+  </span>
+  <span *ngIf="loading" class="loader"></span>
+</button>
