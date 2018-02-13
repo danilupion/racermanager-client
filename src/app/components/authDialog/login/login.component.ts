@@ -9,30 +9,28 @@ import { AuthService } from '../../../services/api/auth.service';
 })
 export class LoginComponent {
   @Output() success = new EventEmitter();
-  username = '';
-  password = '';
-  loading = false;
+  private username = '';
+  private password = '';
+  private loading = false;
 
   constructor(
     private authService: AuthService,
     private snackBar: MatSnackBar,
   ) { }
 
-  login(): void {
-    this.loading = true;
-    this.authService.token(this.username, this.password)
-      .then(() => {
-        this.success.emit();
-      })
-      .catch((err) => {
-        this.snackBar.open('Please check your credentials', null, { duration: 3000 });
-      })
-      .then(() => {
-        this.loading = false;
-      });
+  private async login() {
+    try {
+      this.loading = true;
+      await this.authService.token(this.username, this.password);
+      this.success.emit();
+    } catch (err) {
+      this.snackBar.open('Please check your credentials', null, {duration: 3000});
+    } finally {
+      this.loading = false;
+    }
   }
 
-  validate(): boolean {
+  private validate(): boolean {
     return !!this.username && !!this.password;
   }
 }

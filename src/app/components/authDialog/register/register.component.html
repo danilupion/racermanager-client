@@ -13,5 +13,5 @@
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="register()">Register</button>
+  <rm-loading-button [disabled]="!validate()" [loading]="loading" (push)="register()">Register</rm-loading-button>
 </div>

@@ -6,6 +6,7 @@ export class UsersService {
   constructor(private http: HttpClient) { }
 
   create(username: string, email: string, password: string) {
-    return this.http.post<any>('/api/users', { username, email, password });
+    return this.http.post<any>('/api/users', { username, email, password })
+      .toPromise();
   }
 }
