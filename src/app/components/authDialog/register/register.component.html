@@ -3,7 +3,20 @@
     <input matInput [(ngModel)]="username" placeholder="Username">
   </mat-form-field>
   <mat-form-field>
-    <input matInput type="email" [(ngModel)]="email" placeholder="Email">
+    <input matInput
+      type="email"
+      [(ngModel)]="email"
+      placeholder="Email"
+      [errorStateMatcher]="matcher"
+      [formControl]="emailFormControl"
+    >
+
+    <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+      Please enter a valid email address
+    </mat-error>
+    <mat-error *ngIf="emailFormControl.hasError('required')">
+      Email is <strong>required</strong>
+    </mat-error>
   </mat-form-field>
   <mat-form-field>
     <input matInput type="password" [(ngModel)]="password" placeholder="Password">
@@ -13,5 +26,5 @@
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
-  <rm-loading-button [disabled]="!validate()" [loading]="loading" (push)="register()">Register</rm-loading-button>
+  <rm-loading-button [disabled]="!emailFormControl.hasError('email')" [loading]="loading" (push)="register()">Register</rm-loading-button>
 </div>

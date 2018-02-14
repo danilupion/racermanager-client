@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { UsersService } from '../../../services/users.service';
-import {MatSnackBar} from '@angular/material';
+import { MatSnackBar } from '@angular/material';
+import { FormControl, Validators } from '@angular/forms';
+import { MyErrorStateMatcher } from '../myErrorStateMatcher';
 
 @Component({
   selector: 'rm-auth-register',
@@ -13,6 +15,12 @@ export class RegisterComponent {
   password = '';
   repeatedPassword = '';
   loading = false;
+
+  matcher = new MyErrorStateMatcher();
+  emailFormControl = new FormControl('', [
+    Validators.required,
+    Validators.email,
+  ]);
 
   constructor(
     private usersService: UsersService,
