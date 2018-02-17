@@ -3,6 +3,10 @@
     <mat-icon>power_settings_new</mat-icon>
     <span>Logout</span>
   </button>
+  <a routerLink="/admin" routerLinkActive="active" *ngIf="authStore.role === Role.Admin" mat-menu-item>
+    <mat-icon>settings</mat-icon>
+    <span>Admin</span>
+  </a>
 </mat-menu>
 
 <button mat-button [matMenuTriggerFor]="userMenu">
