@@ -1,11 +1,25 @@
 import { Component } from '@angular/core';
-import { UsersService } from '../../services/api/users.service';
-import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'rm-admin',
   templateUrl: './admin.page.html',
+  styleUrls: ['./admin.page.scss'],
 })
 export class AdminPageComponent {
-  title = 'Admin';
+  private title = 'Racer Manager Admin';
+  private titleUrl = '/admin';
+  private links = [
+    {
+      icon: 'people',
+      text: 'Teams',
+      url: '/admin/teams',
+    },
+  ];
+  private menuLinks = [
+    {
+      icon: 'home',
+      text: 'Back',
+      url: '/',
+    },
+  ];
 }

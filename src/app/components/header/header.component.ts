@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { AuthDialogComponent } from '../authDialog/authDialog.component';
-import { AuthStore } from '../../stores/auth.store';
+import { AuthService } from '../../services/api/auth.service';
 
 @Component({
   selector: 'rm-header',
@@ -9,14 +9,27 @@ import { AuthStore } from '../../stores/auth.store';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-  @Input() title;
+  @Input()
+  private title = '';
+
+  @Input()
+  private titleUrl = '/';
+
+  @Input()
+  private color = 'primary';
+
+  @Input()
+  private links = [];
+
+  @Input()
+  private menuLinks = [];
 
   constructor(
     private dialog: MatDialog,
-    private authStore: AuthStore,
+    private authService: AuthService,
   ) {}
 
-  showLoginDialog() {
+  private showLoginDialog() {
     const dialogRef = this.dialog.open(AuthDialogComponent, {
       width: '368px',
     });

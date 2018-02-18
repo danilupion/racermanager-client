@@ -6,6 +6,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatCardModule } from '@angular/material/card';
+import { MatTableModule } from '@angular/material/table';
 import {
   MatDialogModule,
   MatFormFieldModule,
@@ -29,10 +32,11 @@ import { LoadingButtonComponent } from './components/loadingButton/loadingButton
 
 import { MainPageComponent } from './pages/main/main.page';
 import { AdminPageComponent } from './pages/admin/admin.page';
+import { TeamsAdminPageComponent } from './pages/admin/teams/teamsAdmin.page';
 
-import { AuthStore } from './stores/auth.store';
-import { UsersService } from './services/api/users.service';
 import { AuthService } from './services/api/auth.service';
+import { UsersService } from './services/api/users.service';
+import { TeamsService } from './services/api/teams.service';
 
 @NgModule({
   declarations: [
@@ -45,6 +49,7 @@ import { AuthService } from './services/api/auth.service';
     LoadingButtonComponent,
     MainPageComponent,
     AdminPageComponent,
+    TeamsAdminPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -53,6 +58,9 @@ import { AuthService } from './services/api/auth.service';
     HttpClientModule,
     FormsModule,
     MatButtonModule,
+    MatCardModule,
+    MatCheckboxModule,
+    MatTableModule,
     MatDialogModule,
     MatTabsModule,
     MatFormFieldModule,
@@ -64,9 +72,12 @@ import { AuthService } from './services/api/auth.service';
     AppRoutingModule,
   ],
   providers: [
-    AuthStore,
     AuthService,
     UsersService,
+    TeamsService,
+  ],
+  entryComponents: [
+    AuthDialogComponent,
   ],
   bootstrap: [
     AppComponent,

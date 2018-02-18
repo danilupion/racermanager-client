@@ -6,11 +6,16 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrls: ['./loadingButton.component.scss'],
 })
 export class LoadingButtonComponent {
-  @Output() push = new EventEmitter();
-  @Input() disabled;
-  @Input() loading;
+  @Output()
+  private push = new EventEmitter();
 
-  doClick() {
+  @Input()
+  private disabled;
+
+  @Input()
+  private loading;
+
+  private doClick() {
     this.push.emit();
   }
 }

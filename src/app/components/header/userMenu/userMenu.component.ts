@@ -1,5 +1,4 @@
-import { Component } from '@angular/core';
-import { AuthStore } from '../../../stores/auth.store';
+import { Component, Input } from '@angular/core';
 import { AuthService } from '../../../services/api/auth.service';
 import { Role } from '../../../constants/roles';
 
@@ -8,14 +7,14 @@ import { Role } from '../../../constants/roles';
   templateUrl: './userMenu.component.html',
 })
 export class UserMenuComponent {
+  @Input()
+  private links = [];
+
   private Role = Role;
 
-  constructor(
-    private authStore: AuthStore,
-    private authService: AuthService,
-  ) {}
+  constructor(private authService: AuthService) {}
 
-  logout() {
+  private logout() {
     this.authService.logout();
   }
 }
