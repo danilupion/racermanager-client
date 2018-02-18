@@ -8,11 +8,7 @@ import { AuthService } from '../../services/api/auth.service';
   styleUrls: ['./authDialog.component.scss'],
 })
 export class AuthDialogComponent {
-  constructor(
-    private dialogRef: MatDialogRef<AuthDialogComponent>,
-    private apiService: AuthService,
-    @Inject(MAT_DIALOG_DATA) public data: any,
-  ) { }
+  constructor(private dialogRef: MatDialogRef<AuthDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   private close(): void {
     this.dialogRef.close();
