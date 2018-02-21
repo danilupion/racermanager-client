@@ -3,7 +3,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { toStream } from 'mobx-utils';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/from';
-import { TeamsService } from '../../../services/api/teams.service';
+import { TeamsService } from '../../../services/teams.service';
 
 @Component({
   selector: 'rm-admin-teams',
@@ -11,9 +11,9 @@ import { TeamsService } from '../../../services/api/teams.service';
   styleUrls: ['./teamsAdmin.page.scss'],
 })
 export class TeamsAdminPageComponent  implements OnInit {
-  private displayedColumns = ['select', 'name'];
-  private teams = Observable.from(toStream(() => this.teamsService.teams));
-  private selection = new SelectionModel<Element>(true, []);
+  displayedColumns = ['select', 'name'];
+  teams = Observable.from(toStream(() => this.teamsService.teams));
+  selection = new SelectionModel<Element>(true, []);
 
   constructor(private teamsService: TeamsService) { }
 

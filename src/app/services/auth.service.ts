@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { observable, action } from 'mobx-angular';
+import { observable, action, computed } from 'mobx-angular';
 import * as jwtDecode from 'jwt-decode';
+
+import { Role } from '../constants/roles';
 
 const LOCAL_STORAGE_KEY = 'auth';
 
@@ -55,6 +57,16 @@ export class AuthService {
     } catch (err) {
       throw new Error('Wrong credentials');
     }
+  }
+
+  @computed
+  get isLoggedIn() {
+    return this.token !== null;
+  }
+
+  @computed
+  get isAdmin() {
+    return this.role === Role.Admin;
   }
 
   @action

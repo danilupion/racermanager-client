@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { AuthService } from '../../../services/api/auth.service';
+import { AuthService } from '../../../services/auth.service';
 import { Role } from '../../../constants/roles';
 
 @Component({
@@ -8,13 +8,13 @@ import { Role } from '../../../constants/roles';
 })
 export class UserMenuComponent {
   @Input()
-  private links = [];
+  links = [];
 
-  private Role = Role;
+  Role = Role;
 
-  constructor(private authService: AuthService) {}
+  constructor(public authService: AuthService) {}
 
-  private logout() {
+  logout() {
     this.authService.logout();
   }
 }

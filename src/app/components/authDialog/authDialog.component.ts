@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { AuthService } from '../../services/api/auth.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'rm-auth-dialog',
@@ -10,7 +10,7 @@ import { AuthService } from '../../services/api/auth.service';
 export class AuthDialogComponent {
   constructor(private dialogRef: MatDialogRef<AuthDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) { }
 
-  private close(): void {
+  close(): void {
     this.dialogRef.close();
   }
 }

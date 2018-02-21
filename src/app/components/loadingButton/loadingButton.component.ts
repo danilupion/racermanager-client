@@ -7,15 +7,15 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class LoadingButtonComponent {
   @Output()
-  private push = new EventEmitter();
+  push = new EventEmitter();
 
   @Input()
-  private disabled;
+  disabled;
 
   @Input()
-  private loading;
+  loading;
 
-  private doClick() {
+  doClick() {
     this.push.emit();
   }
 }

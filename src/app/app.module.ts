@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, registerLocaleData } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -20,6 +20,8 @@ import {
   MatIconModule,
 } from '@angular/material';
 
+import localeEs from '@angular/common/locales/es';
+
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
@@ -34,9 +36,14 @@ import { MainPageComponent } from './pages/main/main.page';
 import { AdminPageComponent } from './pages/admin/admin.page';
 import { TeamsAdminPageComponent } from './pages/admin/teams/teamsAdmin.page';
 
-import { AuthService } from './services/api/auth.service';
-import { UsersService } from './services/api/users.service';
-import { TeamsService } from './services/api/teams.service';
+import { AuthService } from './services/auth.service';
+import { UsersService } from './services/users.service';
+import { TeamsService } from './services/teams.service';
+
+import { AuthGuard } from './guards/auth.guard';
+import { AdminGuard } from './guards/admin.guard';
+
+registerLocaleData(localeEs, 'es-ES');
 
 @NgModule({
   declarations: [
@@ -75,6 +82,8 @@ import { TeamsService } from './services/api/teams.service';
     AuthService,
     UsersService,
     TeamsService,
+    AuthGuard,
+    AdminGuard,
   ],
   entryComponents: [
     AuthDialogComponent,

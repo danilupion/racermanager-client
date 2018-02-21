@@ -6,16 +6,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./admin.page.scss'],
 })
 export class AdminPageComponent {
-  private title = 'Racer Manager Admin';
-  private titleUrl = '/admin';
-  private links = [
+  title = 'Racer Manager Admin';
+  titleUrl = '/admin';
+  links = [
     {
       icon: 'people',
       text: 'Teams',
       url: '/admin/teams',
     },
   ];
-  private menuLinks = [
+  menuLinks = [
     {
       icon: 'home',
       text: 'Back',

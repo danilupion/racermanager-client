@@ -1,6 +1,6 @@
 <mat-menu #userMenu="matMenu">
   <ng-template ngFor let-link [ngForOf]="links">
-    <a mat-menu-item [routerLink]="link.url" routerLinkActive="active">
+    <a *ngIf="!link.guard || link.guard()" mat-menu-item [routerLink]="link.url" routerLinkActive="active">
       <mat-icon *ngIf="link.icon">{{link.icon}}</mat-icon>
       {{link.text}}
     </a>

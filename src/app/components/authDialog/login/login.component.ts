@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
-import { AuthService } from '../../../services/api/auth.service';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'rm-auth-login',
@@ -9,18 +9,18 @@ import { AuthService } from '../../../services/api/auth.service';
 })
 export class LoginComponent {
   @Output()
-  private success = new EventEmitter();
+  success = new EventEmitter();
 
-  private username = '';
-  private password = '';
-  private loading = false;
+  username = '';
+  password = '';
+  loading = false;
 
   constructor(
     private authService: AuthService,
     private snackBar: MatSnackBar,
   ) { }
 
-  private async login() {
+  async login() {
     try {
       this.loading = true;
       await this.authService.authenticate(this.username, this.password);
@@ -32,7 +32,7 @@ export class LoginComponent {
     }
   }
 
-  private validate(): boolean {
+  validate(): boolean {
     return !!this.username && !!this.password;
   }
 }
