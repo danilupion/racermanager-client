@@ -1,31 +1,35 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../../../services/users.service';
 import { MatSnackBar } from '@angular/material';
-import { FormControl, Validators } from '@angular/forms';
-import { MyErrorStateMatcher } from '../../../utils/myErrorStateMatcher';
+import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
+import { FieldValidator } from '../../../utils/fieldValidator';
 
 @Component({
   selector: 'rm-auth-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
   username = '';
   email = '';
   password = '';
   repeatedPassword = '';
   loading = false;
-
-  matcher = new MyErrorStateMatcher();
-  emailFormControl = new FormControl('', [
-    Validators.required,
-    Validators.email,
-  ]);
+  myForm: FormGroup;
 
   constructor(
     private usersService: UsersService,
     private snackBar: MatSnackBar,
+    private formBuilder: FormBuilder,
+    private fieldValidator: FieldValidator,
   ) { }
+
+  ngOnInit() {
+    this.myForm = this.formBuilder.group({
+      emailValidate: ['', [Validators.required, this.fieldValidator.validateEmail]],
+      passwordValidate: ['', [Validators.required, this.fieldValidator.validatePassword]],
+    });
+  }
 
   async register() {
     try {
@@ -41,7 +45,6 @@ export class RegisterComponent {
   validate(): boolean {
     return !!this.username
     && !!this.password
-    && !this.emailFormControl.hasError('email')
     && !!this.password
     && this.password === this.repeatedPassword;
   }
