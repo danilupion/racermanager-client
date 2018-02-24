@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule, registerLocaleData } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -40,6 +40,8 @@ import { AuthService } from './services/auth.service';
 import { UsersService } from './services/users.service';
 import { TeamsService } from './services/teams.service';
 
+import { FieldValidator } from './utils/fieldValidator';
+
 import { AuthGuard } from './guards/auth.guard';
 import { AdminGuard } from './guards/admin.guard';
 
@@ -64,6 +66,7 @@ registerLocaleData(localeEs, 'es-ES');
     CommonModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     MatButtonModule,
     MatCardModule,
     MatCheckboxModule,
@@ -84,6 +87,7 @@ registerLocaleData(localeEs, 'es-ES');
     TeamsService,
     AuthGuard,
     AdminGuard,
+    FieldValidator,
   ],
   entryComponents: [
     AuthDialogComponent,
