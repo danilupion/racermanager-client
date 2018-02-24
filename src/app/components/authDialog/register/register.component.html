@@ -1,48 +1,50 @@
-<form [formGroup]="myForm">
-  <div mat-dialog-content>
-    <mat-form-field>
-      <input matInput [(ngModel)]="username"
-        [ngModelOptions]="{standalone: true}"
-        placeholder="Username"
+ <div mat-dialog-content>
+  <mat-form-field>
+    <input
+      matInput
+      [formControl]="username"
+      placeholder="Username"
+    >
+    <mat-error *ngIf="username.invalid">Invalid username</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      matInput
+      [formControl]="email"
+      type="email"
+      placeholder="Email"
+    >
+    <mat-error *ngIf="email.invalid">Invalid email</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      matInput
+      [formControl]="password"
+      type="password"
+      placeholder="Password"
+    >
+    <mat-error *ngIf="password.invalid">
+      Invalid format
+      <mat-icon
+        matTooltipHideDelay="1000"
+        matTooltip="Password must be at least 8 chars, contain numbers, lowercase, uppercase and special chars"
       >
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput [(ngModel)]="email"
-        type="email"
-        placeholder="Email"
-        formControlName="emailValidate"
-      >
-      <mat-error *ngIf="myForm.get('emailValidate').errors
-        && myForm.get('emailValidate').dirty
-        && myForm.get('emailValidate').errors.errorUrl"
-      >
-          Please enter a valid email address
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput [(ngModel)]="password"
-        type="password"
-        placeholder="Password"
-        formControlName="passwordValidate"
-      >
-      <mat-error *ngIf="myForm.get('passwordValidate').errors
-        && myForm.get('passwordValidate').dirty
-        && myForm.get('passwordValidate').errors.errorPass"
-      >
-          Password must be at least 8 chars, contain 1 number, lower and upper case and special char
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput [(ngModel)]="repeatedPassword"
-        [ngModelOptions]="{standalone: true}"
-        type="password"
-        placeholder="Repeat Password"
-      >
-    </mat-form-field>
-  </div>
-  <div mat-dialog-actions>
-    <rm-loading-button [disabled]="!validate()" [loading]="loading" (push)="register()">
-      Register
-    </rm-loading-button>
-  </div>
-</form>
+        info
+      </mat-icon>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      matInput
+      [formControl]="repeatedPassword"
+      type="password"
+      placeholder="Repeat Password"
+    >
+    <mat-error *ngIf="repeatedPassword.invalid">Passwords do not match</mat-error>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <rm-loading-button [disabled]="!isValid()" [loading]="loading" (push)="register()">
+    Register
+  </rm-loading-button>
+</div>

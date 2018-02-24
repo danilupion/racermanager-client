@@ -1,40 +1,34 @@
-import { Component, OnInit } from '@angular/core';
-import { UsersService } from '../../../services/users.service';
+import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
-import { Validators, FormGroup, FormBuilder } from '@angular/forms';
-import { FieldValidator } from '../../../utils/fieldValidator';
+import { FormControl, Validators } from '@angular/forms';
+
+import { sameAsValidator } from '../../../validators/samesAsValidator';
+import { UsersService } from '../../../services/users.service';
 
 @Component({
   selector: 'rm-auth-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
 })
-export class RegisterComponent implements OnInit {
-  username = '';
-  email = '';
-  password = '';
-  repeatedPassword = '';
+export class RegisterComponent {
+  username = new FormControl('', [Validators.required]);
+  email = new FormControl('', [Validators.required, Validators.email]);
+  password = new FormControl('', [
+    Validators.required,
+    Validators.pattern( /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#\$%\^\&*\)\(\]\[\+=\.,_-]).{8,}$/),
+  ]);
+  repeatedPassword = new FormControl('', [sameAsValidator(this.password)]);
   loading = false;
-  myForm: FormGroup;
 
   constructor(
     private usersService: UsersService,
     private snackBar: MatSnackBar,
-    private formBuilder: FormBuilder,
-    private fieldValidator: FieldValidator,
   ) { }
-
-  ngOnInit() {
-    this.myForm = this.formBuilder.group({
-      emailValidate: ['', [Validators.required, this.fieldValidator.validateEmail]],
-      passwordValidate: ['', [Validators.required, this.fieldValidator.validatePassword]],
-    });
-  }
 
   async register() {
     try {
       this.loading = true;
-      await this.usersService.create(this.username, this.email, this.password);
+      await this.usersService.create(this.username.value, this.email.value, this.password.value.value);
     } catch (err) {
       this.snackBar.open('There was an error creating the user', null, {duration: 3000});
     } finally {
@@ -42,10 +36,10 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  validate(): boolean {
-    return !!this.username
-    && !!this.password
-    && !!this.password
-    && this.password === this.repeatedPassword;
+  isValid(): boolean {
+    return this.username.valid
+    && this.email.valid
+    && this.password.valid
+    && this.password.value === this.repeatedPassword;
   }
 }

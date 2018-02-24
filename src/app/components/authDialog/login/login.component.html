@@ -1,11 +1,20 @@
 <div mat-dialog-content>
   <mat-form-field>
-    <input matInput [(ngModel)]="username" placeholder="Username">
+    <input
+      matInput
+      [formControl]="username"
+      placeholder="Username"
+    >
   </mat-form-field>
   <mat-form-field>
-    <input matInput type="password" [(ngModel)]="password" placeholder="Password">
+    <input
+      matInput
+      [formControl]="password"
+      type="password"
+      placeholder="Password"
+    >
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
-  <rm-loading-button [disabled]="!validate()" [loading]="loading" (push)="login()">Login</rm-loading-button>
+  <rm-loading-button [disabled]="!isValid()" [loading]="loading" (push)="login()">Login</rm-loading-button>
 </div>

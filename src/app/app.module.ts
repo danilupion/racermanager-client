@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import {
   MatDialogModule,
   MatFormFieldModule,
@@ -40,8 +41,6 @@ import { AuthService } from './services/auth.service';
 import { UsersService } from './services/users.service';
 import { TeamsService } from './services/teams.service';
 
-import { FieldValidator } from './utils/fieldValidator';
-
 import { AuthGuard } from './guards/auth.guard';
 import { AdminGuard } from './guards/admin.guard';
 
@@ -71,6 +70,7 @@ registerLocaleData(localeEs, 'es-ES');
     MatCardModule,
     MatCheckboxModule,
     MatTableModule,
+    MatTooltipModule,
     MatDialogModule,
     MatTabsModule,
     MatFormFieldModule,
@@ -87,7 +87,6 @@ registerLocaleData(localeEs, 'es-ES');
     TeamsService,
     AuthGuard,
     AdminGuard,
-    FieldValidator,
   ],
   entryComponents: [
     AuthDialogComponent,
