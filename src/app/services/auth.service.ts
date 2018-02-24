@@ -4,6 +4,7 @@ import { observable, action, computed } from 'mobx-angular';
 import * as jwtDecode from 'jwt-decode';
 
 import { Role } from '../constants/roles';
+import {Router} from '@angular/router';
 
 const LOCAL_STORAGE_KEY = 'auth';
 
@@ -19,7 +20,7 @@ export class AuthService {
   @observable
   role;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) {
     try {
       const auth = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
 
@@ -75,6 +76,9 @@ export class AuthService {
     this.userId = null;
     this.username = null;
     this.role = null;
+
     localStorage.removeItem(LOCAL_STORAGE_KEY);
+    // Navigate to home
+    this.router.navigate(['/']);
   }
 }
