@@ -1,8 +1,16 @@
-<mat-toolbar color="primary">
-  <span>{{title}}</span>
+<mat-toolbar [color]="color">
+  <a class="title" [routerLink]="titleUrl" routerLinkActive="active">{{title}}</a>
+
+  <ng-template ngFor let-link [ngForOf]="links">
+    <a mat-button [routerLink]="link.url" routerLinkActive="active">
+      <mat-icon *ngIf="link.icon">{{link.icon}}</mat-icon>
+      {{link.text}}
+    </a>
+  </ng-template>
+
   <!-- This fills the remaining space of the current row -->
   <span class="fill-remaining-space"></span>
 
-  <button *ngIf="!authStore.token" mat-button (click)="showLoginDialog()">Login / Register</button>
-  <rm-header-user-menu *ngIf="authStore.token"></rm-header-user-menu>
+  <button *ngIf="!authService.token" mat-button (click)="showLoginDialog()">Login / Register</button>
+  <rm-header-user-menu *ngIf="authService.token" [links]="menuLinks"></rm-header-user-menu>
 </mat-toolbar>

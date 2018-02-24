@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { UsersService } from '../../../services/api/users.service';
+import { UsersService } from '../../../services/users.service';
 import {MatSnackBar} from '@angular/material';
 
 @Component({
@@ -8,18 +8,18 @@ import {MatSnackBar} from '@angular/material';
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent {
-  private username = '';
-  private email = '';
-  private password = '';
-  private repeatedPassword = '';
-  private loading = false;
+  username = '';
+  email = '';
+  password = '';
+  repeatedPassword = '';
+  loading = false;
 
   constructor(
     private usersService: UsersService,
     private snackBar: MatSnackBar,
   ) { }
 
-  private async register() {
+  async register() {
     try {
       this.loading = true;
       await this.usersService.create(this.username, this.email, this.password);
@@ -30,7 +30,7 @@ export class RegisterComponent {
     }
   }
 
-  private validate(): boolean {
+  validate(): boolean {
     return !!this.username && !!this.password && !!this.password && this.password === this.repeatedPassword;
   }
 }

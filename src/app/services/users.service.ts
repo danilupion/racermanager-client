@@ -5,8 +5,8 @@ import { HttpClient } from '@angular/common/http';
 export class UsersService {
   constructor(private http: HttpClient) { }
 
-  create(username: string, email: string, password: string) {
-    return this.http.post<any>('/api/users', { username, email, password })
+  async create(username: string, email: string, password: string) {
+    await this.http.post<any>('/api/users', { username, email, password })
       .toPromise();
   }
 }
