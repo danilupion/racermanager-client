@@ -6,10 +6,12 @@
     "name": "Dani Lupión",
     "email": "danilupion@gmail.com"
   },
-  "contributor": {
-    "name": "Victor Manuel Fernández López",
-    "email": "v.manuelfernandezlopez@gmail.com"
-  },
+  "contributors": [
+    {
+      "name": "Victor Manuel Fernández López",
+      "email": "v.manuelfernandezlopez@gmail.com"
+    }
+  ],
   "scripts": {
     "ng": "ng",
     "start": "ng serve --proxy-config proxy.conf.json",
