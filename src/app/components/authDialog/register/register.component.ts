@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
+import { MatSnackBar } from '@angular/material';
+import { FormControl, Validators } from '@angular/forms';
+
+import { sameAsValidator } from '../../../validators/samesAsValidator';
 import { UsersService } from '../../../services/users.service';
-import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'rm-auth-register',
@@ -8,10 +11,16 @@ import {MatSnackBar} from '@angular/material';
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent {
-  username = '';
-  email = '';
-  password = '';
-  repeatedPassword = '';
+  username = new FormControl('', [Validators.required]);
+  email = new FormControl('', [
+    Validators.required,
+    Validators.pattern(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i),
+  ]);
+  password = new FormControl('', [
+    Validators.required,
+    Validators.pattern( /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#\$%\^\&*\)\(\]\[\+=\.,_-]).{8,}$/),
+  ]);
+  repeatedPassword = new FormControl('', [sameAsValidator(this.password)]);
   loading = false;
 
   constructor(
@@ -22,7 +31,7 @@ export class RegisterComponent {
   async register() {
     try {
       this.loading = true;
-      await this.usersService.create(this.username, this.email, this.password);
+      await this.usersService.create(this.username.value, this.email.value, this.password.value);
     } catch (err) {
       this.snackBar.open('There was an error creating the user', null, {duration: 3000});
     } finally {
@@ -30,7 +39,10 @@ export class RegisterComponent {
     }
   }
 
-  validate(): boolean {
-    return !!this.username && !!this.password && !!this.password && this.password === this.repeatedPassword;
+  isValid(): boolean {
+    return this.username.valid
+    && this.email.valid
+    && this.password.valid
+    && this.password.value === this.repeatedPassword.value;
   }
 }

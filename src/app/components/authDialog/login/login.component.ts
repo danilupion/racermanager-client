@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
+import { FormControl, Validators } from '@angular/forms';
+
 import { AuthService } from '../../../services/auth.service';
 
 @Component({
@@ -11,8 +13,8 @@ export class LoginComponent {
   @Output()
   success = new EventEmitter();
 
-  username = '';
-  password = '';
+  username = new FormControl('', Validators.required);
+  password = new FormControl('', Validators.required);
   loading = false;
 
   constructor(
@@ -23,7 +25,7 @@ export class LoginComponent {
   async login() {
     try {
       this.loading = true;
-      await this.authService.authenticate(this.username, this.password);
+      await this.authService.authenticate(this.username.value, this.password.value);
       this.success.emit();
     } catch (err) {
       this.snackBar.open(err.message, null, {duration: 3000});
@@ -32,7 +34,7 @@ export class LoginComponent {
     }
   }
 
-  validate(): boolean {
-    return !!this.username && !!this.password;
+  isValid(): boolean {
+    return this.username.valid && this.password.valid;
   }
 }

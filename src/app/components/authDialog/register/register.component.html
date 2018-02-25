@@ -1,17 +1,50 @@
-<div mat-dialog-content>
+ <div mat-dialog-content>
   <mat-form-field>
-    <input matInput [(ngModel)]="username" placeholder="Username">
+    <input
+      matInput
+      [formControl]="username"
+      placeholder="Username"
+    >
+    <mat-error *ngIf="username.invalid">Invalid username</mat-error>
   </mat-form-field>
   <mat-form-field>
-    <input matInput type="email" [(ngModel)]="email" placeholder="Email">
+    <input
+      matInput
+      [formControl]="email"
+      type="email"
+      placeholder="Email"
+    >
+    <mat-error *ngIf="email.invalid">Invalid email</mat-error>
   </mat-form-field>
   <mat-form-field>
-    <input matInput type="password" [(ngModel)]="password" placeholder="Password">
+    <input
+      matInput
+      [formControl]="password"
+      type="password"
+      placeholder="Password"
+    >
+    <mat-error *ngIf="password.invalid">
+      Invalid format
+      <mat-icon
+        matTooltipHideDelay="1000"
+        matTooltip="Password must be at least 8 chars, contain numbers, lowercase, uppercase and special chars"
+      >
+        info
+      </mat-icon>
+    </mat-error>
   </mat-form-field>
   <mat-form-field>
-    <input matInput type="password" [(ngModel)]="repeatedPassword" placeholder="Repeat Password">
+    <input
+      matInput
+      [formControl]="repeatedPassword"
+      type="password"
+      placeholder="Repeat Password"
+    >
+    <mat-error *ngIf="repeatedPassword.invalid">Passwords do not match</mat-error>
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
-  <rm-loading-button [disabled]="!validate()" [loading]="loading" (push)="register()">Register</rm-loading-button>
+  <rm-loading-button [disabled]="!isValid()" [loading]="loading" (push)="register()">
+    Register
+  </rm-loading-button>
 </div>
