@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule, registerLocaleData } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -40,6 +40,8 @@ import { TeamsAdminPageComponent } from './pages/admin/teams/teamsAdmin.page';
 import { AuthService } from './services/auth.service';
 import { UsersService } from './services/users.service';
 import { TeamsService } from './services/teams.service';
+
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 import { AuthGuard } from './guards/auth.guard';
 import { AdminGuard } from './guards/admin.guard';
@@ -87,6 +89,11 @@ registerLocaleData(localeEs, 'es-ES');
     TeamsService,
     AuthGuard,
     AdminGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
   ],
   entryComponents: [
     AuthDialogComponent,
