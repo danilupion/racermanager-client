@@ -1,0 +1,24 @@
+.driverImage {
+  width: 120px;
+  img {
+    max-width: 100%;
+  }
+  mat-icon {
+    color: #c2185b;
+    position: absolute;
+    z-index: 10;
+    background: transparent;
+    visibility: hidden;
+    cursor: default;
+  }
+}
+
+.driverImage:hover {
+  mat-icon {
+    color: #c2185b;
+    position: absolute;
+    z-index: 10;
+    background: transparent;
+    visibility: visible;
+  }
+}

@@ -45,6 +45,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 import { AuthGuard } from './guards/auth.guard';
 import { AdminGuard } from './guards/admin.guard';
+import { DriverComponent } from './components/driver/driver.component';
 
 registerLocaleData(localeEs, 'es-ES');
 
@@ -60,6 +61,7 @@ registerLocaleData(localeEs, 'es-ES');
     MainPageComponent,
     AdminPageComponent,
     TeamsAdminPageComponent,
+    DriverComponent,
   ],
   imports: [
     BrowserModule,
