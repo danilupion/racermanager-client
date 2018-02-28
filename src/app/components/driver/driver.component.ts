@@ -1,5 +1,7 @@
+import { MatDialog } from '@angular/material';
 import { AuthService } from './../../services/auth.service';
 import { Component, Input, OnInit } from '@angular/core';
+import { ChangePilotDialogComponent } from './changePilotDialog/changePilotDialog.component';
 
 @Component({
   selector: 'rm-driver',
@@ -12,13 +14,33 @@ export class DriverComponent implements OnInit {
   driverCode: string;
 
   urlDriver: string;
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private dialog: MatDialog,
+  ) {}
 
   ngOnInit() {
     this.urlDriver = `../../../assets/pilots/${this.driverCode}.jpg`;
   }
 
-  changingPilot() {
-    alert('CHANGING PILOT');
+  private showChangePilotDialog() {
+    const dialogRef = this.dialog.open(ChangePilotDialogComponent, {
+      width: '368px',
+      data: {
+        fields: [...['Pilots']],
+        model: {},
+      },
+    });
+
+    // dialogRef.componentInstance.result.subscribe(
+    //   async (model) => {
+    //     dialogRef.componentInstance.setLoading(true);
+    //     const result = await this.doCreate(model);
+    //     dialogRef.componentInstance.setLoading(false);
+    //     if (result) {
+    //       dialogRef.close();
+    //     }
+    //   },
+    // );
   }
 }

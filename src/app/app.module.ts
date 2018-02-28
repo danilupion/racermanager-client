@@ -19,6 +19,8 @@ import {
   MatMenuModule,
   MatToolbarModule,
   MatIconModule,
+  MatOptionModule,
+  MatSelectModule,
 } from '@angular/material';
 
 import localeEs from '@angular/common/locales/es';
@@ -32,6 +34,7 @@ import { RegisterComponent } from './components/authDialog/register/register.com
 import { LoginComponent } from './components/authDialog/login/login.component';
 import { UserMenuComponent } from './components/header/userMenu/userMenu.component';
 import { LoadingButtonComponent } from './components/loadingButton/loadingButton.component';
+import { ChangePilotDialogComponent } from './components/driver/changePilotDialog/changePilotDialog.component';
 
 import { MainPageComponent } from './pages/main/main.page';
 import { AdminPageComponent } from './pages/admin/admin.page';
@@ -62,6 +65,7 @@ registerLocaleData(localeEs, 'es-ES');
     AdminPageComponent,
     TeamsAdminPageComponent,
     DriverComponent,
+    ChangePilotDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -84,6 +88,8 @@ registerLocaleData(localeEs, 'es-ES');
     MatMenuModule,
     MatIconModule,
     AppRoutingModule,
+    MatOptionModule,
+    MatSelectModule,
   ],
   providers: [
     AuthService,
@@ -99,6 +105,7 @@ registerLocaleData(localeEs, 'es-ES');
   ],
   entryComponents: [
     AuthDialogComponent,
+    ChangePilotDialogComponent,
   ],
   bootstrap: [
     AppComponent,
