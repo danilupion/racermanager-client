@@ -1,31 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { SelectionModel } from '@angular/cdk/collections';
-import { toStream } from 'mobx-utils';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/from';
+
 import { TeamsService } from '../../../services/teams.service';
 
 @Component({
   selector: 'rm-admin-teams',
   templateUrl: './teamsAdmin.page.html',
-  styleUrls: ['./teamsAdmin.page.scss'],
 })
-export class TeamsAdminPageComponent  implements OnInit {
-  displayedColumns = ['select', 'name'];
-  teams = Observable.from(toStream(() => this.teamsService.teams));
-  selection = new SelectionModel<Element>(true, []);
+export class TeamsAdminPageComponent implements OnInit {
+  columns = ['name', 'countryCode'];
 
-  constructor(private teamsService: TeamsService) { }
+  create = (team) => this.teamsService.create(team);
 
-  private isAllSelected() {
-    return this.selection.selected.length === this.teamsService.teams.length;
-  }
+  remove = (team) => this.teamsService.remove(team);
 
-  private toggleAll() {
-    this.isAllSelected() ?
-       this.selection.clear() :
-       this.teamsService.teams.forEach(row => this.selection.select(row));
-  }
+  update = (team) => this.teamsService.update(team);
+
+  constructor(public teamsService: TeamsService) { }
 
   ngOnInit(): void {
     this.teamsService.get();

@@ -21,6 +21,8 @@ import {
   MatIconModule,
 } from '@angular/material';
 
+import { MobxAngularModule } from 'mobx-angular';
+
 import localeEs from '@angular/common/locales/es';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -32,19 +34,25 @@ import { RegisterComponent } from './components/authDialog/register/register.com
 import { LoginComponent } from './components/authDialog/login/login.component';
 import { UserMenuComponent } from './components/header/userMenu/userMenu.component';
 import { LoadingButtonComponent } from './components/loadingButton/loadingButton.component';
+import { CrudComponent } from './components/crud/crud.component';
+import { EditorDialogComponent } from './components/crud/editorDialog/editorDialog.component';
 
 import { MainPageComponent } from './pages/main/main.page';
 import { AdminPageComponent } from './pages/admin/admin.page';
 import { TeamsAdminPageComponent } from './pages/admin/teams/teamsAdmin.page';
+import { DriversAdminPageComponent } from './pages/admin/drivers/driversAdmin.page';
 
 import { AuthService } from './services/auth.service';
 import { UsersService } from './services/users.service';
 import { TeamsService } from './services/teams.service';
+import { DriversService } from './services/drivers.service';
 
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 import { AuthGuard } from './guards/auth.guard';
 import { AdminGuard } from './guards/admin.guard';
+
+import { CapitalizePipe } from './pipes/capitalize.pipe';
 
 registerLocaleData(localeEs, 'es-ES');
 
@@ -57,13 +65,18 @@ registerLocaleData(localeEs, 'es-ES');
     AuthDialogComponent,
     UserMenuComponent,
     LoadingButtonComponent,
+    CrudComponent,
+    EditorDialogComponent,
     MainPageComponent,
     AdminPageComponent,
     TeamsAdminPageComponent,
+    DriversAdminPageComponent,
+    CapitalizePipe,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    MobxAngularModule,
     CommonModule,
     HttpClientModule,
     FormsModule,
@@ -87,6 +100,7 @@ registerLocaleData(localeEs, 'es-ES');
     AuthService,
     UsersService,
     TeamsService,
+    DriversService,
     AuthGuard,
     AdminGuard,
     {
@@ -97,6 +111,7 @@ registerLocaleData(localeEs, 'es-ES');
   ],
   entryComponents: [
     AuthDialogComponent,
+    EditorDialogComponent,
   ],
   bootstrap: [
     AppComponent,

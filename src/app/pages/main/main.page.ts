@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import construct = Reflect.construct;
 
 @Component({
   selector: 'rm-admin',

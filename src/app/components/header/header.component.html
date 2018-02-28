@@ -1,5 +1,5 @@
 <mat-toolbar [color]="color">
-  <a class="title" [routerLink]="titleUrl" routerLinkActive="active">{{title}}</a>
+  <a class="title" [routerLink]="titleUrl">{{title}}</a>
 
   <ng-template ngFor let-link [ngForOf]="links">
     <a mat-button [routerLink]="link.url" routerLinkActive="active">
