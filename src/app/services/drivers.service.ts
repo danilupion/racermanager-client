@@ -3,17 +3,19 @@ import { HttpClient } from '@angular/common/http';
 
 import { AbstractRestCollectionService, BaseModelType } from './abstractRestCollection.service';
 
-export interface TeamModelDriver extends BaseModelType {
+export interface DriverModelType extends BaseModelType {
   name: string;
+  code: string;
   countryCode: string;
 }
 
 @Injectable()
-export class TeamsService extends AbstractRestCollectionService<TeamModelDriver> {
-  protected baseUrl = '/api/teams';
-  protected name = 'TeamModelDriver';
+export class DriversService extends AbstractRestCollectionService<DriverModelType> {
+  protected baseUrl = '/api/drivers';
+  protected name = 'DriverModelType';
 
   constructor(protected http: HttpClient) {
     super(http);
   }
 }
+

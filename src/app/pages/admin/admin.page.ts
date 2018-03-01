@@ -14,6 +14,11 @@ export class AdminPageComponent {
       text: 'Teams',
       url: '/admin/teams',
     },
+    {
+      icon: 'face',
+      text: 'Drivers',
+      url: '/admin/drivers',
+    },
   ];
   menuLinks = [
     {
