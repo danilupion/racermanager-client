@@ -17,11 +17,17 @@
   overflow: visible;
 }
 
-.edit-column mat-icon {
-  visibility: hidden;
-  cursor: pointer;
+.edit-column {
+  mat-icon {
+    visibility: hidden;
+    cursor: pointer;
+  }
 }
 
-mat-row:hover .edit-column mat-icon {
-  visibility: visible;
+mat-row:hover {
+  .edit-column {
+    mat-icon {
+      visibility: visible;
+    }
+  }
 }

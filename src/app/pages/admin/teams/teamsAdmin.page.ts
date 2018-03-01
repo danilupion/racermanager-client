@@ -1,7 +1,7 @@
-import { Crud } from './../../../components/crud/crud.component';
 import { Component, OnInit } from '@angular/core';
 
-import { TeamsService } from '../../../services/teams.service';
+import { CrudType } from '../../../components/crud/crud.component';
+import { TeamModelDriver, TeamsService } from '../../../services/teams.service';
 
 @Component({
   selector: 'rm-admin-teams',
@@ -10,7 +10,8 @@ import { TeamsService } from '../../../services/teams.service';
 export class TeamsAdminPageComponent implements OnInit {
   columns = ['name', 'countryCode'];
 
-  crud: Crud = {
+  crud: CrudType<TeamModelDriver> = {
+    getAll: () => this.teamsService.get(),
     create: (team) => this.teamsService.create(team),
     update: (team) => this.teamsService.update(team),
     remove: (team) => this.teamsService.remove(team),

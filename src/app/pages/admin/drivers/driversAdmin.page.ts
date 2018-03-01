@@ -1,7 +1,7 @@
-import { Crud } from './../../../components/crud/crud.component';
 import { Component, OnInit } from '@angular/core';
 
-import { DriversService } from '../../../services/drivers.service';
+import { CrudType } from '../../../components/crud/crud.component';
+import { DriverModelType, DriversService } from '../../../services/drivers.service';
 
 @Component({
   selector: 'rm-admin-drivers',
@@ -10,7 +10,8 @@ import { DriversService } from '../../../services/drivers.service';
 export class DriversAdminPageComponent implements OnInit {
   columns = ['name', 'code', 'countryCode'];
 
-  crud: Crud = {
+  crud: CrudType<DriverModelType> = {
+    getAll: () => this.driversService.get(),
     create: (driver) => this.driversService.create(driver),
     update: (driver) => this.driversService.update(driver),
     remove: (driver) => this.driversService.remove(driver),

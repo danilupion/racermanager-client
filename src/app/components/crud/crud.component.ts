@@ -3,11 +3,13 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog, MatSnackBar } from '@angular/material';
 
 import { EditorDialogComponent } from './editorDialog/editorDialog.component';
+import { BaseModelType } from '../../services/abstractRestCollection.service';
 
-export interface Crud {
-  create: (any) => Promise<any>;
-  update: (any) => Promise<any>;
-  remove: (any) => Promise<any>;
+export interface CrudType<T extends BaseModelType> {
+  getAll: () => Promise<void>;
+  create: (T) => Promise<void>;
+  update: (T) => Promise<void>;
+  remove: (T) => Promise<void>;
 }
 
 @Component({
@@ -26,7 +28,7 @@ export class CrudComponent implements OnInit {
   columns;
 
   @Input()
-  crud: Crud;
+  crud: CrudType<BaseModelType>;
 
   models = [];
 
