@@ -1,0 +1,52 @@
+<mat-card>
+  <mat-card-title>
+    {{sectionTitle}}
+    <button *ngIf="selection.selected.length === 0" mat-icon-button (click)="showNewDialog()">
+      <mat-icon>add_circle</mat-icon>
+    </button>
+    <button *ngIf="selection.selected.length !== 0" mat-icon-button (click)="removeSelected()">
+      <mat-icon>remove_circle</mat-icon>
+    </button>
+  </mat-card-title>
+  <mat-card-content>
+    <mat-table #table [dataSource]="models">
+      <!-- Header Row -->
+      <mat-header-row *matHeaderRowDef="getHeaderColumns()"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: getHeaderColumns();"></mat-row>
+
+      <!-- Checkbox Column -->
+      <ng-container matColumnDef="select">
+        <mat-header-cell class="selection-column" *matHeaderCellDef>
+          <mat-checkbox (change)="$event ? toggleAll() : null"
+                        [checked]="selection.hasValue() && isAllSelected()"
+                        [indeterminate]="selection.hasValue() && !isAllSelected()">
+          </mat-checkbox>
+        </mat-header-cell>
+        <mat-cell class="selection-column" *matCellDef="let row">
+          <mat-checkbox (click)="$event.stopPropagation()"
+                        (change)="$event ? selection.toggle(row) : null"
+                        [checked]="selection.isSelected(row)">
+          </mat-checkbox>
+        </mat-cell>
+      </ng-container>
+
+      <!-- Data Columns -->
+      <ng-template ngFor let-column [ngForOf]="columns">
+        <ng-container [matColumnDef]="column">
+          <mat-header-cell *matHeaderCellDef> {{column}} </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element[column]}} </mat-cell>
+        </ng-container>
+      </ng-template>
+
+      <!-- Edit Column -->
+      <ng-container matColumnDef="edit">
+        <mat-header-cell class="edit-column" *matHeaderCellDef>
+          <mat-icon>edit</mat-icon>
+        </mat-header-cell>
+        <mat-cell class="edit-column" *matCellDef="let row">
+            <mat-icon (click)="showEditDialog(row)">edit</mat-icon>
+        </mat-cell>
+      </ng-container>
+    </mat-table>
+  </mat-card-content>
+</mat-card>
