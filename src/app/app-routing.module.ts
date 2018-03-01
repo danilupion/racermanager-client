@@ -8,6 +8,7 @@ import { MainPageComponent } from './pages/main/main.page';
 import { AdminPageComponent } from './pages/admin/admin.page';
 import { TeamsAdminPageComponent } from './pages/admin/teams/teamsAdmin.page';
 import { DriversAdminPageComponent } from './pages/admin/drivers/driversAdmin.page';
+import { CircuitsAdminPageComponent } from './pages/admin/circuits/circuitsAdmin.page';
 
 const appRoutes: Routes = [
   { path: '', component: MainPageComponent},
@@ -15,6 +16,7 @@ const appRoutes: Routes = [
     children: [
       { path: 'teams', component: TeamsAdminPageComponent },
       { path: 'drivers', component: DriversAdminPageComponent },
+      { path: 'circuits', component: CircuitsAdminPageComponent },
     ],
   },
   // { path: '**', component: PageNotFoundComponent }

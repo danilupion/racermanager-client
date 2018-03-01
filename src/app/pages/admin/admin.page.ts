@@ -19,6 +19,11 @@ export class AdminPageComponent {
       text: 'Drivers',
       url: '/admin/drivers',
     },
+    {
+      icon: 'all_inclusive',
+      text: 'Circuits',
+      url: '/admin/circuits',
+    },
   ];
   menuLinks = [
     {

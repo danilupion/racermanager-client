@@ -41,11 +41,13 @@ import { MainPageComponent } from './pages/main/main.page';
 import { AdminPageComponent } from './pages/admin/admin.page';
 import { TeamsAdminPageComponent } from './pages/admin/teams/teamsAdmin.page';
 import { DriversAdminPageComponent } from './pages/admin/drivers/driversAdmin.page';
+import { CircuitsAdminPageComponent } from './pages/admin/circuits/circuitsAdmin.page';
 
 import { AuthService } from './services/auth.service';
 import { UsersService } from './services/users.service';
 import { TeamsService } from './services/teams.service';
 import { DriversService } from './services/drivers.service';
+import { CircuitsService } from './services/circuits.service';
 
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 
@@ -71,6 +73,7 @@ registerLocaleData(localeEs, 'es-ES');
     AdminPageComponent,
     TeamsAdminPageComponent,
     DriversAdminPageComponent,
+    CircuitsAdminPageComponent,
     CapitalizePipe,
   ],
   imports: [
@@ -101,6 +104,7 @@ registerLocaleData(localeEs, 'es-ES');
     UsersService,
     TeamsService,
     DriversService,
+    CircuitsService,
     AuthGuard,
     AdminGuard,
     {
