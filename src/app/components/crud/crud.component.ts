@@ -4,6 +4,12 @@ import { MatDialog, MatSnackBar } from '@angular/material';
 
 import { EditorDialogComponent } from './editorDialog/editorDialog.component';
 
+export interface Crud {
+  create: (any) => Promise<any>;
+  update: (any) => Promise<any>;
+  remove: (any) => Promise<any>;
+}
+
 @Component({
   selector: 'rm-crud',
   templateUrl: './crud.component.html',
@@ -20,13 +26,7 @@ export class CrudComponent implements OnInit {
   columns;
 
   @Input()
-  create;
-
-  @Input()
-  remove;
-
-  @Input()
-  update;
+  crud: Crud;
 
   models = [];
 
@@ -97,7 +97,7 @@ export class CrudComponent implements OnInit {
 
   private async doCreate(model) {
     try {
-      await this.create(model);
+      await this.crud.create(model);
       return true;
     } catch (err) {
       this.snackBar.open(err.message, null, { duration: 3000 });
@@ -107,7 +107,7 @@ export class CrudComponent implements OnInit {
 
   private async doUpdate(model) {
     try {
-      await this.update(model);
+      await this.crud.update(model);
       return true;
     } catch (err) {
       this.snackBar.open(err.message, null, { duration: 3000 });
@@ -117,7 +117,7 @@ export class CrudComponent implements OnInit {
 
   private removeSelected() {
     if (confirm(`Please confirm you want to delete ${this.selection.selected.length} elements`)) {
-      this.selection.selected.forEach(item => this.remove(item));
+      this.selection.selected.forEach(item => this.crud.remove(item));
       this.selection.clear();
     }
   }
