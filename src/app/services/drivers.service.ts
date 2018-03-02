@@ -12,7 +12,7 @@ export interface DriverModelType extends BaseModelType {
 @Injectable()
 export class DriversService extends AbstractRestCollectionService<DriverModelType> {
   protected baseUrl = '/api/drivers';
-  protected name = 'DriverModelType';
+  protected name = 'Driver';
 
   constructor(protected http: HttpClient) {
     super(http);
