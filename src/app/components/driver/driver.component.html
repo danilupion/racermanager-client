@@ -1,6 +1,14 @@
 <div class="driverImage">
   <mat-icon
     *ngIf="authService.token"
-    (click)="showChangePilotDialog()">toc</mat-icon>
+    class="material-icons"
+    [matMenuTriggerFor]='menuPilots'
+    >more_vert</mat-icon>
+    <mat-menu #menuPilots="matMenu">
+      <button
+        *ngFor="let pilot of pilots"
+        mat-menu-item
+        (click)="changePilot(pilot.code, driverCode)">{{pilot.name}}</button>
+    </mat-menu>
   <img [src]="urlDriver">
 </div>

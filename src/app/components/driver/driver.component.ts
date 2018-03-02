@@ -1,3 +1,4 @@
+import { DriverModelType } from './../../services/drivers.service';
 import { MatDialog } from '@angular/material';
 import { AuthService } from './../../services/auth.service';
 import { Component, Input, OnInit } from '@angular/core';
@@ -14,33 +15,36 @@ export class DriverComponent implements OnInit {
   driverCode: string;
 
   urlDriver: string;
+
+  // My Drivers
+  pilots = [
+    {
+      name: 'Hamilton',
+      code: 'HAM',
+      countryCode: 'GBR',
+    },
+    {
+      name: 'ESTEBAN',
+      code: 'OCO',
+      countryCode: 'FRA',
+    },
+  ];
   constructor(
     private authService: AuthService,
     private dialog: MatDialog,
   ) {}
 
   ngOnInit() {
-    this.urlDriver = `../../../assets/pilots/${this.driverCode}.jpg`;
+    this.changeUrlDriver(this.driverCode);
   }
 
-  private showChangePilotDialog() {
-    const dialogRef = this.dialog.open(ChangePilotDialogComponent, {
-      width: '368px',
-      data: {
-        fields: [...['Pilots']],
-        model: {},
-      },
-    });
+  // TODO: Implement change driver
+  changePilot(driverFrom, driverTo) {
+    this.changeUrlDriver(driverTo);
+    console.log('Change from', driverFrom, ' To ', driverTo);
+  }
 
-    // dialogRef.componentInstance.result.subscribe(
-    //   async (model) => {
-    //     dialogRef.componentInstance.setLoading(true);
-    //     const result = await this.doCreate(model);
-    //     dialogRef.componentInstance.setLoading(false);
-    //     if (result) {
-    //       dialogRef.close();
-    //     }
-    //   },
-    // );
+  changeUrlDriver(driverCode) {
+    this.urlDriver = `../../../assets/pilots/${driverCode}.jpg`;
   }
 }
