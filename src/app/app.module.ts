@@ -45,6 +45,7 @@ import { CircuitsAdminPageComponent } from './pages/admin/circuits/circuitsAdmin
 
 import { AuthService } from './services/auth.service';
 import { UsersService } from './services/users.service';
+import { ChampionshipsService } from './services/championships.service';
 import { TeamsService } from './services/teams.service';
 import { DriversService } from './services/drivers.service';
 import { CircuitsService } from './services/circuits.service';
@@ -102,6 +103,7 @@ registerLocaleData(localeEs, 'es-ES');
   providers: [
     AuthService,
     UsersService,
+    ChampionshipsService,
     TeamsService,
     DriversService,
     CircuitsService,

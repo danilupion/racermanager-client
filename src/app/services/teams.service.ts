@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+import { ChampionshipsService } from './championships.service';
 import { AbstractRestCollectionService, BaseModelType } from './abstractRestCollection.service';
 
 export interface TeamModelType extends BaseModelType {
@@ -10,10 +11,13 @@ export interface TeamModelType extends BaseModelType {
 
 @Injectable()
 export class TeamsService extends AbstractRestCollectionService<TeamModelType> {
-  protected baseUrl = '/api/teams';
+  protected baseUrl = `/api/championships/${this.championshipsService.selected}/teams`;
   protected name = 'Team';
 
-  constructor(protected http: HttpClient) {
+  constructor(
+    protected http: HttpClient,
+    private championshipsService: ChampionshipsService,
+  ) {
     super(http);
   }
 }
