@@ -24,6 +24,11 @@ export class AdminPageComponent {
       text: 'Circuits',
       url: '/admin/circuits',
     },
+    {
+      icon: 'fa-flag-checkered',
+      text: 'Grands Prix',
+      url: '/admin/grandsPrix',
+    },
   ];
   menuLinks = [
     {

@@ -42,6 +42,7 @@ import { AdminPageComponent } from './pages/admin/admin.page';
 import { TeamsAdminPageComponent } from './pages/admin/teams/teamsAdmin.page';
 import { DriversAdminPageComponent } from './pages/admin/drivers/driversAdmin.page';
 import { CircuitsAdminPageComponent } from './pages/admin/circuits/circuitsAdmin.page';
+import { GrandsPrixAdminPageComponent } from './pages/admin/grandsPrix/grandsPrixAdmin.page';
 
 import { AuthService } from './services/auth.service';
 import { UsersService } from './services/users.service';
@@ -49,6 +50,7 @@ import { ChampionshipsService } from './services/championships.service';
 import { TeamsService } from './services/teams.service';
 import { DriversService } from './services/drivers.service';
 import { CircuitsService } from './services/circuits.service';
+import { GrandsPrixService } from './services/grandsPrix.service';
 
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 
@@ -75,6 +77,7 @@ registerLocaleData(localeEs, 'es-ES');
     TeamsAdminPageComponent,
     DriversAdminPageComponent,
     CircuitsAdminPageComponent,
+    GrandsPrixAdminPageComponent,
     CapitalizePipe,
   ],
   imports: [
@@ -107,6 +110,7 @@ registerLocaleData(localeEs, 'es-ES');
     TeamsService,
     DriversService,
     CircuitsService,
+    GrandsPrixService,
     AuthGuard,
     AdminGuard,
     {
