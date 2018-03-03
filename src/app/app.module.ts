@@ -47,6 +47,7 @@ import { GrandsPrixAdminPageComponent } from './pages/admin/grandsPrix/grandsPri
 import { AuthService } from './services/auth.service';
 import { UsersService } from './services/users.service';
 import { ChampionshipsService } from './services/championships.service';
+import { SeasonsService } from './services/seasons.service';
 import { TeamsService } from './services/teams.service';
 import { DriversService } from './services/drivers.service';
 import { CircuitsService } from './services/circuits.service';
@@ -107,6 +108,7 @@ registerLocaleData(localeEs, 'es-ES');
     AuthService,
     UsersService,
     ChampionshipsService,
+    SeasonsService,
     TeamsService,
     DriversService,
     CircuitsService,
