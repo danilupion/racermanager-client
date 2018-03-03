@@ -9,7 +9,7 @@ import { ChampionshipsService } from '../../../services/championships.service';
   templateUrl: './grandsPrixAdmin.page.html',
 })
 export class GrandsPrixAdminPageComponent implements OnInit, OnDestroy {
-  title = 'Grands Prix';
+  public title = 'Grands Prix';
 
   public columns = ['name', 'countryCode'];
 

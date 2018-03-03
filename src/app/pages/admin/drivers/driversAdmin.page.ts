@@ -9,7 +9,7 @@ import { ChampionshipsService } from '../../../services/championships.service';
   templateUrl: './driversAdmin.page.html',
 })
 export class DriversAdminPageComponent implements OnInit, OnDestroy {
-  title = 'Drivers';
+  public title = 'Drivers';
 
   public columns = ['name', 'code', 'countryCode'];
 

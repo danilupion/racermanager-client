@@ -9,7 +9,7 @@ import { ChampionshipsService } from '../../../services/championships.service';
   templateUrl: './circuitsAdmin.page.html',
 })
 export class CircuitsAdminPageComponent implements OnInit, OnDestroy {
-  title = 'Circuits';
+  public title = 'Circuits';
 
   public columns = ['name', 'countryCode', 'latitude', 'longitude'];
 

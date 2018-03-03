@@ -9,9 +9,9 @@ import { ChampionshipsService } from '../../../services/championships.service';
   templateUrl: './teamsAdmin.page.html',
 })
 export class TeamsAdminPageComponent implements OnInit, OnDestroy {
-  title = 'Teams';
+  public title = 'Teams';
 
-  columns = ['name', 'countryCode'];
+  public columns = ['name', 'countryCode'];
 
   private selectedChampionshipObserverDisposer;
 
