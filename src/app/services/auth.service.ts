@@ -12,13 +12,16 @@ const LOCAL_STORAGE_KEY = 'auth';
 export class AuthService {
   // TODO: Handle token expiration
   @observable
-  token;
+  public token;
+
   @observable
-  userId;
+  public userId;
+
   @observable
-  username;
+  public username;
+
   @observable
-  role;
+  public role;
 
   constructor(private http: HttpClient, private router: Router) {
     try {
@@ -44,7 +47,7 @@ export class AuthService {
   }
 
   @action
-  async authenticate(username: string, password: string) {
+  public async authenticate(username: string, password: string) {
     try {
       const {token} = await this.http.post<any>('/api/auth/token', {username, password})
         .toPromise();
@@ -61,17 +64,17 @@ export class AuthService {
   }
 
   @computed
-  get isLoggedIn() {
+  public get isLoggedIn() {
     return this.token !== null;
   }
 
   @computed
-  get isAdmin() {
+  public get isAdmin() {
     return this.role === Role.Admin;
   }
 
   @action
-  logout() {
+  public logout() {
     this.token = null;
     this.userId = null;
     this.username = null;

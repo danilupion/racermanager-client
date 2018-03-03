@@ -7,8 +7,8 @@ import { AbstractRestCollectionService, BaseModelType } from './abstractRestColl
 export interface CircuitModelType extends BaseModelType {
   name: string;
   countryCode: string;
-  latitude: string;
-  longitude: string;
+  latitude: number;
+  longitude: number;
 }
 
 @Injectable()

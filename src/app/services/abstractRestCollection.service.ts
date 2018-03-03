@@ -19,11 +19,15 @@ export abstract class AbstractRestCollectionService<T extends BaseModelType> {
 
   @action
   public async get() {
-    const items = await this.http.get<T[]>(this.getBaseUrl())
-      .toPromise();
+    try {
+      const items = await this.http.get<T[]>(this.getBaseUrl())
+        .toPromise();
 
-    this.items.clear();
-    this.items.push(...items);
+      this.items.clear();
+      this.items.push(...items);
+    } catch (err) {
+      throw new Error(`${name} list retrieval failed`);
+    }
   }
 
   @action
