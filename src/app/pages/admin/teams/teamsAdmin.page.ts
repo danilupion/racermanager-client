@@ -27,12 +27,18 @@ export class TeamsAdminPageComponent implements OnInit, OnDestroy {
     private championshipsService: ChampionshipsService,
   ) { }
 
+  private async update() {
+    try {
+      await this.teamsService.get();
+    } catch (err) { }
+  }
+
   ngOnInit(): void {
-    this.teamsService.get();
+    this.update();
     this.selectedChampionshipObserverDisposer = observe(
       this.championshipsService,
       'selected',
-      () => this.teamsService.get(),
+      () => this.update(),
     );
   }
 

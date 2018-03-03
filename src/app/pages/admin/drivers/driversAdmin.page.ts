@@ -27,12 +27,18 @@ export class DriversAdminPageComponent implements OnInit, OnDestroy {
     private championshipsService: ChampionshipsService,
   ) { }
 
+  private async update() {
+    try {
+      await this.driversService.get();
+    } catch (err) { }
+  }
+
   public ngOnInit(): void {
-    this.driversService.get();
+    this.update()
     this.selectedChampionshipObserverDisposer = observe(
       this.championshipsService,
       'selected',
-      () => this.driversService.get(),
+      () => this.update(),
       );
   }
 

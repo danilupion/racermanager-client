@@ -27,12 +27,18 @@ export class CircuitsAdminPageComponent implements OnInit, OnDestroy {
     private championshipsService: ChampionshipsService,
   ) { }
 
+  private async update() {
+    try {
+      await this.circuitsService.get();
+    } catch (err) { }
+  }
+
   public ngOnInit(): void {
-    this.circuitsService.get();
+    this.update();
     this.selectedChampionshipObserverDisposer = observe(
       this.championshipsService,
       'selected',
-      () => this.circuitsService.get(),
+      () => this.update(),
       );
   }
 

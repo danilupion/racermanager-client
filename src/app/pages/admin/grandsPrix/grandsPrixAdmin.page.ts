@@ -27,12 +27,18 @@ export class GrandsPrixAdminPageComponent implements OnInit, OnDestroy {
     private championshipsService: ChampionshipsService,
   ) { }
 
+  private async update() {
+    try {
+      await this.grandsPrixService.get();
+    } catch (err) { }
+  }
+
   public ngOnInit(): void {
-    this.grandsPrixService.get();
+    this.update();
     this.selectedChampionshipObserverDisposer = observe(
       this.championshipsService,
       'selected',
-      () => this.grandsPrixService.get(),
+      () => this.update(),
       );
   }
 
