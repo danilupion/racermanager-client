@@ -1,15 +1,16 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import {observe} from 'mobx';
+import { observe } from 'mobx';
 
 import { CrudType } from '../../../components/crud/crud.component';
 import { TeamModelType, TeamsService } from '../../../services/teams.service';
 import { ChampionshipsService } from '../../../services/championships.service';
 
 @Component({
-  selector: 'rm-admin-teams',
   templateUrl: './teamsAdmin.page.html',
 })
 export class TeamsAdminPageComponent implements OnInit, OnDestroy {
+  title = 'Teams';
+
   columns = ['name', 'countryCode'];
 
   private selectedChampionshipObserverDisposer;

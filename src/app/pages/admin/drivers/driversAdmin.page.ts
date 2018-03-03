@@ -6,10 +6,11 @@ import { DriverModelType, DriversService } from '../../../services/drivers.servi
 import { ChampionshipsService } from '../../../services/championships.service';
 
 @Component({
-  selector: 'rm-admin-drivers',
   templateUrl: './driversAdmin.page.html',
 })
 export class DriversAdminPageComponent implements OnInit, OnDestroy {
+  title = 'Drivers';
+
   public columns = ['name', 'code', 'countryCode'];
 
   private selectedChampionshipObserverDisposer;

@@ -6,10 +6,11 @@ import { GrandPrixModelType, GrandsPrixService } from '../../../services/grandsP
 import { ChampionshipsService } from '../../../services/championships.service';
 
 @Component({
-  selector: 'rm-admin-grands-prix',
   templateUrl: './grandsPrixAdmin.page.html',
 })
 export class GrandsPrixAdminPageComponent implements OnInit, OnDestroy {
+  title = 'Grands Prix';
+
   public columns = ['name', 'countryCode'];
 
   private selectedChampionshipObserverDisposer;

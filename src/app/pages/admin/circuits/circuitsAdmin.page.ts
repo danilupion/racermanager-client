@@ -6,10 +6,11 @@ import { CircuitModelType, CircuitsService } from '../../../services/circuits.se
 import { ChampionshipsService } from '../../../services/championships.service';
 
 @Component({
-  selector: 'rm-admin-circuits',
   templateUrl: './circuitsAdmin.page.html',
 })
 export class CircuitsAdminPageComponent implements OnInit, OnDestroy {
+  title = 'Circuits';
+
   public columns = ['name', 'countryCode', 'latitude', 'longitude'];
 
   private selectedChampionshipObserverDisposer;
