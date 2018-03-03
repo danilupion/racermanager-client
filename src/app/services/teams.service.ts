@@ -11,7 +11,6 @@ export interface TeamModelType extends BaseModelType {
 
 @Injectable()
 export class TeamsService extends AbstractRestCollectionService<TeamModelType> {
-  protected baseUrl = `/api/championships/${this.championshipsService.selected}/teams`;
   protected name = 'Team';
 
   constructor(
@@ -19,5 +18,9 @@ export class TeamsService extends AbstractRestCollectionService<TeamModelType> {
     private championshipsService: ChampionshipsService,
   ) {
     super(http);
+  }
+
+  protected getBaseUrl() {
+    return `/api/championships/${this.championshipsService.selected}/teams`;
   }
 }

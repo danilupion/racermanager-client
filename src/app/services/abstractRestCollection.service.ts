@@ -6,7 +6,6 @@ export interface BaseModelType {
 }
 
 export abstract class AbstractRestCollectionService<T extends BaseModelType> {
-  protected baseUrl;
   protected name;
 
   @observable
@@ -16,9 +15,11 @@ export abstract class AbstractRestCollectionService<T extends BaseModelType> {
     this.items = [];
   }
 
+  protected abstract getBaseUrl(): string;
+
   @action
   public async get() {
-    const items = await this.http.get<T[]>(this.baseUrl)
+    const items = await this.http.get<T[]>(this.getBaseUrl())
       .toPromise();
 
     this.items.clear();
@@ -28,7 +29,7 @@ export abstract class AbstractRestCollectionService<T extends BaseModelType> {
   @action
   public async create(item: T) {
     try {
-      const newItem = await this.http.post<T>(this.baseUrl, item)
+      const newItem = await this.http.post<T>(this.getBaseUrl(), item)
         .toPromise();
 
       this.items.push(newItem);
@@ -40,7 +41,7 @@ export abstract class AbstractRestCollectionService<T extends BaseModelType> {
   @action
   public async remove(item: T) {
     try {
-      await this.http.delete(`${this.baseUrl}/${item._id}`)
+      await this.http.delete(`${this.getBaseUrl()}/${item._id}`)
         .toPromise();
 
       this.items.remove(item);
@@ -52,7 +53,7 @@ export abstract class AbstractRestCollectionService<T extends BaseModelType> {
   @action
   public async update(item: T) {
     try {
-      const updatedItem = await this.http.put<T>(`${this.baseUrl}/${item._id}`, item)
+      const updatedItem = await this.http.put<T>(`${this.getBaseUrl()}/${item._id}`, item)
         .toPromise();
 
       const modelIndex = this.items.findIndex((candidate) => candidate._id === item._id);

@@ -22,7 +22,8 @@ export class ChampionshipsService {
     this.setSelected(championship || Object.keys(Championship)[0]);
   }
 
-  @action setSelected(championship: Championship) {
+  @action
+  public setSelected(championship: Championship) {
     this.selected = championship;
     localStorage.setItem(LOCAL_STORAGE_KEY, Championship[championship]);
   }

@@ -12,7 +12,6 @@ export interface DriverModelType extends BaseModelType {
 
 @Injectable()
 export class DriversService extends AbstractRestCollectionService<DriverModelType> {
-  protected baseUrl = `/api/championships/${this.championshipsService.selected}/drivers`;
   protected name = 'Driver';
 
   constructor(
@@ -20,6 +19,10 @@ export class DriversService extends AbstractRestCollectionService<DriverModelTyp
     private championshipsService: ChampionshipsService,
   ) {
     super(http);
+  }
+
+  protected getBaseUrl() {
+    return `/api/championships/${this.championshipsService.selected}/drivers`;
   }
 }
 

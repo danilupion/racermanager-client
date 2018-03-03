@@ -13,7 +13,6 @@ export interface CircuitModelType extends BaseModelType {
 
 @Injectable()
 export class CircuitsService extends AbstractRestCollectionService<CircuitModelType> {
-  protected baseUrl = `/api/championships/${this.championshipsService.selected}/circuits`;
   protected name = 'Circuit';
 
   constructor(
@@ -21,5 +20,9 @@ export class CircuitsService extends AbstractRestCollectionService<CircuitModelT
     private championshipsService: ChampionshipsService,
   ) {
     super(http);
+  }
+
+  protected getBaseUrl() {
+    return `/api/championships/${this.championshipsService.selected}/circuits`;
   }
 }
