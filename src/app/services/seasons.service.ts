@@ -9,14 +9,14 @@ import { TeamModelType } from './teams.service';
 import { CircuitModelType } from './circuits.service';
 import { GrandPrixModelType } from './grandsPrix.service';
 
-export interface TeamDriverModelType extends BaseModelType {
+export interface SeasonDriverModelType extends BaseModelType {
   driver: DriverModelType;
   initialValue: number;
 }
 
 export interface SeasonTeamModelType extends BaseModelType {
   team: TeamModelType;
-  drivers: TeamDriverModelType[];
+  drivers: SeasonDriverModelType[];
 }
 
 export interface ResultModelType extends BaseModelType {
@@ -67,6 +67,10 @@ export class SeasonsService {
     return `${this.getBaseUrl()}/${this.selected.name}/teams`;
   }
 
+  protected getDriversUrl() {
+    return `${this.getBaseUrl()}/${this.selected.name}/drivers`;
+  }
+
   public async update() {
     await this.getSeason((new Date()).getFullYear().toString());
   }
@@ -77,7 +81,48 @@ export class SeasonsService {
       this.selected = await this.http.get<SeasonModelType>(`${this.getBaseUrl()}/${name}`)
         .toPromise();
     } catch (err) {
+      this.selected = null;
       throw new Error(`${name} retrieval failed`);
+    }
+  }
+
+  @action
+  public async createDriver(driver: SeasonDriverModelType) {
+    try {
+      const newDriver = await this.http.post<SeasonTeamModelType>(this.getDriversUrl(), driver)
+        .toPromise();
+
+      this.selected.drivers.push(newDriver);
+    } catch (err) {
+      throw new Error(`${name} driver creation failed`);
+    }
+  }
+
+  @action
+  public async updateDriver(driver: SeasonDriverModelType) {
+    try {
+      const updatedDriver = await this.http.put<SeasonTeamModelType>(`${this.getDriversUrl()}/${driver.id}`, driver)
+        .toPromise();
+
+      const modelIndex = this.selected.drivers.findIndex((candidate) => candidate.id === driver.id);
+
+      if (modelIndex !== -1) {
+        this.selected.drivers.set(modelIndex, updatedDriver);
+      }
+    } catch (err) {
+      throw new Error(`${this.name} driver update failed`);
+    }
+  }
+
+  @action
+  public async removeDriver(driver: SeasonDriverModelType) {
+    try {
+      await this.http.delete(`${this.getDriversUrl()}/${driver.id}`)
+        .toPromise();
+
+      this.selected.drivers.remove(driver);
+    } catch (err) {
+      throw new Error(`${name} driver deletion failed`);
     }
   }
 
@@ -94,18 +139,6 @@ export class SeasonsService {
   }
 
   @action
-  public async removeTeam(team: SeasonTeamModelType) {
-    try {
-      await this.http.delete(`${this.getTeamsUrl()}/${team.id}`)
-        .toPromise();
-
-      this.selected.teams.remove(team);
-    } catch (err) {
-      throw new Error(`${name} team deletion failed`);
-    }
-  }
-
-  @action
   public async updateTeam(team: SeasonTeamModelType) {
     try {
       const updatedTeam = await this.http.put<SeasonTeamModelType>(`${this.getTeamsUrl()}/${team.id}`, team)
@@ -118,6 +151,18 @@ export class SeasonsService {
       }
     } catch (err) {
       throw new Error(`${this.name} team update failed`);
+    }
+  }
+
+  @action
+  public async removeTeam(team: SeasonTeamModelType) {
+    try {
+      await this.http.delete(`${this.getTeamsUrl()}/${team.id}`)
+        .toPromise();
+
+      this.selected.teams.remove(team);
+    } catch (err) {
+      throw new Error(`${name} team deletion failed`);
     }
   }
 }

@@ -13,10 +13,17 @@ export interface CrudType<T extends BaseModelType> {
   remove: (T) => Promise<void>;
 }
 
-export interface FieldDefinitionType {
+interface OptionType {
+  value: string|number;
+  text: string|number;
+}
+
+interface FieldDefinitionType {
   property: string;
   name?: string;
   valueGetter?: (model: object) => string;
+  options?: OptionType[];
+  multiple?: boolean;
 }
 
 @Component({
@@ -97,7 +104,7 @@ export class CrudComponent extends AbstractFieldManagerComponent implements OnIn
     const editModel = Object.keys(model).reduce(
       (accumulated, key) => ({
         ...accumulated,
-        [key]: model[key].id ? model[key].id : model[key]
+        [key]: model[key] && model[key].toJS ? model[key].toJS() : model[key],
       }),
       {},
     );

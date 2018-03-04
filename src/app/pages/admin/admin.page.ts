@@ -35,6 +35,11 @@ export class AdminPageComponent {
       text: 'Season Teams',
       url: '/admin/seasonTeams',
     },
+    {
+      icon: 'face',
+      text: 'Season Drivers',
+      url: '/admin/seasonDrivers',
+    },
   ];
 
   public menuLinks = [

@@ -11,6 +11,7 @@ import { DriversAdminPageComponent } from './pages/admin/drivers/driversAdmin.pa
 import { CircuitsAdminPageComponent } from './pages/admin/circuits/circuitsAdmin.page';
 import { GrandsPrixAdminPageComponent } from './pages/admin/grandsPrix/grandsPrixAdmin.page';
 import { SeasonTeamsAdminPageComponent } from './pages/admin/seasonTeams/seasonTeamsAdmin.page';
+import { SeasonDriversAdminPageComponent } from './pages/admin/seasonDrivers/seasonDriversAdmin.page';
 
 const appRoutes: Routes = [
   { path: '', component: MainPageComponent},
@@ -21,6 +22,7 @@ const appRoutes: Routes = [
       { path: 'circuits', component: CircuitsAdminPageComponent },
       { path: 'grandsPrix', component: GrandsPrixAdminPageComponent },
       { path: 'seasonTeams', component: SeasonTeamsAdminPageComponent },
+      { path: 'seasonDrivers', component: SeasonDriversAdminPageComponent },
 
     ],
   },

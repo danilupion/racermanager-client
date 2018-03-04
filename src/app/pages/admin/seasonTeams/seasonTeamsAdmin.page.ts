@@ -47,11 +47,19 @@ export class SeasonTeamsAdminPageComponent implements OnInit, OnDestroy {
           text: `${team.name} (${team.countryCode})`,
         }));
 
+      const driverOptions = this.seasonsService.selected.drivers
+        .sort((driver1, driver2) => alphabeticalOrder(driver1.name, driver2.name))
+        .map(driver => ({
+          value: driver.driverId,
+          text: `${driver.name} (${driver.countryCode})`,
+        }));
+
       this.fields = [
         {
-          property: 'team',
+          property: 'teamId',
+          name: 'Team',
           options: teamOptions,
-          valueGetter: (model) => model.team.name,
+          valueGetter: (model) => this.teamsService.items.find(candidate => candidate.id === model.teamId).name,
         },
         {
           property: 'name',
@@ -60,6 +68,15 @@ export class SeasonTeamsAdminPageComponent implements OnInit, OnDestroy {
         {
           property: 'countryCode',
           name: 'Country Code',
+        },
+        {
+          property: 'driverIds',
+          name: 'Drivers',
+          options: driverOptions,
+          valueGetter: (model) => model.driverIds
+            .map(driverId => this.seasonsService.selected.drivers.find(candidate => candidate.driverId === driverId))
+            .map(driver => `${driver.name}`).join(', '),
+          multiple: true,
         },
       ];
     } catch (err) { }

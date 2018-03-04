@@ -12,6 +12,7 @@
       *ngIf="fieldIsSelect(field)"
       [(value)]="data.model[getFieldProperty(field)]"
       [placeholder]="getFieldName(field)"
+      [multiple]="field.multiple"
     >
       <mat-option
         *ngFor="let option of field.options"
