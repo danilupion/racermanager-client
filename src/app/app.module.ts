@@ -14,6 +14,7 @@ import {
   MatDialogModule,
   MatFormFieldModule,
   MatInputModule,
+  MatSelectModule,
   MatTabsModule,
   MatSnackBarModule,
   MatMenuModule,
@@ -43,6 +44,7 @@ import { TeamsAdminPageComponent } from './pages/admin/teams/teamsAdmin.page';
 import { DriversAdminPageComponent } from './pages/admin/drivers/driversAdmin.page';
 import { CircuitsAdminPageComponent } from './pages/admin/circuits/circuitsAdmin.page';
 import { GrandsPrixAdminPageComponent } from './pages/admin/grandsPrix/grandsPrixAdmin.page';
+import { SeasonTeamsAdminPageComponent } from './pages/admin/seasonTeams/seasonTeamsAdmin.page';
 
 import { AuthService } from './services/auth.service';
 import { UsersService } from './services/users.service';
@@ -79,6 +81,7 @@ registerLocaleData(localeEs, 'es-ES');
     DriversAdminPageComponent,
     CircuitsAdminPageComponent,
     GrandsPrixAdminPageComponent,
+    SeasonTeamsAdminPageComponent,
     CapitalizePipe,
   ],
   imports: [
@@ -98,6 +101,7 @@ registerLocaleData(localeEs, 'es-ES');
     MatTabsModule,
     MatFormFieldModule,
     MatInputModule,
+    MatSelectModule,
     MatSnackBarModule,
     MatToolbarModule,
     MatMenuModule,

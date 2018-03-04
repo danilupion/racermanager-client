@@ -5,13 +5,13 @@
     <input
       matInput
       *ngIf="fieldIsInput(field)"
-      [(ngModel)]="data.model[field]"
-      [placeholder]="field | capitalize"
+      [(ngModel)]="data.model[getFieldProperty(field)]"
+      [placeholder]="getFieldName(field)"
     >
     <mat-select
       *ngIf="fieldIsSelect(field)"
-      [(value)]="data.model[field.name]"
-      [placeholder]="field.name | capitalize"
+      [(value)]="data.model[getFieldProperty(field)]"
+      [placeholder]="getFieldName(field)"
     >
       <mat-option
         *ngFor="let option of field.options"

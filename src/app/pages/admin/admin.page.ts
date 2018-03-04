@@ -1,14 +1,15 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'rm-admin',
   templateUrl: './admin.page.html',
   styleUrls: ['./admin.page.scss'],
 })
 export class AdminPageComponent {
-  title = 'Racer Manager Admin';
-  titleUrl = '/admin';
-  links = [
+  public title = 'Racer Manager Admin';
+
+  public titleUrl = '/admin';
+
+  public links = [
     {
       icon: 'people',
       text: 'Teams',
@@ -29,8 +30,14 @@ export class AdminPageComponent {
       text: 'Grands Prix',
       url: '/admin/grandsPrix',
     },
+    {
+      icon: 'people',
+      text: 'Season Teams',
+      url: '/admin/seasonTeams',
+    },
   ];
-  menuLinks = [
+
+  public menuLinks = [
     {
       icon: 'home',
       text: 'Back',

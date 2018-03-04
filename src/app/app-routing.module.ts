@@ -10,6 +10,7 @@ import { TeamsAdminPageComponent } from './pages/admin/teams/teamsAdmin.page';
 import { DriversAdminPageComponent } from './pages/admin/drivers/driversAdmin.page';
 import { CircuitsAdminPageComponent } from './pages/admin/circuits/circuitsAdmin.page';
 import { GrandsPrixAdminPageComponent } from './pages/admin/grandsPrix/grandsPrixAdmin.page';
+import { SeasonTeamsAdminPageComponent } from './pages/admin/seasonTeams/seasonTeamsAdmin.page';
 
 const appRoutes: Routes = [
   { path: '', component: MainPageComponent},
@@ -19,6 +20,8 @@ const appRoutes: Routes = [
       { path: 'drivers', component: DriversAdminPageComponent },
       { path: 'circuits', component: CircuitsAdminPageComponent },
       { path: 'grandsPrix', component: GrandsPrixAdminPageComponent },
+      { path: 'seasonTeams', component: SeasonTeamsAdminPageComponent },
+
     ],
   },
   // { path: '**', component: PageNotFoundComponent }

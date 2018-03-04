@@ -4,6 +4,7 @@ import { MatDialog, MatSnackBar } from '@angular/material';
 
 import { EditorDialogComponent } from './editorDialog/editorDialog.component';
 import { BaseModelType } from '../../services/abstractRestCollection.service';
+import { AbstractFieldManagerComponent } from './abstractFieldManager.component';
 
 export interface CrudType<T extends BaseModelType> {
   getAll: () => Promise<void>;
@@ -15,6 +16,7 @@ export interface CrudType<T extends BaseModelType> {
 export interface FieldDefinitionType {
   property: string;
   name?: string;
+  valueGetter?: (model: object) => string;
 }
 
 @Component({
@@ -22,7 +24,7 @@ export interface FieldDefinitionType {
   templateUrl: './crud.component.html',
   styleUrls: ['./crud.component.scss'],
 })
-export class CrudComponent implements OnInit, OnDestroy, OnChanges {
+export class CrudComponent extends AbstractFieldManagerComponent implements OnInit, OnDestroy, OnChanges {
   @Input()
   public sectionTitle;
 
@@ -44,23 +46,9 @@ export class CrudComponent implements OnInit, OnDestroy, OnChanges {
   constructor(
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
-  ) { }
-
-  public getFieldName = (field) => {
-    if (typeof field === 'object') {
-      return field.name
-        ? field.name
-        : field.property;
-    }
-
-    return field;
+  ) {
+    super();
   }
-
-  public getFieldProperty = (field) => typeof field === 'object'
-    ? field.property
-    : field
-
-  public getValue = (model, field) => model[this.getFieldProperty(field)];
 
   public getFieldNames() {
     return this.fields.map(this.getFieldName);
@@ -88,7 +76,7 @@ export class CrudComponent implements OnInit, OnDestroy, OnChanges {
     const dialogRef = this.dialog.open(EditorDialogComponent, {
       width: '368px',
       data: {
-        fields: this.getFieldNames(),
+        fields: this.fields,
         model: {},
       },
     });
@@ -106,14 +94,19 @@ export class CrudComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   private showEditDialog(model) {
-    console.log(model);
+    const editModel = Object.keys(model).reduce(
+      (accumulated, key) => ({
+        ...accumulated,
+        [key]: model[key].id ? model[key].id : model[key]
+      }),
+      {},
+    );
+
     const dialogRef = this.dialog.open(EditorDialogComponent, {
       width: '368px',
       data: {
-        fields: this.getFieldNames(),
-        model: {
-          ...model,
-        },
+        fields: this.fields,
+        model: editModel,
       },
     });
 

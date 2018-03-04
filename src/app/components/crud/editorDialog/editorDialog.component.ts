@@ -1,11 +1,12 @@
-import {Component, EventEmitter, Inject, Input, Output} from '@angular/core';
+import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { AbstractFieldManagerComponent } from '../abstractFieldManager.component';
 
 @Component({
   selector: 'rm-crud-editor-dialog',
   templateUrl: './editorDialog.component.html',
 })
-export class EditorDialogComponent {
+export class EditorDialogComponent extends AbstractFieldManagerComponent {
   @Output()
   public result = new EventEmitter();
 
@@ -14,18 +15,12 @@ export class EditorDialogComponent {
   constructor(
     private dialogRef: MatDialogRef<EditorDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-  ) { }
+  ) {
+    super();
+  }
 
   public setLoading(loading) {
     this.loading = loading;
-  }
-
-  private fieldIsInput(field) {
-    return typeof field === 'string';
-  }
-
-  private fieldIsSelect(field) {
-    return field && field.options;
   }
 
   public save() {
