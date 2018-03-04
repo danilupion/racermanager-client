@@ -9,17 +9,17 @@ import { TeamModelType } from './teams.service';
 import { CircuitModelType } from './circuits.service';
 import { GrandPrixModelType } from './grandsPrix.service';
 
-interface TeamDriverType extends BaseModelType {
+export interface TeamDriverModelType extends BaseModelType {
   driver: DriverModelType;
   initialValue: number;
 }
 
-interface SeasonTeamType extends BaseModelType {
+export interface SeasonTeamModelType extends BaseModelType {
   team: TeamModelType;
-  drivers: TeamDriverType[];
+  drivers: TeamDriverModelType[];
 }
 
-interface ResultType extends BaseModelType {
+export interface ResultModelType extends BaseModelType {
   driver: DriverModelType;
   position: number;
   points: number;
@@ -27,7 +27,7 @@ interface ResultType extends BaseModelType {
   accumulatedFitness: number;
 }
 
-interface SeasonGrandPrixType extends BaseModelType{
+export interface SeasonGrandPrixModelType extends BaseModelType{
   circuit: CircuitModelType;
   grandPrix: GrandPrixModelType;
   firstPracticeUTC: Date;
@@ -35,14 +35,14 @@ interface SeasonGrandPrixType extends BaseModelType{
   thirdPracticeUTC: Date;
   qualifyingUTC: Date;
   raceUTC: Date;
-  results: ResultType[];
+  results: ResultModelType[];
 }
 
 export interface SeasonModelType extends BaseModelType {
   name: string;
-  seasonGrandPrixes: SeasonGrandPrixType[];
-  teams: SeasonTeamType[];
-  grandsPrix: SeasonGrandPrixType[];
+  seasonGrandPrixes: SeasonGrandPrixModelType[];
+  teams: SeasonTeamModelType[];
+  grandsPrix: SeasonGrandPrixModelType[];
 }
 
 @Injectable()
@@ -63,17 +63,61 @@ export class SeasonsService {
     return `/api/championships/${this.championshipsService.selected}/seasons`;
   }
 
-  public update() {
-    this.getSeason((new Date()).getFullYear().toString());
+  protected getTeamsUrl() {
+    return `${this.getBaseUrl()}/${this.selected.name}/teams`;
+  }
+
+  public async update() {
+    await this.getSeason((new Date()).getFullYear().toString());
   }
 
   @action
   protected async getSeason(name: string) {
     try {
-      this.selected = await this.http.get<SeasonTeamType>(`${this.getBaseUrl()}/${name}`)
+      this.selected = await this.http.get<SeasonModelType>(`${this.getBaseUrl()}/${name}`)
         .toPromise();
     } catch (err) {
       throw new Error(`${name} retrieval failed`);
+    }
+  }
+
+  @action
+  public async createTeam(team: SeasonTeamModelType) {
+    try {
+      const newTeam = await this.http.post<SeasonTeamModelType>(this.getTeamsUrl(), team)
+        .toPromise();
+
+      this.selected.teams.push(newTeam);
+    } catch (err) {
+      throw new Error(`${name} team creation failed`);
+    }
+  }
+
+  @action
+  public async removeTeam(team: SeasonTeamModelType) {
+    try {
+      await this.http.delete(`${this.getTeamsUrl()}/${team.id}`)
+        .toPromise();
+
+      this.selected.teams.remove(team);
+    } catch (err) {
+      throw new Error(`${name} team deletion failed`);
+    }
+  }
+
+  @action
+  public async updateTeam(team: SeasonTeamModelType) {
+    try {
+      const updatedTeam = await this.http.put<SeasonTeamModelType>(`${this.getTeamsUrl()}/${team.id}`, team)
+        .toPromise();
+
+      const modelIndex = this.selected.teams.findIndex((candidate) => candidate.id === team.id);
+
+      if (modelIndex !== -1) {
+        this.selected.teams.set(modelIndex, updatedTeam);
+      }
+    } catch (err) {
+      throw new Error(`${this.name} team update failed`);
     }
   }
 }

@@ -1,9 +1,26 @@
 <div mat-dialog-content>
-  <ng-template ngFor let-field [ngForOf]="data.fields">
-    <mat-form-field>
-      <input matInput [(ngModel)]="data.model[field]" [placeholder]="field | capitalize">
-    </mat-form-field>
-  </ng-template>
+  <mat-form-field
+    *ngFor="let field of data.fields"
+  >
+    <input
+      matInput
+      *ngIf="fieldIsInput(field)"
+      [(ngModel)]="data.model[field]"
+      [placeholder]="field | capitalize"
+    >
+    <mat-select
+      *ngIf="fieldIsSelect(field)"
+      [(value)]="data.model[field.name]"
+      [placeholder]="field.name | capitalize"
+    >
+      <mat-option
+        *ngFor="let option of field.options"
+        [value]="option.value"
+      >
+        {{ option.text }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 </div>
 <div mat-dialog-actions>
   <rm-loading-button [loading]="loading" (push)="save()">Save</rm-loading-button>

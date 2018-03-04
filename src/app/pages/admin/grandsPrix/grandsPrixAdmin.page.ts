@@ -11,7 +11,13 @@ import { ChampionshipsService } from '../../../services/championships.service';
 export class GrandsPrixAdminPageComponent implements OnInit, OnDestroy {
   public title = 'Grands Prix';
 
-  public columns = ['name', 'countryCode'];
+  public fields = [
+    'name',
+    {
+      property: 'countryCode',
+      name: 'Country Code',
+    },
+  ];
 
   private selectedChampionshipObserverDisposer;
 

@@ -11,7 +11,15 @@ import { ChampionshipsService } from '../../../services/championships.service';
 export class CircuitsAdminPageComponent implements OnInit, OnDestroy {
   public title = 'Circuits';
 
-  public columns = ['name', 'countryCode', 'latitude', 'longitude'];
+  public fields = [
+    'name',
+    {
+      property: 'countryCode',
+      name: 'Country Code',
+    },
+    'latitude',
+    'longitude',
+  ];
 
   private selectedChampionshipObserverDisposer;
 

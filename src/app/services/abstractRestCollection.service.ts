@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { action, observable } from 'mobx-angular';
 
 export interface BaseModelType {
-  _id: string;
+  id: string;
 }
 
 export abstract class AbstractRestCollectionService<T extends BaseModelType> {
@@ -45,7 +45,7 @@ export abstract class AbstractRestCollectionService<T extends BaseModelType> {
   @action
   public async remove(item: T) {
     try {
-      await this.http.delete(`${this.getBaseUrl()}/${item._id}`)
+      await this.http.delete(`${this.getBaseUrl()}/${item.id}`)
         .toPromise();
 
       this.items.remove(item);
@@ -57,10 +57,10 @@ export abstract class AbstractRestCollectionService<T extends BaseModelType> {
   @action
   public async update(item: T) {
     try {
-      const updatedItem = await this.http.put<T>(`${this.getBaseUrl()}/${item._id}`, item)
+      const updatedItem = await this.http.put<T>(`${this.getBaseUrl()}/${item.id}`, item)
         .toPromise();
 
-      const modelIndex = this.items.findIndex((candidate) => candidate._id === item._id);
+      const modelIndex = this.items.findIndex((candidate) => candidate.id === item.id);
 
       if (modelIndex !== -1) {
         this.items.set(modelIndex, updatedItem);

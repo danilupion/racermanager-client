@@ -11,7 +11,14 @@ import { ChampionshipsService } from '../../../services/championships.service';
 export class DriversAdminPageComponent implements OnInit, OnDestroy {
   public title = 'Drivers';
 
-  public columns = ['name', 'code', 'countryCode'];
+  public fields = [
+    'name',
+    'code',
+    {
+      property: 'countryCode',
+      name: 'Country Code',
+    },
+  ];
 
   private selectedChampionshipObserverDisposer;
 
@@ -34,7 +41,7 @@ export class DriversAdminPageComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit(): void {
-    this.update()
+    this.update();
     this.selectedChampionshipObserverDisposer = observe(
       this.championshipsService,
       'selected',

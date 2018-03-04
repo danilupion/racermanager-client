@@ -7,24 +7,32 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 })
 export class EditorDialogComponent {
   @Output()
-  result = new EventEmitter();
+  public result = new EventEmitter();
 
-  loading = false;
+  public loading = false;
 
   constructor(
     private dialogRef: MatDialogRef<EditorDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) { }
 
-  setLoading(loading) {
+  public setLoading(loading) {
     this.loading = loading;
   }
 
-  save() {
+  private fieldIsInput(field) {
+    return typeof field === 'string';
+  }
+
+  private fieldIsSelect(field) {
+    return field && field.options;
+  }
+
+  public save() {
     this.result.emit({ ...this.data.model });
   }
 
-  close(): void {
+  private close(): void {
     this.dialogRef.close();
   }
 }
