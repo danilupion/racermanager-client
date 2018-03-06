@@ -20,7 +20,7 @@ export class SeasonTeamsAdminPageComponent implements OnInit, OnDestroy {
   public crud: CrudType<SeasonTeamModelType> = {
     getAll: () => this.seasonsService.update(),
     create: (team) => this.seasonsService.createTeam(team),
-    update: (team) => this.seasonsService.updateTeam(team),
+    update: (team) => this.seasonsService.updateGrandPrix(team),
     remove: (team) => this.seasonsService.removeTeam(team),
   };
 
@@ -51,7 +51,7 @@ export class SeasonTeamsAdminPageComponent implements OnInit, OnDestroy {
         .sort((driver1, driver2) => alphabeticalOrder(driver1.name, driver2.name))
         .map(driver => ({
           value: driver.driverId,
-          text: `${driver.name} (${driver.countryCode})`,
+          text: `${driver.name} (${driver.code})`,
         }));
 
       this.fields = [
@@ -59,7 +59,7 @@ export class SeasonTeamsAdminPageComponent implements OnInit, OnDestroy {
           property: 'teamId',
           name: 'Team',
           options: teamOptions,
-          valueGetter: (model) => this.teamsService.items.find(candidate => candidate.id === model.teamId).name,
+          listValueGetter: (model) => this.teamsService.items.find(candidate => candidate.id === model.teamId).name,
         },
         {
           property: 'name',
@@ -73,7 +73,7 @@ export class SeasonTeamsAdminPageComponent implements OnInit, OnDestroy {
           property: 'driverIds',
           name: 'Drivers',
           options: driverOptions,
-          valueGetter: (model) => model.driverIds
+          listValueGetter: (model) => model.driverIds
             .map(driverId => this.seasonsService.selected.drivers.find(candidate => candidate.driverId === driverId))
             .map(driver => `${driver.name}`).join(', '),
           multiple: true,

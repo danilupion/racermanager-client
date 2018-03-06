@@ -14,9 +14,16 @@ export abstract class AbstractFieldManagerComponent {
     ? field.property
     : field
 
-  public getValue = (model, field) => {
-    if (field.valueGetter) {
-      return field.valueGetter(model);
+  public getListValue = (model, field) => {
+    if (field.listValueGetter) {
+      return field.listValueGetter(model);
+    }
+    return model[this.getFieldProperty(field)];
+  }
+
+  public getEditValue = (model, field) => {
+    if (field.editValueGetter) {
+      return field.editValueGetter(model);
     }
     return model[this.getFieldProperty(field)];
   }

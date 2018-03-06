@@ -40,6 +40,7 @@ import { EditorDialogComponent } from './components/crud/editorDialog/editorDial
 
 import { MainPageComponent } from './pages/main/main.page';
 import { TeamsPageComponent } from './pages/main/teams/teams.page';
+
 import { AdminPageComponent } from './pages/admin/admin.page';
 import { TeamsAdminPageComponent } from './pages/admin/teams/teamsAdmin.page';
 import { DriversAdminPageComponent } from './pages/admin/drivers/driversAdmin.page';
@@ -47,6 +48,7 @@ import { CircuitsAdminPageComponent } from './pages/admin/circuits/circuitsAdmin
 import { GrandsPrixAdminPageComponent } from './pages/admin/grandsPrix/grandsPrixAdmin.page';
 import { SeasonTeamsAdminPageComponent } from './pages/admin/seasonTeams/seasonTeamsAdmin.page';
 import { SeasonDriversAdminPageComponent } from './pages/admin/seasonDrivers/seasonDriversAdmin.page';
+import { SeasonGrandsPrixAdminPageComponent } from './pages/admin/seasonGrandsPrix/seasonGrandsPrixAdmin.page';
 
 import { AuthService } from './services/auth.service';
 import { UsersService } from './services/users.service';
@@ -86,6 +88,7 @@ registerLocaleData(localeEs, 'es-ES');
     GrandsPrixAdminPageComponent,
     SeasonTeamsAdminPageComponent,
     SeasonDriversAdminPageComponent,
+    SeasonGrandsPrixAdminPageComponent,
     CapitalizePipe,
   ],
   imports: [

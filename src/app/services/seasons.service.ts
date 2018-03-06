@@ -12,6 +12,7 @@ import { GrandPrixModelType } from './grandsPrix.service';
 export interface SeasonDriverModelType extends BaseModelType {
   driver: DriverModelType;
   initialValue: number;
+  value: number;
 }
 
 export interface SeasonTeamModelType extends BaseModelType {
@@ -23,16 +24,17 @@ export interface ResultModelType extends BaseModelType {
   driver: DriverModelType;
   position: number;
   points: number;
-  accumulatedPoints: number;
-  accumulatedFitness: number;
+  fitness: number;
+  value: number;
 }
 
 export interface SeasonGrandPrixModelType extends BaseModelType{
   circuit: CircuitModelType;
-  grandPrix: GrandPrixModelType;
-  firstPracticeUTC: Date;
-  secondPracticeUTC: Date;
-  thirdPracticeUTC: Date;
+  name: string;
+  countryCode: string;
+  practice1UTC: Date;
+  practice2UTC: Date;
+  practice3UTC: Date;
   qualifyingUTC: Date;
   raceUTC: Date;
   results: ResultModelType[];
@@ -69,6 +71,10 @@ export class SeasonsService {
 
   protected getDriversUrl() {
     return `${this.getBaseUrl()}/${this.selected.name}/drivers`;
+  }
+
+  protected getGrandsPrixUrl() {
+    return `${this.getBaseUrl()}/${this.selected.name}/grandsPrix`;
   }
 
   public async update() {
@@ -163,6 +169,46 @@ export class SeasonsService {
       this.selected.teams.remove(team);
     } catch (err) {
       throw new Error(`${name} team deletion failed`);
+    }
+  }
+
+  @action
+  public async createGrandPrix(grandPrix: SeasonGrandPrixModelType) {
+    try {
+      const newGrandPrix = await this.http.post<SeasonGrandPrixModelType>(this.getGrandsPrixUrl(), grandPrix)
+        .toPromise();
+
+      this.selected.grandsPrix.push(newGrandPrix);
+    } catch (err) {
+      throw new Error(`${name} grand prix creation failed`);
+    }
+  }
+
+  @action
+  public async updateGrandPrix(grandPrix: SeasonGrandPrixModelType) {
+    try {
+      const updatedGrandPrix = await this.http.put<SeasonGrandPrixModelType>(`${this.getGrandsPrixUrl()}/${grandPrix.id}`, grandPrix)
+        .toPromise();
+
+      const modelIndex = this.selected.grandsPrix.findIndex((candidate) => candidate.id === grandPrix.id);
+
+      if (modelIndex !== -1) {
+        this.selected.grandsPrix.set(modelIndex, updatedGrandPrix);
+      }
+    } catch (err) {
+      throw new Error(`${this.name} grand prix update failed`);
+    }
+  }
+
+  @action
+  public async removeGrandPrix(grandPrix: SeasonGrandPrixModelType) {
+    try {
+      await this.http.delete(`${this.getGrandsPrixUrl()}/${grandPrix.id}`)
+        .toPromise();
+
+      this.selected.grandsPrix.remove(grandPrix);
+    } catch (err) {
+      throw new Error(`${name} grand prix deletion failed`);
     }
   }
 }

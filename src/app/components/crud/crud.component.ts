@@ -101,10 +101,22 @@ export class CrudComponent extends AbstractFieldManagerComponent implements OnIn
   }
 
   private showEditDialog(model) {
-    const editModel = Object.keys(model).reduce(
+    const processedModel = this.fields.reduce(
+      (accumulated, field) => ({
+        ...accumulated,
+        [this.getFieldProperty(field)]: this.getEditValue(model, field),
+      }),
+      {
+        id: model.id,
+      },
+    );
+
+    const editModel = Object.keys(processedModel).reduce(
       (accumulated, key) => ({
         ...accumulated,
-        [key]: model[key] && model[key].toJS ? model[key].toJS() : model[key],
+        [key]: processedModel[key] && processedModel[key].toJS
+          ? processedModel[key].toJS()
+          : processedModel[key],
       }),
       {},
     );

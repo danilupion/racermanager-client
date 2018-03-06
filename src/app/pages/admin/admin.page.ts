@@ -40,6 +40,11 @@ export class AdminPageComponent {
       text: 'Season Drivers',
       url: '/admin/seasonDrivers',
     },
+    {
+      icon: 'fa-flag-checkered',
+      text: 'Season Grands Prix',
+      url: '/admin/seasonGrandsPrix',
+    },
   ];
 
   public menuLinks = [
