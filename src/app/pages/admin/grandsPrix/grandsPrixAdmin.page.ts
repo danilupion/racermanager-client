@@ -2,14 +2,14 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { observe } from 'mobx';
 
 import { CrudType } from '../../../components/crud/crud.component';
-import { TeamModelType, TeamsService } from '../../../services/teams.service';
+import { GrandPrixModelType, GrandsPrixService } from '../../../services/grandsPrix.service';
 import { ChampionshipsService } from '../../../services/championships.service';
 
 @Component({
-  templateUrl: './teamsAdmin.page.html',
+  templateUrl: './grandsPrixAdmin.page.html',
 })
-export class TeamsAdminPageComponent implements OnInit, OnDestroy {
-  public title = 'Teams';
+export class GrandsPrixAdminPageComponent implements OnInit, OnDestroy {
+  public title = 'Grands Prix';
 
   public fields = [
     'name',
@@ -21,31 +21,31 @@ export class TeamsAdminPageComponent implements OnInit, OnDestroy {
 
   private selectedChampionshipObserverDisposer;
 
-  crud: CrudType<TeamModelType> = {
-    getAll: () => this.teamsService.get(),
-    create: (team) => this.teamsService.create(team),
-    update: (team) => this.teamsService.update(team),
-    remove: (team) => this.teamsService.remove(team),
+  public crud: CrudType<GrandPrixModelType> = {
+    getAll: () => this.grandsPrixService.get(),
+    create: (circuit) => this.grandsPrixService.create(circuit),
+    update: (circuit) => this.grandsPrixService.update(circuit),
+    remove: (circuit) => this.grandsPrixService.remove(circuit),
   };
 
   constructor(
-    public teamsService: TeamsService,
+    public grandsPrixService: GrandsPrixService,
     private championshipsService: ChampionshipsService,
   ) { }
 
   private async update() {
     try {
-      await this.teamsService.get();
+      await this.grandsPrixService.get();
     } catch (err) { }
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.update();
     this.selectedChampionshipObserverDisposer = observe(
       this.championshipsService,
       'selected',
       () => this.update(),
-    );
+      );
   }
 
   public ngOnDestroy(): void {

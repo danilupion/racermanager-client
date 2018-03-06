@@ -11,8 +11,8 @@
   <mat-card-content>
     <mat-table #table [dataSource]="models">
       <!-- Header Row -->
-      <mat-header-row *matHeaderRowDef="getHeaderColumns()"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: getHeaderColumns();"></mat-row>
+      <mat-header-row *matHeaderRowDef="getListHeaderColumns()"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: getListHeaderColumns();"></mat-row>
 
       <!-- Checkbox Column -->
       <ng-container matColumnDef="select">
@@ -31,12 +31,10 @@
       </ng-container>
 
       <!-- Data Columns -->
-      <ng-template ngFor let-column [ngForOf]="columns">
-        <ng-container [matColumnDef]="column">
-          <mat-header-cell *matHeaderCellDef> {{column}} </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element[column]}} </mat-cell>
-        </ng-container>
-      </ng-template>
+      <ng-container *ngFor="let field of fields" [matColumnDef]="getFieldName(field)">
+        <mat-header-cell *matHeaderCellDef> {{ getFieldName(field) }} </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ getListValue(element, field) }} </mat-cell>
+      </ng-container>
 
       <!-- Edit Column -->
       <ng-container matColumnDef="edit">

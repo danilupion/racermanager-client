@@ -1,9 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, OnChanges, SimpleChanges } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog, MatSnackBar } from '@angular/material';
 
 import { EditorDialogComponent } from './editorDialog/editorDialog.component';
 import { BaseModelType } from '../../services/abstractRestCollection.service';
+import { AbstractFieldManagerComponent } from './abstractFieldManager.component';
 
 export interface CrudType<T extends BaseModelType> {
   getAll: () => Promise<void>;
@@ -12,35 +13,60 @@ export interface CrudType<T extends BaseModelType> {
   remove: (T) => Promise<void>;
 }
 
+interface OptionType {
+  value: string|number;
+  text: string|number;
+}
+
+interface FieldDefinitionType {
+  property: string;
+  name?: string;
+  valueGetter?: (model: object) => string;
+  options?: OptionType[];
+  multiple?: boolean;
+}
+
 @Component({
   selector: 'rm-crud',
   templateUrl: './crud.component.html',
   styleUrls: ['./crud.component.scss'],
 })
-export class CrudComponent implements OnInit {
+export class CrudComponent extends AbstractFieldManagerComponent implements OnInit, OnDestroy, OnChanges {
   @Input()
-  sectionTitle;
-
-  @Input()
-  dataSource;
+  public sectionTitle;
 
   @Input()
-  columns;
+  public dataSource;
 
   @Input()
-  crud: CrudType<BaseModelType>;
+  public fields: [string|FieldDefinitionType];
 
-  models = [];
+  @Input()
+  public crud: CrudType<BaseModelType>;
 
-  selection = new SelectionModel(true, []);
+  public models = [];
+
+  public selection = new SelectionModel(true, []);
+
+  private dataSourceObserverDisposer;
 
   constructor(
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
-  ) { }
+  ) {
+    super();
+  }
 
-  public getHeaderColumns() {
-    return ['select', ...this.columns, 'edit'];
+  public getFieldNames() {
+    return this.fields.map(this.getFieldName);
+  }
+
+  public getListHeaderColumns() {
+    return [
+      'select',
+      ...this.getFieldNames(),
+      'edit',
+    ];
   }
 
   public isAllSelected() {
@@ -57,7 +83,7 @@ export class CrudComponent implements OnInit {
     const dialogRef = this.dialog.open(EditorDialogComponent, {
       width: '368px',
       data: {
-        fields: [...this.columns],
+        fields: this.fields,
         model: {},
       },
     });
@@ -75,13 +101,31 @@ export class CrudComponent implements OnInit {
   }
 
   private showEditDialog(model) {
+    const processedModel = this.fields.reduce(
+      (accumulated, field) => ({
+        ...accumulated,
+        [this.getFieldProperty(field)]: this.getEditValue(model, field),
+      }),
+      {
+        id: model.id,
+      },
+    );
+
+    const editModel = Object.keys(processedModel).reduce(
+      (accumulated, key) => ({
+        ...accumulated,
+        [key]: processedModel[key] && processedModel[key].toJS
+          ? processedModel[key].toJS()
+          : processedModel[key],
+      }),
+      {},
+    );
+
     const dialogRef = this.dialog.open(EditorDialogComponent, {
       width: '368px',
       data: {
-        fields: [...this.columns],
-        model: {
-          ...model,
-        },
+        fields: this.fields,
+        model: editModel,
       },
     });
 
@@ -124,11 +168,44 @@ export class CrudComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
-    this.models = this.dataSource.toJS();
-
-    this.dataSource.observe(() => {
+  private initializeModelsFromDataSource() {
+    if (Array.isArray(this.dataSource)) {
+      this.models = [...this.dataSource];
+    } else if (this.dataSource && this.dataSource.toJS) {
       this.models = this.dataSource.toJS();
-    });
+    } else {
+      this.models = [];
+    }
+  }
+
+  private disposeDataSourceObserver() {
+    if (this.dataSourceObserverDisposer) {
+      this.dataSourceObserverDisposer();
+      this.dataSourceObserverDisposer = null;
+    }
+  }
+
+  private refreshDataSourceObserver() {
+    this.disposeDataSourceObserver();
+
+    if (this.dataSource && this.dataSource.observe) {
+      this.dataSourceObserverDisposer = this.dataSource.observe(() => this.initializeModelsFromDataSource());
+    }
+  }
+
+  ngOnInit(): void {
+    this.initializeModelsFromDataSource();
+    this.refreshDataSourceObserver();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.dataSource) {
+      this.initializeModelsFromDataSource();
+      this.refreshDataSourceObserver();
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.disposeDataSourceObserver();
   }
 }

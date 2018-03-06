@@ -1,15 +1,34 @@
 <mat-toolbar [color]="color">
   <a class="title" [routerLink]="titleUrl">{{title}}</a>
 
-  <ng-template ngFor let-link [ngForOf]="links">
-    <a mat-button [routerLink]="link.url" routerLinkActive="active">
-      <mat-icon *ngIf="link.icon">{{link.icon}}</mat-icon>
-      {{link.text}}
-    </a>
-  </ng-template>
+  <a
+    mat-button
+    *ngFor="let link of links"
+    [routerLink]="link.url"
+    routerLinkActive="active"
+  >
+    <mat-icon *ngIf="link.icon && !link.icon.startsWith('fa-')">{{ link.icon }}</mat-icon>
+    <mat-icon *ngIf="link.icon && link.icon.startsWith('fa-')" fontSet="fa" [fontIcon]="link.icon"></mat-icon>
+    {{link.text}}
+  </a>
 
   <!-- This fills the remaining space of the current row -->
   <span class="fill-remaining-space"></span>
+
+  <mat-menu #championshipsMenu="matMenu">
+    <button
+      mat-menu-item
+      *ngFor="let championship of championshipsService.items"
+      (click)="championshipsService.setSelected(championship)"
+    >
+      <span>{{ championship }}</span>
+    </button>
+  </mat-menu>
+
+  <button mat-button [matMenuTriggerFor]="championshipsMenu">
+    <span>{{ championshipsService.selected }}</span>
+  </button>
+
 
   <button *ngIf="!authService.token" mat-button (click)="showLoginDialog()">Login / Register</button>
   <rm-header-user-menu *ngIf="authService.token" [links]="menuLinks"></rm-header-user-menu>

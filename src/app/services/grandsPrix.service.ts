@@ -4,14 +4,14 @@ import { HttpClient } from '@angular/common/http';
 import { ChampionshipsService } from './championships.service';
 import { AbstractRestCollectionService, BaseModelType } from './abstractRestCollection.service';
 
-export interface TeamModelType extends BaseModelType {
+export interface GrandPrixModelType extends BaseModelType {
   name: string;
   countryCode: string;
 }
 
 @Injectable()
-export class TeamsService extends AbstractRestCollectionService<TeamModelType> {
-  protected name = 'Team';
+export class GrandsPrixService extends AbstractRestCollectionService<GrandPrixModelType> {
+  protected name = 'Grand Prix';
 
   constructor(
     protected http: HttpClient,
@@ -21,6 +21,6 @@ export class TeamsService extends AbstractRestCollectionService<TeamModelType> {
   }
 
   protected getBaseUrl() {
-    return `/api/championships/${this.championshipsService.selected}/teams`;
+    return `/api/championships/${this.championshipsService.selected}/grandsPrix`;
   }
 }
