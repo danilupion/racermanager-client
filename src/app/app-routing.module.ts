@@ -5,6 +5,7 @@ import { environment } from '../environments/environment';
 
 import { AdminGuard } from './guards/admin.guard';
 import { MainPageComponent } from './pages/main/main.page';
+import { TeamsPageComponent } from './pages/main/teams/teams.page';
 import { AdminPageComponent } from './pages/admin/admin.page';
 import { TeamsAdminPageComponent } from './pages/admin/teams/teamsAdmin.page';
 import { DriversAdminPageComponent } from './pages/admin/drivers/driversAdmin.page';
@@ -14,7 +15,11 @@ import { SeasonTeamsAdminPageComponent } from './pages/admin/seasonTeams/seasonT
 import { SeasonDriversAdminPageComponent } from './pages/admin/seasonDrivers/seasonDriversAdmin.page';
 
 const appRoutes: Routes = [
-  { path: '', component: MainPageComponent},
+  { path: '', component: MainPageComponent,
+    children: [
+      { path: 'teams', component: TeamsPageComponent },
+    ],
+  },
   { path: 'admin', canActivate: [AdminGuard], component: AdminPageComponent,
     children: [
       { path: 'teams', component: TeamsAdminPageComponent },

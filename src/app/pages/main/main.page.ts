@@ -2,13 +2,23 @@ import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
-  selector: 'rm-admin',
   templateUrl: './main.page.html',
+  styleUrls: ['./main.page.scss'],
 })
 export class MainPageComponent {
-  title = 'Racer Manager';
-  titleUrl = '/';
-  menuLinks = [
+  public title = 'Racer Manager';
+
+  public titleUrl = '/';
+
+  public links = [
+    {
+      icon: 'people',
+      text: 'Escuderías',
+      url: '/teams',
+    },
+  ];
+
+  public menuLinks = [
     {
       guard: () => this.authService.isAdmin,
       icon: 'settings',

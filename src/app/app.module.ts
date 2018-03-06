@@ -39,6 +39,7 @@ import { CrudComponent } from './components/crud/crud.component';
 import { EditorDialogComponent } from './components/crud/editorDialog/editorDialog.component';
 
 import { MainPageComponent } from './pages/main/main.page';
+import { TeamsPageComponent } from './pages/main/teams/teams.page';
 import { AdminPageComponent } from './pages/admin/admin.page';
 import { TeamsAdminPageComponent } from './pages/admin/teams/teamsAdmin.page';
 import { DriversAdminPageComponent } from './pages/admin/drivers/driversAdmin.page';
@@ -77,6 +78,7 @@ registerLocaleData(localeEs, 'es-ES');
     CrudComponent,
     EditorDialogComponent,
     MainPageComponent,
+    TeamsPageComponent,
     AdminPageComponent,
     TeamsAdminPageComponent,
     DriversAdminPageComponent,
