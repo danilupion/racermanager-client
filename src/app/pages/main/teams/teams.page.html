@@ -6,7 +6,29 @@
 
   <mat-card-content>
     <mat-table #table [dataSource]="teams">
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
 
+        <ng-container matColumnDef="Team">
+            <mat-header-cell *matHeaderCellDef> Team </mat-header-cell>
+            <mat-cell *matCellDef="let element"> <img class="seasonTeamImg" src="../../../../assets/teams/ferrari.jpg">  </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="TeamName">
+            <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="Drivers">
+            <mat-header-cell *matHeaderCellDef> Drivers </mat-header-cell>
+            <mat-cell *matCellDef="let element"> Alonso | Hamilton </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="Points">
+            <mat-header-cell *matHeaderCellDef> Points </mat-header-cell>
+            <mat-cell *matCellDef="let element"> 5 </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="Factor">
+            <mat-header-cell *matHeaderCellDef> Factor </mat-header-cell>
+            <mat-cell *matCellDef="let element"> 0.5 </mat-cell>
+        </ng-container>
     </mat-table>
   </mat-card-content>
 </mat-card>

@@ -6,20 +6,19 @@ import { SeasonsService } from '../../../services/seasons.service';
 
 @Component({
   templateUrl: './teams.page.html',
+  styleUrls: ['./teams.page.scss'],
 })
 export class TeamsPageComponent implements OnInit, OnDestroy {
   private selectedChampionshipObserverDisposer;
   private seasonTeamsObserverDisposer;
 
   public teams = [];
-  displayedColumns = ['Team', 'Drivers', 'Points', 'Factor'];
+  displayedColumns = ['Team', 'TeamName', 'Drivers', 'Points', 'Factor'];
 
   constructor(
     public seasonsService: SeasonsService,
     private championshipsService: ChampionshipsService,
-  ) {
-    console.error('TEAMS, ', this.teams);
-   }
+  ) { }
 
   private async update() {
     try {
@@ -32,7 +31,7 @@ export class TeamsPageComponent implements OnInit, OnDestroy {
       ? this.seasonsService.selected.teams.toJS()
       : [];
 
-    console.log(this.teams);
+    console.log('TEAMS', this.teams);
   }
 
   ngOnInit(): void {
