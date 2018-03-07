@@ -9,13 +9,13 @@ import { SeasonsService } from '../../../services/seasons.service';
 })
 export class TeamsPageComponent implements OnInit, OnDestroy {
   private selectedChampionshipObserverDisposer;
-
+  private seasonTeamsObserverDisposer;
 
   public teams = [];
   displayedColumns = ['Team', 'Drivers', 'Points', 'Factor'];
 
   constructor(
-    public seasonService: SeasonsService,
+    public seasonsService: SeasonsService,
     private championshipsService: ChampionshipsService,
   ) {
     console.error('TEAMS, ', this.teams);
@@ -23,8 +23,16 @@ export class TeamsPageComponent implements OnInit, OnDestroy {
 
   private async update() {
     try {
-      await this.seasonService.update();
+      await this.seasonsService.update();
     } catch (err) {}
+  }
+
+  private initializeModelsFromSeasonTeams() {
+    this.teams = this.seasonsService.selected
+      ? this.seasonsService.selected.teams.toJS()
+      : [];
+
+    console.log(this.teams);
   }
 
   ngOnInit(): void {
@@ -34,13 +42,17 @@ export class TeamsPageComponent implements OnInit, OnDestroy {
       () => this.update(),
     );
 
-    this.teams = this.seasonService
-              && this.seasonService.selected
-              && this.seasonService.selected.teams;
-    console.error('TEAMS, ', this.teams);
+    this.seasonTeamsObserverDisposer = observe(
+      this.seasonsService,
+      'selected',
+      () => this.initializeModelsFromSeasonTeams(),
+    );
+
+    this.initializeModelsFromSeasonTeams();
   }
 
   ngOnDestroy(): void {
     this.selectedChampionshipObserverDisposer();
+    this.seasonTeamsObserverDisposer();
   }
 }
