@@ -20,6 +20,8 @@ import {
   MatMenuModule,
   MatToolbarModule,
   MatIconModule,
+  MatOptionModule,
+  MatSelectModule,
 } from '@angular/material';
 
 import { MobxAngularModule } from 'mobx-angular';
@@ -37,6 +39,7 @@ import { UserMenuComponent } from './components/header/userMenu/userMenu.compone
 import { LoadingButtonComponent } from './components/loadingButton/loadingButton.component';
 import { CrudComponent } from './components/crud/crud.component';
 import { EditorDialogComponent } from './components/crud/editorDialog/editorDialog.component';
+import { ChangePilotDialogComponent } from './components/driver/changePilotDialog/changePilotDialog.component';
 
 import { MainPageComponent } from './pages/main/main.page';
 import { TeamsPageComponent } from './pages/main/teams/teams.page';
@@ -63,6 +66,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 import { AuthGuard } from './guards/auth.guard';
 import { AdminGuard } from './guards/admin.guard';
+import { DriverComponent } from './components/driver/driver.component';
 
 import { CapitalizePipe } from './pipes/capitalize.pipe';
 
@@ -90,6 +94,8 @@ registerLocaleData(localeEs, 'es-ES');
     SeasonDriversAdminPageComponent,
     SeasonGrandsPrixAdminPageComponent,
     CapitalizePipe,
+    DriverComponent,
+    ChangePilotDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -114,6 +120,8 @@ registerLocaleData(localeEs, 'es-ES');
     MatMenuModule,
     MatIconModule,
     AppRoutingModule,
+    MatOptionModule,
+    MatSelectModule,
   ],
   providers: [
     AuthService,
@@ -135,6 +143,7 @@ registerLocaleData(localeEs, 'es-ES');
   entryComponents: [
     AuthDialogComponent,
     EditorDialogComponent,
+    ChangePilotDialogComponent,
   ],
   bootstrap: [
     AppComponent,
