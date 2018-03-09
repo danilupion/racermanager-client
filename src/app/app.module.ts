@@ -21,7 +21,6 @@ import {
   MatToolbarModule,
   MatIconModule,
   MatOptionModule,
-  MatSelectModule,
 } from '@angular/material';
 
 import { MobxAngularModule } from 'mobx-angular';
