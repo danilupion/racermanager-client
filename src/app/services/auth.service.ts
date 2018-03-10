@@ -10,7 +10,7 @@ const LOCAL_STORAGE_KEY = 'auth';
 
 @Injectable()
 export class AuthService {
-  // TODO: Handle token expiration
+  // TODO: Handle token expiration and renovation
   @observable
   public token;
 

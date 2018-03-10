@@ -14,6 +14,7 @@ import { GrandsPrixAdminPageComponent } from './pages/admin/grandsPrix/grandsPri
 import { SeasonTeamsAdminPageComponent } from './pages/admin/seasonTeams/seasonTeamsAdmin.page';
 import { SeasonDriversAdminPageComponent } from './pages/admin/seasonDrivers/seasonDriversAdmin.page';
 import { SeasonGrandsPrixAdminPageComponent } from './pages/admin/seasonGrandsPrix/seasonGrandsPrixAdmin.page';
+import { LeaguesAdminPageComponent } from './pages/admin/leagues/leaguesAdmin.page';
 
 const appRoutes: Routes = [
   { path: '', component: MainPageComponent,
@@ -30,7 +31,7 @@ const appRoutes: Routes = [
       { path: 'seasonTeams', component: SeasonTeamsAdminPageComponent },
       { path: 'seasonDrivers', component: SeasonDriversAdminPageComponent },
       { path: 'seasonGrandsPrix', component: SeasonGrandsPrixAdminPageComponent },
-
+      { path: 'leagues', component: LeaguesAdminPageComponent },
     ],
   },
   // { path: '**', component: PageNotFoundComponent }
