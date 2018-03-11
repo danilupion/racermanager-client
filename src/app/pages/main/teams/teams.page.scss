@@ -1,4 +1,15 @@
 .seasonTeamImg {
-  width: 82px;
-  height: 70px;
+  width: 150px;
+  height: 75px;
+}
+
+mat-cell{
+  display:flex !important;
+  justify-content: space-around !important;
+
+}
+
+mat-header-cell {
+  display: flex;
+  justify-content: center;
 }

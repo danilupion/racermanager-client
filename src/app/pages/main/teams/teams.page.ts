@@ -20,6 +20,35 @@ export class TeamsPageComponent implements OnInit, OnDestroy {
     private championshipsService: ChampionshipsService,
   ) { }
 
+  public getDriverCode(driverId: string) {
+    const driver = this.getDriver(driverId);
+    return driver.code;
+  }
+
+  public getTeamImg(teamCode: string) {
+    const teamAsset = teamCode.replace(/ /g, '').toLowerCase();
+    return `../../../../assets/teams/${teamAsset}.jpg`;
+  }
+
+  public getTeamPoints(driverIds: string[]) {
+    const drivers = driverIds.map((driverId) => {
+      return this.getDriver(driverId);
+    });
+    return drivers.reduce((acc, driver) => {
+      return acc + driver.points;
+    }, 0);
+  }
+
+  public getTeamFactor(driverIds: string[]) {
+    return 2;
+  }
+
+  public getDriver(driverId: string) {
+    return this.seasonsService.selected.drivers.find((driverCandidate) => {
+      return driverCandidate.driverId === driverId;
+    });
+  }
+
   private async update() {
     try {
       await this.seasonsService.update();
@@ -30,8 +59,6 @@ export class TeamsPageComponent implements OnInit, OnDestroy {
     this.teams = this.seasonsService.selected
       ? this.seasonsService.selected.teams.toJS()
       : [];
-
-    console.log('TEAMS', this.teams);
   }
 
   ngOnInit(): void {

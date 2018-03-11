@@ -11,7 +11,9 @@
 
         <ng-container matColumnDef="Team">
             <mat-header-cell *matHeaderCellDef> Team </mat-header-cell>
-            <mat-cell *matCellDef="let element"> <img class="seasonTeamImg" src="../../../../assets/teams/ferrari.jpg">  </mat-cell>
+            <mat-cell *matCellDef="let element">
+              <img class="seasonTeamImg" [src]="getTeamImg(element.code)">
+            </mat-cell>
         </ng-container>
         <ng-container matColumnDef="TeamName">
             <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
@@ -19,15 +21,20 @@
         </ng-container>
         <ng-container matColumnDef="Drivers">
             <mat-header-cell *matHeaderCellDef> Drivers </mat-header-cell>
-            <mat-cell *matCellDef="let element"> Alonso | Hamilton </mat-cell>
+            <mat-cell *matCellDef="let element">
+                <rm-driver
+                  *ngFor="let driverId of element.driverIds"
+                  [driverCode]="getDriverCode(driverId)"
+                ></rm-driver>
+            </mat-cell>
         </ng-container>
         <ng-container matColumnDef="Points">
             <mat-header-cell *matHeaderCellDef> Points </mat-header-cell>
-            <mat-cell *matCellDef="let element"> 5 </mat-cell>
+            <mat-cell *matCellDef="let element"> {{getTeamPoints(element.driverIds)}} </mat-cell>
         </ng-container>
         <ng-container matColumnDef="Factor">
             <mat-header-cell *matHeaderCellDef> Factor </mat-header-cell>
-            <mat-cell *matCellDef="let element"> 0.5 </mat-cell>
+            <mat-cell *matCellDef="let element"> {{getTeamFactor(element.driverIds)}} </mat-cell>
         </ng-container>
     </mat-table>
   </mat-card-content>
