@@ -1,47 +1,49 @@
  <div mat-dialog-content>
-  <mat-form-field>
-    <input
-      matInput
-      [formControl]="username"
-      placeholder="Nombre de usuario"
-    >
-    <mat-error *ngIf="username.invalid">Nombre de usuario inválido</mat-error>
-  </mat-form-field>
-  <mat-form-field>
-    <input
-      matInput
-      [formControl]="email"
-      type="email"
-      placeholder="Email"
-    >
-    <mat-error *ngIf="email.invalid">Email inválido</mat-error>
-  </mat-form-field>
-  <mat-form-field>
-    <input
-      matInput
-      [formControl]="password"
-      type="password"
-      placeholder="Contraseña"
-    >
-    <mat-error *ngIf="password.invalid">
-      Formato inválido
-      <mat-icon
-        matTooltipHideDelay="1000"
-        matTooltip="El password debe ser de al menos 8 caracteres y contener números, caracteres especiales, mayúsculas y minúsculas"
-      >
-        info
-      </mat-icon>
-    </mat-error>
-  </mat-form-field>
-  <mat-form-field>
-    <input
-      matInput
-      [formControl]="repeatedPassword"
-      type="password"
-      placeholder="Confirmación de contraseña"
-    >
-    <mat-error *ngIf="repeatedPassword.invalid">Las contraseñas no coinciden</mat-error>
-  </mat-form-field>
+   <form (keydown)="submitOnEnter($event)">
+     <mat-form-field>
+       <input
+         matInput
+         [formControl]="username"
+         placeholder="Nombre de usuario"
+       >
+       <mat-error *ngIf="username.invalid">Nombre de usuario inválido</mat-error>
+     </mat-form-field>
+     <mat-form-field>
+       <input
+         matInput
+         [formControl]="email"
+         type="email"
+         placeholder="Email"
+       >
+       <mat-error *ngIf="email.invalid">Email inválido</mat-error>
+     </mat-form-field>
+     <mat-form-field>
+       <input
+         matInput
+         [formControl]="password"
+         type="password"
+         placeholder="Contraseña"
+       >
+       <mat-error *ngIf="password.invalid">
+         Formato inválido
+         <mat-icon
+           matTooltipHideDelay="1000"
+           matTooltip="El password debe ser de al menos 8 caracteres y contener números, caracteres especiales, mayúsculas y minúsculas"
+         >
+           info
+         </mat-icon>
+       </mat-error>
+     </mat-form-field>
+     <mat-form-field>
+       <input
+         matInput
+         [formControl]="repeatedPassword"
+         type="password"
+         placeholder="Confirmación de contraseña"
+       >
+       <mat-error *ngIf="repeatedPassword.invalid">Las contraseñas no coinciden</mat-error>
+     </mat-form-field>
+   </form>
 </div>
 <div mat-dialog-actions>
   <rm-loading-button [disabled]="!isValid()" [loading]="loading" (push)="register()">
