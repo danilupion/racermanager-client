@@ -16,6 +16,11 @@ export class MainPageComponent {
       text: 'Escuderías',
       url: '/teams',
     },
+    {
+      icon: 'face',
+      text: 'Drivers',
+      url: '/drivers',
+    },
   ];
 
   public menuLinks = [

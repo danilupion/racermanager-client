@@ -6,6 +6,7 @@ import { environment } from '../environments/environment';
 import { AdminGuard } from './guards/admin.guard';
 import { MainPageComponent } from './pages/main/main.page';
 import { TeamsPageComponent } from './pages/main/teams/teams.page';
+import { DriversPageComponent } from './pages/main/drivers/drivers.page';
 import { AdminPageComponent } from './pages/admin/admin.page';
 import { TeamsAdminPageComponent } from './pages/admin/teams/teamsAdmin.page';
 import { DriversAdminPageComponent } from './pages/admin/drivers/driversAdmin.page';
@@ -19,6 +20,7 @@ const appRoutes: Routes = [
   { path: '', component: MainPageComponent,
     children: [
       { path: 'teams', component: TeamsPageComponent },
+      { path: 'drivers', component: DriversPageComponent },
     ],
   },
   { path: 'admin', canActivate: [AdminGuard], component: AdminPageComponent,

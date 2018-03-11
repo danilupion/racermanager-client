@@ -1,0 +1,31 @@
+<mat-card>
+    <mat-card-title>Pilotos</mat-card-title>
+
+    <mat-card-content>
+      <mat-table #table [dataSource]="drivers">
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+          <ng-container matColumnDef="Driver">
+              <mat-header-cell *matHeaderCellDef> Piloto </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                <rm-driver
+                  [driverCode]="element.code"
+                ></rm-driver>
+              </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="Points">
+              <mat-header-cell *matHeaderCellDef> Puntos </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.points}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="Price">
+              <mat-header-cell *matHeaderCellDef> Precio </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.value}} </mat-cell>
+          </ng-container>
+          <!-- <ng-container matColumnDef="Points">
+              <mat-header-cell *matHeaderCellDef> Puntos </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{getTeamPoints(element.driverIds)}} </mat-cell>
+          </ng-container> -->
+      </mat-table>
+    </mat-card-content>
+  </mat-card>

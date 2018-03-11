@@ -1,5 +1,6 @@
 .driverImage {
   width: 120px;
+  padding: 5px 5px 0px 0px;
   img {
     max-width: 100%;
   }
@@ -8,18 +9,8 @@
     position: absolute;
     z-index: 10;
     background: transparent;
-    visibility: hidden;
     cursor: default;
     margin-left: 90px;
   }
 }
 
-.driverImage:hover {
-  mat-icon {
-    color: #c2185b;
-    position: absolute;
-    z-index: 10;
-    background: transparent;
-    visibility: visible;
-  }
-}
