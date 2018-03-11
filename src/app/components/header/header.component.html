@@ -30,6 +30,6 @@
   </button>
 
 
-  <button *ngIf="!authService.token" mat-button (click)="showLoginDialog()">Login / Register</button>
+  <button *ngIf="!authService.token" mat-button (click)="showLoginDialog()">Login / Registro</button>
   <rm-header-user-menu *ngIf="authService.token" [links]="menuLinks"></rm-header-user-menu>
 </mat-toolbar>

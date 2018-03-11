@@ -3,9 +3,9 @@
     <input
       matInput
       [formControl]="username"
-      placeholder="Username"
+      placeholder="Nombre de usuario"
     >
-    <mat-error *ngIf="username.invalid">Invalid username</mat-error>
+    <mat-error *ngIf="username.invalid">Nombre de usuario inválido</mat-error>
   </mat-form-field>
   <mat-form-field>
     <input
@@ -14,20 +14,20 @@
       type="email"
       placeholder="Email"
     >
-    <mat-error *ngIf="email.invalid">Invalid email</mat-error>
+    <mat-error *ngIf="email.invalid">Email inválido</mat-error>
   </mat-form-field>
   <mat-form-field>
     <input
       matInput
       [formControl]="password"
       type="password"
-      placeholder="Password"
+      placeholder="Contraseña"
     >
     <mat-error *ngIf="password.invalid">
-      Invalid format
+      Formato inválido
       <mat-icon
         matTooltipHideDelay="1000"
-        matTooltip="Password must be at least 8 chars, contain numbers, lowercase, uppercase and special chars"
+        matTooltip="El password debe ser de al menos 8 caracteres y contener números, caracteres especiales, mayúsculas y minúsculas"
       >
         info
       </mat-icon>
@@ -38,13 +38,13 @@
       matInput
       [formControl]="repeatedPassword"
       type="password"
-      placeholder="Repeat Password"
+      placeholder="Confirmación de contraseña"
     >
-    <mat-error *ngIf="repeatedPassword.invalid">Passwords do not match</mat-error>
+    <mat-error *ngIf="repeatedPassword.invalid">Las contraseñas no coinciden</mat-error>
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
   <rm-loading-button [disabled]="!isValid()" [loading]="loading" (push)="register()">
-    Register
+    Registro
   </rm-loading-button>
 </div>
