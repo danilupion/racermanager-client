@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { observe } from 'mobx';
+import * as moment from 'moment';
 
 import { CrudType } from '../../../components/crud/crud.component';
 import { SeasonGrandPrixModelType, SeasonsService } from '../../../services/seasons.service';
@@ -7,6 +8,9 @@ import { CircuitsService } from '../../../services/circuits.service';
 import { GrandsPrixService } from '../../../services/grandsPrix.service';
 import { ChampionshipsService } from '../../../services/championships.service';
 import { alphabeticalOrder } from '../../../utils/sorting';
+
+const formatDateString = (date) => moment(date).format('YYYY-MM-DD HH:mm:ss')
+
 
 @Component({
   templateUrl: './seasonGrandsPrixAdmin.page.html',
@@ -73,22 +77,31 @@ export class SeasonGrandsPrixAdminPageComponent implements OnInit, OnDestroy {
         {
           property: 'practice1UTC',
           name: 'Practice 1',
+          listValueGetter: (model) => formatDateString(model.practice1UTC),
         },
         {
           property: 'practice2UTC',
           name: 'Practice 2',
+          listValueGetter: (model) => formatDateString(model.practice2UTC),
+
         },
         {
           property: 'practice3UTC',
           name: 'Practice 3',
+          listValueGetter: (model) => formatDateString(model.practice3UTC),
+
         },
         {
           property: 'qualifyingUTC',
           name: 'Qualifying',
+          listValueGetter: (model) => formatDateString(model.qualifyingUTC),
+
         },
         {
           property: 'raceUTC',
           name: 'Race',
+          listValueGetter: (model) => formatDateString(model.raceUTC),
+
         },
       ];
     } catch (err) { }
