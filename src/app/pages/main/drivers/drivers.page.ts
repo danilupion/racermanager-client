@@ -20,13 +20,6 @@ export class DriversPageComponent implements OnInit, OnDestroy {
     private championshipsService: ChampionshipsService,
   ) { }
 
-  public getDriverCode(driverId: string) {
-    const driver = this.seasonsService.selected.drivers.find((driverCandidate) => {
-      return driverCandidate.driverId === driverId;
-    });
-    return driver.code;
-  }
-
   private async update() {
     try {
       await this.seasonsService.update();
