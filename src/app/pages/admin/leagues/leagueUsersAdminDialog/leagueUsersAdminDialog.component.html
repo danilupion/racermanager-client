@@ -1,0 +1,35 @@
+<div mat-dialog-content>
+  <mat-list>
+    <mat-list-item
+      *ngFor="let user of league.users"
+    >
+      <button mat-icon-button (click)="removeUser(user)"><mat-icon>remove_circle</mat-icon></button>{{ user.email }} - {{ user.money }}$
+    </mat-list-item>
+  </mat-list>
+  <mat-form-field>
+    <mat-select
+      [formControl]="selectedUser"
+      placeholder="Username"
+    >
+      <mat-option
+        *ngFor="let option of userOptions"
+        [value]="option.value"
+      >
+        {{ option.text }}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="selectedUser.invalid">User is mandatory</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      matInput
+      [formControl]="selectedMoney"
+      placeholder="Money"
+    >
+    <mat-error *ngIf="selectedMoney.invalid">Invalid money amount</mat-error>
+  </mat-form-field>
+  <rm-loading-button [loading]="loading" [disabled]="!isValid()" (push)="addUser()">Add</rm-loading-button>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="close()">Close</button>
+</div>

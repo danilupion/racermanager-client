@@ -1,10 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { MatDialog } from '@angular/material';
 import { observe } from 'mobx';
 
 import { CrudType } from '../../../components/crud/crud.component';
 import { LeagueModelType, LeaguesService } from '../../../services/leagues.service';
 import { ChampionshipsService } from '../../../services/championships.service';
-import { SeasonsService } from '../../../services/seasons.service';
+import { LeagueUsersAdminDialogComponent } from './leagueUsersAdminDialog/leagueUsersAdminDialog.component';
 
 @Component({
   templateUrl: './leaguesAdmin.page.html',
@@ -14,6 +15,19 @@ export class LeaguesAdminPageComponent implements OnInit, OnDestroy {
 
   public fields = [
     'name',
+    {
+      name: 'Usuarios',
+      editable: false,
+      listValueGetter: (model) => `${model.users.length} users`,
+      onListClick: (model) => {
+        const dialogRef = this.dialog.open(LeagueUsersAdminDialogComponent, {
+          width: '400px',
+          data: {
+            league: model,
+          },
+        });
+      },
+    },
   ];
 
   private selectedChampionshipObserverDisposer;
@@ -28,6 +42,7 @@ export class LeaguesAdminPageComponent implements OnInit, OnDestroy {
   constructor(
     public leaguesService: LeaguesService,
     private championshipsService: ChampionshipsService,
+    private dialog: MatDialog,
   ) { }
 
   private async update() {

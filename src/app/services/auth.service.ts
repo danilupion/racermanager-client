@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { observable, action, computed } from 'mobx-angular';
 import * as jwtDecode from 'jwt-decode';
 
 import { Role } from '../constants/roles';
-import {Router} from '@angular/router';
 
 const LOCAL_STORAGE_KEY = 'auth';
 
@@ -61,6 +61,11 @@ export class AuthService {
     } catch (err) {
       throw new Error('Wrong credentials');
     }
+  }
+
+  public async register(username: string, email: string, password: string) {
+    await this.http.post<any>('/api/users', { username, email, password })
+      .toPromise();
   }
 
   @computed

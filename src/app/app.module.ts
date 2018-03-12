@@ -6,6 +6,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatButtonModule } from '@angular/material/button';
+import { MatListModule } from '@angular/material';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
@@ -50,6 +51,7 @@ import { SeasonTeamsAdminPageComponent } from './pages/admin/seasonTeams/seasonT
 import { SeasonDriversAdminPageComponent } from './pages/admin/seasonDrivers/seasonDriversAdmin.page';
 import { SeasonGrandsPrixAdminPageComponent } from './pages/admin/seasonGrandsPrix/seasonGrandsPrixAdmin.page';
 import { LeaguesAdminPageComponent } from './pages/admin/leagues/leaguesAdmin.page';
+import { LeagueUsersAdminDialogComponent } from './pages/admin/leagues/leagueUsersAdminDialog/leagueUsersAdminDialog.component';
 
 import { AuthService } from './services/auth.service';
 import { UsersService } from './services/users.service';
@@ -92,6 +94,7 @@ registerLocaleData(localeEs, 'es-ES');
     SeasonDriversAdminPageComponent,
     SeasonGrandsPrixAdminPageComponent,
     LeaguesAdminPageComponent,
+    LeagueUsersAdminDialogComponent,
     CapitalizePipe,
   ],
   imports: [
@@ -103,6 +106,7 @@ registerLocaleData(localeEs, 'es-ES');
     FormsModule,
     ReactiveFormsModule,
     MatButtonModule,
+    MatListModule,
     MatCardModule,
     MatCheckboxModule,
     MatTableModule,
@@ -139,6 +143,7 @@ registerLocaleData(localeEs, 'es-ES');
   entryComponents: [
     AuthDialogComponent,
     EditorDialogComponent,
+    LeagueUsersAdminDialogComponent,
   ],
   bootstrap: [
     AppComponent,
