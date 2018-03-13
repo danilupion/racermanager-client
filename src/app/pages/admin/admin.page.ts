@@ -45,6 +45,11 @@ export class AdminPageComponent {
       text: 'Season Grands Prix',
       url: '/admin/seasonGrandsPrix',
     },
+    {
+      icon: 'fa-trophy',
+      text: 'Leagues',
+      url: '/admin/leagues',
+    },
   ];
 
   public menuLinks = [

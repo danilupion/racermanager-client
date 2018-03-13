@@ -20,7 +20,7 @@ export class SeasonTeamsAdminPageComponent implements OnInit, OnDestroy {
   public crud: CrudType<SeasonTeamModelType> = {
     getAll: () => this.seasonsService.update(),
     create: (team) => this.seasonsService.createTeam(team),
-    update: (team) => this.seasonsService.updateGrandPrix(team),
+    update: (team) => this.seasonsService.updateTeam(team),
     remove: (team) => this.seasonsService.removeTeam(team),
   };
 

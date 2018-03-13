@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { FormControl, Validators } from '@angular/forms';
 
 import { sameAsValidator } from '../../../validators/samesAsValidator';
-import { UsersService } from '../../../services/users.service';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'rm-auth-register',
@@ -11,35 +11,50 @@ import { UsersService } from '../../../services/users.service';
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent {
-  username = new FormControl('', [Validators.required]);
-  email = new FormControl('', [
+  @Output()
+  private success = new EventEmitter();
+
+  public username = new FormControl('', [Validators.required]);
+
+  public email = new FormControl('', [
     Validators.required,
     Validators.pattern(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i),
   ]);
-  password = new FormControl('', [
+
+  public password = new FormControl('', [
     Validators.required,
     Validators.pattern( /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#\$%\^\&*\)\(\]\[\+=\.,_-]).{8,}$/),
   ]);
-  repeatedPassword = new FormControl('', [sameAsValidator(this.password)]);
-  loading = false;
+
+  public repeatedPassword = new FormControl('', [sameAsValidator(this.password)]);
+
+  public loading = false;
 
   constructor(
-    private usersService: UsersService,
+    private authService: AuthService,
     private snackBar: MatSnackBar,
   ) { }
 
-  async register() {
+  public async register() {
     try {
       this.loading = true;
-      await this.usersService.create(this.username.value, this.email.value, this.password.value);
+      await this.authService.register(this.username.value, this.email.value, this.password.value);
+      this.snackBar.open('Usuario creado correctamente, ya puedes hacer login', null, { duration: 3000 });
+      this.success.emit();
     } catch (err) {
-      this.snackBar.open('There was an error creating the user', null, {duration: 3000});
+      this.snackBar.open('Ocurrió un error al crear el usuario', null, { duration: 3000 });
     } finally {
       this.loading = false;
     }
   }
 
-  isValid(): boolean {
+  public submitOnEnter(event) {
+    if (this.isValid() && event.keyCode === 13) {
+      this.register();
+    }
+  }
+
+  public isValid(): boolean {
     return this.username.valid
     && this.email.valid
     && this.password.valid
