@@ -13,19 +13,6 @@ export interface CrudType<T extends BaseModelType> {
   remove: (T) => Promise<void>;
 }
 
-interface OptionType {
-  value: string|number;
-  text: string|number;
-}
-
-interface FieldDefinitionType {
-  property: string;
-  name?: string;
-  valueGetter?: (model: object) => string;
-  options?: OptionType[];
-  multiple?: boolean;
-}
-
 @Component({
   selector: 'rm-crud',
   templateUrl: './crud.component.html',
@@ -37,9 +24,6 @@ export class CrudComponent extends AbstractFieldManagerComponent implements OnIn
 
   @Input()
   public dataSource;
-
-  @Input()
-  public fields: [string|FieldDefinitionType];
 
   @Input()
   public crud: CrudType<BaseModelType>;
@@ -83,7 +67,7 @@ export class CrudComponent extends AbstractFieldManagerComponent implements OnIn
     const dialogRef = this.dialog.open(EditorDialogComponent, {
       width: '368px',
       data: {
-        fields: this.fields,
+        fields: this.getEditableFields(),
         model: {},
       },
     });
@@ -101,15 +85,16 @@ export class CrudComponent extends AbstractFieldManagerComponent implements OnIn
   }
 
   private showEditDialog(model) {
-    const processedModel = this.fields.reduce(
-      (accumulated, field) => ({
-        ...accumulated,
-        [this.getFieldProperty(field)]: this.getEditValue(model, field),
-      }),
-      {
-        id: model.id,
-      },
-    );
+    const processedModel = this.getEditableFields()
+      .reduce(
+        (accumulated, field) => ({
+          ...accumulated,
+          [this.getFieldProperty(field)]: this.getEditValue(model, field),
+        }),
+        {
+          id: model.id,
+        },
+      );
 
     const editModel = Object.keys(processedModel).reduce(
       (accumulated, key) => ({
@@ -124,7 +109,7 @@ export class CrudComponent extends AbstractFieldManagerComponent implements OnIn
     const dialogRef = this.dialog.open(EditorDialogComponent, {
       width: '368px',
       data: {
-        fields: this.fields,
+        fields: this.getEditableFields(),
         model: editModel,
       },
     });

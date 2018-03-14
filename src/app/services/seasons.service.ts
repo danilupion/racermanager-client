@@ -7,7 +7,6 @@ import { BaseModelType } from './abstractRestCollection.service';
 import { DriverModelType } from './drivers.service';
 import { TeamModelType } from './teams.service';
 import { CircuitModelType } from './circuits.service';
-import { GrandPrixModelType } from './grandsPrix.service';
 
 export interface SeasonDriverModelType extends BaseModelType {
   driver: DriverModelType;

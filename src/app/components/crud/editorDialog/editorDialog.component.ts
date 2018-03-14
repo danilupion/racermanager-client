@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+
 import { AbstractFieldManagerComponent } from '../abstractFieldManager.component';
 
 @Component({
-  selector: 'rm-crud-editor-dialog',
   templateUrl: './editorDialog.component.html',
 })
 export class EditorDialogComponent extends AbstractFieldManagerComponent {

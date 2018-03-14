@@ -6,6 +6,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatButtonModule } from '@angular/material/button';
+import { MatListModule } from '@angular/material';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
@@ -52,6 +53,8 @@ import { GrandsPrixAdminPageComponent } from './pages/admin/grandsPrix/grandsPri
 import { SeasonTeamsAdminPageComponent } from './pages/admin/seasonTeams/seasonTeamsAdmin.page';
 import { SeasonDriversAdminPageComponent } from './pages/admin/seasonDrivers/seasonDriversAdmin.page';
 import { SeasonGrandsPrixAdminPageComponent } from './pages/admin/seasonGrandsPrix/seasonGrandsPrixAdmin.page';
+import { LeaguesAdminPageComponent } from './pages/admin/leagues/leaguesAdmin.page';
+import { LeagueUsersAdminDialogComponent } from './pages/admin/leagues/leagueUsersAdminDialog/leagueUsersAdminDialog.component';
 
 import { AuthService } from './services/auth.service';
 import { UsersService } from './services/users.service';
@@ -61,6 +64,7 @@ import { TeamsService } from './services/teams.service';
 import { DriversService } from './services/drivers.service';
 import { CircuitsService } from './services/circuits.service';
 import { GrandsPrixService } from './services/grandsPrix.service';
+import { LeaguesService } from './services/leagues.service';
 
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 
@@ -94,6 +98,8 @@ registerLocaleData(localeEs, 'es-ES');
     SeasonTeamsAdminPageComponent,
     SeasonDriversAdminPageComponent,
     SeasonGrandsPrixAdminPageComponent,
+    LeaguesAdminPageComponent,
+    LeagueUsersAdminDialogComponent,
     CapitalizePipe,
     DriverComponent,
     ChangePilotDialogComponent,
@@ -107,6 +113,7 @@ registerLocaleData(localeEs, 'es-ES');
     FormsModule,
     ReactiveFormsModule,
     MatButtonModule,
+    MatListModule,
     MatCardModule,
     MatCheckboxModule,
     MatTableModule,
@@ -133,6 +140,7 @@ registerLocaleData(localeEs, 'es-ES');
     DriversService,
     CircuitsService,
     GrandsPrixService,
+    LeaguesService,
     AuthGuard,
     AdminGuard,
     {
@@ -144,6 +152,7 @@ registerLocaleData(localeEs, 'es-ES');
   entryComponents: [
     AuthDialogComponent,
     EditorDialogComponent,
+    LeagueUsersAdminDialogComponent,
     ChangePilotDialogComponent,
   ],
   bootstrap: [

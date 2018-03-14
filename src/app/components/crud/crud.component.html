@@ -33,7 +33,7 @@
       <!-- Data Columns -->
       <ng-container *ngFor="let field of fields" [matColumnDef]="getFieldName(field)">
         <mat-header-cell *matHeaderCellDef> {{ getFieldName(field) }} </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{ getListValue(element, field) }} </mat-cell>
+        <mat-cell *matCellDef="let element" (click)="onFieldValueListClick($event, field, element)"> {{ getListValue(element, field) }} </mat-cell>
       </ng-container>
 
       <!-- Edit Column -->

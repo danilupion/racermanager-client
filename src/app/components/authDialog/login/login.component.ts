@@ -11,30 +11,38 @@ import { AuthService } from '../../../services/auth.service';
 })
 export class LoginComponent {
   @Output()
-  success = new EventEmitter();
+  private success = new EventEmitter();
 
-  username = new FormControl('', Validators.required);
-  password = new FormControl('', Validators.required);
-  loading = false;
+  public username = new FormControl('', Validators.required);
+
+  public password = new FormControl('', Validators.required);
+
+  public loading = false;
 
   constructor(
     private authService: AuthService,
     private snackBar: MatSnackBar,
   ) { }
 
-  async login() {
+  public async login() {
     try {
       this.loading = true;
       await this.authService.authenticate(this.username.value, this.password.value);
       this.success.emit();
     } catch (err) {
-      this.snackBar.open(err.message, null, {duration: 3000});
+      this.snackBar.open('Ocurrió un error al hacer login, vuelve a intentarlo revisando tus credenciales', null, {duration: 3000});
     } finally {
       this.loading = false;
     }
   }
 
-  isValid(): boolean {
+  public submitOnEnter(event) {
+    if (this.isValid() && event.keyCode === 13) {
+      this.login();
+    }
+  }
+
+  public isValid(): boolean {
     return this.username.valid && this.password.valid;
   }
 }

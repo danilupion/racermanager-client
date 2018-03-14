@@ -1,12 +1,24 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-@Injectable()
-export class UsersService {
-  constructor(private http: HttpClient) { }
+import { AbstractRestCollectionService, BaseModelType } from './abstractRestCollection.service';
 
-  public async create(username: string, email: string, password: string) {
-    await this.http.post<any>('/api/users', { username, email, password })
-      .toPromise();
+export interface UserModelType extends BaseModelType {
+  username: string;
+  email: string;
+}
+
+@Injectable()
+export class UsersService extends AbstractRestCollectionService<UserModelType> {
+  protected name = 'User';
+
+  constructor(
+    protected http: HttpClient,
+  ) {
+    super(http);
+  }
+
+  protected getBaseUrl() {
+    return `/api/users`;
   }
 }
