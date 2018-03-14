@@ -1,10 +1,12 @@
 <div class="driverImage">
   <button mat-fab class="shadowOption">
+    <div class="fabArea">
       <mat-icon
       *ngIf="authService.token"
       class="material-icons"
       [matMenuTriggerFor]='menuPilots'
       >more_vert</mat-icon>
+    </div>
   </button>
     <mat-menu #menuPilots="matMenu">
       <button

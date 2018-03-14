@@ -59,8 +59,6 @@ export class TeamsPageComponent implements OnInit, OnDestroy {
     this.teams = this.seasonsService.selected
       ? this.seasonsService.selected.teams.toJS()
       : [];
-
-    console.log('Season', this.seasonsService.selected);
   }
 
   ngOnInit(): void {

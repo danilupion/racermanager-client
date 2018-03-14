@@ -30,8 +30,6 @@ export class DriversPageComponent implements OnInit, OnDestroy {
     this.drivers = this.seasonsService.selected
       ? this.seasonsService.selected.drivers.toJS()
       : [];
-
-    console.log('Season', this.seasonsService.selected);
   }
 
   ngOnInit(): void {

@@ -17,6 +17,7 @@ export class DriverComponent implements OnInit {
   urlDriver: string;
 
   // My Drivers
+  // TODO: Remove this mock
   pilots = [
     {
       name: 'Hamilton',
