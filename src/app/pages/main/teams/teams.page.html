@@ -8,7 +8,8 @@
 
         <ng-container matColumnDef="Team">
             <mat-header-cell *matHeaderCellDef> Team </mat-header-cell>
-            <mat-cell *matCellDef="let element">
+            <mat-cell class="teamColumn" *matCellDef="let element">
+              <img class="flagImg" src="../../../../assets/icons/flags/{{element.countryCode}}.png" alt="flag">
               <img class="seasonTeamImg" [src]="getTeamImg(element.code)">
             </mat-cell>
         </ng-container>

@@ -1,9 +1,11 @@
 <div class="driverImage">
-  <mat-icon
-    *ngIf="authService.token"
-    class="material-icons"
-    [matMenuTriggerFor]='menuPilots'
-    >more_vert</mat-icon>
+  <button mat-fab class="shadowOption">
+      <mat-icon
+      *ngIf="authService.token"
+      class="material-icons"
+      [matMenuTriggerFor]='menuPilots'
+      >more_vert</mat-icon>
+  </button>
     <mat-menu #menuPilots="matMenu">
       <button
         *ngFor="let pilot of pilots"

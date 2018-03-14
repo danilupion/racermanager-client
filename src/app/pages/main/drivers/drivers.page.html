@@ -9,6 +9,7 @@
           <ng-container matColumnDef="Driver">
               <mat-header-cell *matHeaderCellDef> Piloto </mat-header-cell>
               <mat-cell *matCellDef="let element">
+                <img class="flagImg" src="../../../../assets/icons/flags/{{element.countryCode}}.png" alt="flag">
                 <rm-driver
                   [driverCode]="element.code"
                 ></rm-driver>
