@@ -3,14 +3,16 @@ mat-header-cell {
   justify-content: center;
 }
 
-mat-cell{
-  display:flex !important;
+mat-cell {
+  display: flex !important;
   justify-content: space-around !important;
   align-items: center;
   .flagImg {
     width: 20px;
     height: 20px;
-    padding-left: 57%
+    position: absolute;
+    padding-left: 120px;
+    padding-bottom: 55px;
   }
   .seasonTeamImg {
     width: 150px;

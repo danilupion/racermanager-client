@@ -1,28 +1,26 @@
 <mat-card>
-    <mat-card-title>Pilotos</mat-card-title>
+  <mat-card-title>Pilotos</mat-card-title>
 
-    <mat-card-content>
-      <mat-table #table [dataSource]="drivers">
-          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  <mat-card-content>
+    <mat-table #table [dataSource]="drivers">
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
 
-          <ng-container matColumnDef="Driver">
-              <mat-header-cell *matHeaderCellDef> Piloto </mat-header-cell>
-              <mat-cell *matCellDef="let driver">
-                <img class="flagImg" src="../../../../assets/icons/flags/{{driver.countryCode}}.png" alt="flag">
-                <rm-driver
-                  [driverCode]="driver.code"
-                ></rm-driver>
-              </mat-cell>
-          </ng-container>
-          <ng-container matColumnDef="Points">
-              <mat-header-cell *matHeaderCellDef> Puntos </mat-header-cell>
-              <mat-cell *matCellDef="let driver"> {{driver.points}} </mat-cell>
-          </ng-container>
-          <ng-container matColumnDef="Price">
-              <mat-header-cell *matHeaderCellDef> Precio </mat-header-cell>
-              <mat-cell *matCellDef="let driver"> {{driver.value}} </mat-cell>
-          </ng-container>
-      </mat-table>
-    </mat-card-content>
-  </mat-card>
+      <ng-container matColumnDef="Driver">
+        <mat-header-cell *matHeaderCellDef> Piloto </mat-header-cell>
+        <mat-cell *matCellDef="let driver">
+          <img class="flagImg" src="../../../../assets/icons/flags/{{driver.countryCode}}.png" alt="flag">
+          <rm-driver [driverCode]="driver.code"></rm-driver>
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="Points">
+        <mat-header-cell *matHeaderCellDef> Puntos </mat-header-cell>
+        <mat-cell *matCellDef="let driver"> {{driver.points}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="Price">
+        <mat-header-cell *matHeaderCellDef> Precio </mat-header-cell>
+        <mat-cell *matCellDef="let driver"> {{driver.value}} </mat-cell>
+      </ng-container>
+    </mat-table>
+  </mat-card-content>
+</mat-card>

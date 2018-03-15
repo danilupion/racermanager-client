@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Inject, Input, Output} from '@angular/core';
+import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
@@ -7,24 +7,24 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 })
 export class ChangePilotDialogComponent {
   @Output()
-  result = new EventEmitter();
+  private result = new EventEmitter();
 
-  loading = false;
+  public loading = false;
 
   constructor(
     private dialogRef: MatDialogRef<ChangePilotDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) { }
 
-  setLoading(loading) {
+  public setLoading(loading) {
     this.loading = loading;
   }
 
-  save() {
+  public save() {
     this.result.emit({ ...this.data.model });
   }
 
-  close(): void {
+  private close(): void {
     this.dialogRef.close();
   }
 }

@@ -12,13 +12,13 @@ import { ChangePilotDialogComponent } from './changePilotDialog/changePilotDialo
 export class DriverComponent implements OnInit {
 
   @Input()
-  driverCode: string;
+  public driverCode: string;
 
-  urlDriver: string;
+  public urlDriver: string;
 
   // My Drivers
   // TODO: Remove this mock
-  pilots = [
+  public pilots = [
     {
       name: 'Hamilton',
       code: 'HAM',
@@ -33,19 +33,19 @@ export class DriverComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private dialog: MatDialog,
-  ) {}
+  ) { }
 
-  ngOnInit() {
+  public ngOnInit() {
     this.changeUrlDriver(this.driverCode);
   }
 
   // TODO: Implement change driver
-  changePilot(driverFrom, driverTo) {
+  public changePilot(driverFrom, driverTo) {
     this.changeUrlDriver(driverTo);
     console.log('Change from', driverFrom, ' To ', driverTo);
   }
 
-  changeUrlDriver(driverCode) {
+  private changeUrlDriver(driverCode) {
     this.urlDriver = `../../../assets/pilots/${driverCode}.jpg`;
   }
 }

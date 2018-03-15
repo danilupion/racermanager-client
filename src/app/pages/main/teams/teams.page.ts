@@ -13,7 +13,7 @@ export class TeamsPageComponent implements OnInit, OnDestroy {
   private seasonTeamsObserverDisposer;
 
   public teams = [];
-  displayedColumns = ['Team', 'TeamName', 'Drivers', 'Points', 'Factor'];
+  public displayedColumns = ['Team', 'TeamName', 'Drivers', 'Points', 'Factor'];
 
   constructor(
     public seasonsService: SeasonsService,
@@ -52,7 +52,7 @@ export class TeamsPageComponent implements OnInit, OnDestroy {
   private async update() {
     try {
       await this.seasonsService.update();
-    } catch (err) {}
+    } catch (err) { }
   }
 
   private initializeModelsFromSeasonTeams() {
@@ -61,7 +61,7 @@ export class TeamsPageComponent implements OnInit, OnDestroy {
       : [];
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.selectedChampionshipObserverDisposer = observe(
       this.championshipsService,
       'selected',
@@ -77,7 +77,7 @@ export class TeamsPageComponent implements OnInit, OnDestroy {
     this.initializeModelsFromSeasonTeams();
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     this.selectedChampionshipObserverDisposer();
     this.seasonTeamsObserverDisposer();
   }

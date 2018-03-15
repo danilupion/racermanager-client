@@ -1,12 +1,14 @@
-mat-cell{
-  display:flex !important;
+mat-cell {
+  display: flex !important;
   justify-content: center !important;
   align-items: center;
   flex-direction: column;
   .flagImg {
     width: 20px;
     height: 20px;
-    padding-left: 25%;
+    position: absolute;
+    padding-right: 90px;
+    padding-bottom: 88px;
   }
 }
 
