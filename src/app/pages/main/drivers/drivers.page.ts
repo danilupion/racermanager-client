@@ -5,49 +5,20 @@ import { ChampionshipsService } from '../../../services/championships.service';
 import { SeasonsService } from '../../../services/seasons.service';
 
 @Component({
-  templateUrl: './teams.page.html',
-  styleUrls: ['./teams.page.scss'],
+  templateUrl: './drivers.page.html',
+  styleUrls: ['./drivers.page.scss'],
 })
-export class TeamsPageComponent implements OnInit, OnDestroy {
+export class DriversPageComponent implements OnInit, OnDestroy {
   private selectedChampionshipObserverDisposer;
   private seasonTeamsObserverDisposer;
 
-  public teams = [];
-  public displayedColumns = ['Team', 'TeamName', 'Drivers', 'Points', 'Factor'];
+  public drivers = [];
+  public displayedColumns = ['Driver', 'Points', 'Price'];
 
   constructor(
     public seasonsService: SeasonsService,
     private championshipsService: ChampionshipsService,
   ) { }
-
-  public getDriverCode(driverId: string) {
-    const driver = this.getDriver(driverId);
-    return driver.code;
-  }
-
-  public getTeamImg(teamCode: string) {
-    const teamAsset = teamCode.replace(/ /g, '').toLowerCase();
-    return `../../../../assets/teams/${teamAsset}.jpg`;
-  }
-
-  public getTeamPoints(driverIds: string[]) {
-    const drivers = driverIds.map((driverId) => {
-      return this.getDriver(driverId);
-    });
-    return drivers.reduce((acc, driver) => {
-      return acc + driver.points;
-    }, 0);
-  }
-
-  public getTeamFactor(driverIds: string[]) {
-    return 2;
-  }
-
-  public getDriver(driverId: string) {
-    return this.seasonsService.selected.drivers.find((driverCandidate) => {
-      return driverCandidate.driverId === driverId;
-    });
-  }
 
   private async update() {
     try {
@@ -56,8 +27,8 @@ export class TeamsPageComponent implements OnInit, OnDestroy {
   }
 
   private initializeModelsFromSeasonTeams() {
-    this.teams = this.seasonsService.selected
-      ? this.seasonsService.selected.teams.toJS()
+    this.drivers = this.seasonsService.selected
+      ? this.seasonsService.selected.drivers.toJS()
       : [];
   }
 

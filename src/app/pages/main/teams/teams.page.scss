@@ -1,0 +1,25 @@
+mat-header-cell {
+  display: flex;
+  justify-content: center;
+}
+
+mat-cell {
+  display: flex !important;
+  justify-content: space-around !important;
+  align-items: center;
+  .flagImg {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    padding-left: 120px;
+    padding-bottom: 55px;
+  }
+  .seasonTeamImg {
+    width: 150px;
+    height: 75px;
+  }
+}
+
+.teamColumn {
+  flex-direction: column;
+}

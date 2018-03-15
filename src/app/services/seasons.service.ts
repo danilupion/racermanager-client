@@ -27,7 +27,7 @@ export interface ResultModelType extends BaseModelType {
   value: number;
 }
 
-export interface SeasonGrandPrixModelType extends BaseModelType{
+export interface SeasonGrandPrixModelType extends BaseModelType {
   circuit: CircuitModelType;
   name: string;
   countryCode: string;

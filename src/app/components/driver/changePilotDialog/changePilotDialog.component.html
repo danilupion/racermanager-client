@@ -1,0 +1,15 @@
+<div mat-dialog-content>
+  <ng-template ngFor let-field [ngForOf]="data.fields">
+    <mat-form-field>
+      <!-- <input matInput [(ngModel)]="data.model[field]" [placeholder]="field"> -->
+      <mat-select placeholder="Select Pilot">
+        <mat-option *ngFor="let pilot of pilots" [value]="pilot.value">
+          {{ pilot.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </ng-template>
+</div>
+<div mat-dialog-actions>
+  <rm-loading-button [loading]="loading" (push)="save()">Save</rm-loading-button>
+</div>
