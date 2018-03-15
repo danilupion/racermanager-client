@@ -34,8 +34,7 @@ export class GrandsPrixComponent implements OnInit, OnDestroy {
   }
 
   public getLocalTime(utcTime: string) {
-    moment.locale('es');
-    return moment(utcTime).local().format('D/MM/YY, h:mm:ss a');
+    return moment(utcTime).local().format('DD-MM-YYYY HH:mm:ss');
   }
 
   public ngOnInit(): void {

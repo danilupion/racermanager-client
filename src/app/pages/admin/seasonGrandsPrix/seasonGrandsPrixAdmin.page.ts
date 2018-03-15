@@ -9,7 +9,7 @@ import { GrandsPrixService } from '../../../services/grandsPrix.service';
 import { ChampionshipsService } from '../../../services/championships.service';
 import { alphabeticalOrder } from '../../../utils/sorting';
 
-const formatDateString = (date) => moment(date).format('YYYY-MM-DD HH:mm:ss')
+const formatDateString = (date) => moment(date).format('YYYY-MM-DD HH:mm:ss');
 
 
 @Component({
