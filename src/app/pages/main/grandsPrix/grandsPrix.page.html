@@ -1,0 +1,39 @@
+<mat-card>
+  <mat-card-title>Grandes Premios</mat-card-title>
+
+  <mat-card-content>
+    <mat-table #table [dataSource]="grandsPrix">
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+      <ng-container matColumnDef="Name">
+        <mat-header-cell *matHeaderCellDef> Nombre </mat-header-cell>
+        <mat-cell *matCellDef="let grandPrix"> {{grandPrix.name}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="Circuit">
+        <mat-header-cell *matHeaderCellDef> Circuito </mat-header-cell>
+        <mat-cell *matCellDef="let grandPrix" class="grandPrixCircuit"> {{grandPrix.circuit.name}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="Practice1">
+        <mat-header-cell *matHeaderCellDef> Práctica 1 </mat-header-cell>
+        <mat-cell *matCellDef="let grandPrix"> {{getLocalTime(grandPrix.practice1UTC)}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="Practice2">
+        <mat-header-cell *matHeaderCellDef> Práctica 2 </mat-header-cell>
+        <mat-cell *matCellDef="let grandPrix"> {{getLocalTime(grandPrix.practice2UTC)}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="Practice3">
+        <mat-header-cell *matHeaderCellDef> Práctica 3 </mat-header-cell>
+        <mat-cell *matCellDef="let grandPrix"> {{getLocalTime(grandPrix.practice3UTC)}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="Qualifying">
+        <mat-header-cell *matHeaderCellDef> Clasificatoria </mat-header-cell>
+        <mat-cell *matCellDef="let grandPrix"> {{getLocalTime(grandPrix.qualifyingUTC)}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="Race">
+        <mat-header-cell *matHeaderCellDef> Carrera </mat-header-cell>
+        <mat-cell *matCellDef="let grandPrix"> {{getLocalTime(grandPrix.raceUTC)}} </mat-cell>
+      </ng-container>
+    </mat-table>
+  </mat-card-content>
+</mat-card>

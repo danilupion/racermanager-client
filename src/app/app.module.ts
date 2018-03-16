@@ -73,6 +73,7 @@ import { AdminGuard } from './guards/admin.guard';
 import { DriverComponent } from './components/driver/driver.component';
 
 import { CapitalizePipe } from './pipes/capitalize.pipe';
+import { GrandsPrixComponent } from './pages/main/grandsPrix/grandsPrix.page';
 
 registerLocaleData(localeEs, 'es-ES');
 
@@ -90,6 +91,7 @@ registerLocaleData(localeEs, 'es-ES');
     MainPageComponent,
     TeamsPageComponent,
     DriversPageComponent,
+    GrandsPrixComponent,
     AdminPageComponent,
     TeamsAdminPageComponent,
     DriversAdminPageComponent,

@@ -16,15 +16,19 @@ import { SeasonTeamsAdminPageComponent } from './pages/admin/seasonTeams/seasonT
 import { SeasonDriversAdminPageComponent } from './pages/admin/seasonDrivers/seasonDriversAdmin.page';
 import { SeasonGrandsPrixAdminPageComponent } from './pages/admin/seasonGrandsPrix/seasonGrandsPrixAdmin.page';
 import { LeaguesAdminPageComponent } from './pages/admin/leagues/leaguesAdmin.page';
+import { GrandsPrixComponent } from './pages/main/grandsPrix/grandsPrix.page';
 
 const appRoutes: Routes = [
-  { path: '', component: MainPageComponent,
+  {
+    path: '', component: MainPageComponent,
     children: [
       { path: 'teams', component: TeamsPageComponent },
       { path: 'drivers', component: DriversPageComponent },
+      { path: 'grandsPrix', component: GrandsPrixComponent },
     ],
   },
-  { path: 'admin', canActivate: [AdminGuard], component: AdminPageComponent,
+  {
+    path: 'admin', canActivate: [AdminGuard], component: AdminPageComponent,
     children: [
       { path: 'teams', component: TeamsAdminPageComponent },
       { path: 'drivers', component: DriversAdminPageComponent },

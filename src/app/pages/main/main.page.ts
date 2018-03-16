@@ -21,6 +21,11 @@ export class MainPageComponent {
       text: 'Drivers',
       url: '/drivers',
     },
+    {
+      icon: 'fa-flag-checkered',
+      text: 'Grands Prix',
+      url: '/grandsPrix',
+    },
   ];
 
   public menuLinks = [
