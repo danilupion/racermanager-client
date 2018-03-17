@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { action, observable } from 'mobx-angular';
 import { reaction } from 'mobx';
 
-import { SeasonModelType, SeasonsService } from './seasons.service';
+import { SeasonsService } from './seasons.service';
 import { BaseModelType } from './abstractRestCollection.service';
 import { AuthService } from './auth.service';
 
@@ -16,6 +16,9 @@ export interface LeagueModelType extends BaseModelType {
 export class MyLeaguesService {
   @observable
   public items;
+
+  @observable
+  public selected;
 
   constructor(
     protected http: HttpClient,
@@ -35,10 +38,11 @@ export class MyLeaguesService {
   }
 
   public async update() {
-    if (this.authService.isLoggedIn) {
+    if (this.authService.isLoggedIn && this.seasonsService.selected) {
       await this.getLeagues();
     } else {
-      this.items = null;
+      this.items = [];
+      this.selected = null;
     }
   }
 
@@ -49,11 +53,20 @@ export class MyLeaguesService {
   @action
   protected async getLeagues() {
     try {
-      this.items = await this.http.get<SeasonModelType>(this.getBaseUrl())
+      this.items = await this.http.get<LeagueModelType>(this.getBaseUrl())
         .toPromise();
+
+      if (this.items.length > 0) {
+        this.selected = this.items[0];
+      }
     } catch (err) {
       this.items = null;
       throw new Error(`Leagues retrieval failed`);
     }
+  }
+
+  @action
+  public setSelected(league: LeagueModelType) {
+    this.selected = league;
   }
 }

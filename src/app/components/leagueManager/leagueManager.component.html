@@ -1,1 +1,17 @@
-<div *ngIf="authService.isLoggedIn" class="league"></div>
+<div *ngIf="authService.isLoggedIn" class="league">
+  <div *ngIf="myLeagueService.items && myLeagueService.items.length > 1" >
+    <mat-menu #leaguesMenu="matMenu">
+      <button
+        mat-menu-item
+        *ngFor="let league of myLeagueService.items"
+        (click)="myLeagueService.setSelected(league)"
+      >
+        <span>{{ league.name }}</span>
+      </button>
+    </mat-menu>
+
+    <button mat-button [matMenuTriggerFor]="leaguesMenu">
+      <span>{{ myLeagueService.selected.name }}</span>
+    </button>
+  </div>
+</div>
