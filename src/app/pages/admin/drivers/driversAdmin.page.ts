@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { observe } from 'mobx';
+import { reaction } from 'mobx';
 
 import { CrudType } from '../../../components/crud/crud.component';
 import { DriverModelType, DriversService } from '../../../services/drivers.service';
@@ -20,7 +20,7 @@ export class DriversAdminPageComponent implements OnInit, OnDestroy {
     },
   ];
 
-  private selectedChampionshipObserverDisposer;
+  private selectedChampionshipReactionDisposer;
 
   public crud: CrudType<DriverModelType> = {
     getAll: () => this.driversService.get(),
@@ -42,14 +42,13 @@ export class DriversAdminPageComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this.update();
-    this.selectedChampionshipObserverDisposer = observe(
-      this.championshipsService,
-      'selected',
-      () => this.update(),
-      );
+    this.selectedChampionshipReactionDisposer = reaction(
+      () => this.championshipsService.selected,
+      this.update.bind(this),
+    );
   }
 
   public ngOnDestroy(): void {
-    this.selectedChampionshipObserverDisposer();
+    this.selectedChampionshipReactionDisposer();
   }
 }

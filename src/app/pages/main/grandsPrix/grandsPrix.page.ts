@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { observe } from 'mobx';
+import { reaction } from 'mobx';
 import * as moment from 'moment';
 
 import { ChampionshipsService } from '../../../services/championships.service';
@@ -10,8 +10,7 @@ import { SeasonsService } from '../../../services/seasons.service';
   styleUrls: ['./grandsPrix.page.scss'],
 })
 export class GrandsPrixComponent implements OnInit, OnDestroy {
-  private selectedChampionshipObserverDisposer;
-  private seasonGrandsPrixObserverDisposer;
+  private seasonGrandsPrixReactionDisposer;
 
   public grandsPrix = [];
   public displayedColumns = ['Name', 'Circuit', 'Practice1', 'Practice2', 'Practice3', 'Qualifying', 'Race'];
@@ -38,23 +37,15 @@ export class GrandsPrixComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit(): void {
-    this.selectedChampionshipObserverDisposer = observe(
-      this.championshipsService,
-      'selected',
-      () => this.update(),
-    );
-
-    this.seasonGrandsPrixObserverDisposer = observe(
-      this.seasonsService,
-      'selected',
-      () => this.initializeModelsFromSeasonTeams(),
+    this.seasonGrandsPrixReactionDisposer = reaction(
+      () => this.seasonsService.selected,
+      this.initializeModelsFromSeasonTeams.bind(this),
     );
 
     this.initializeModelsFromSeasonTeams();
   }
 
   public ngOnDestroy(): void {
-    this.selectedChampionshipObserverDisposer();
-    this.seasonGrandsPrixObserverDisposer();
+    this.seasonGrandsPrixReactionDisposer();
   }
 }

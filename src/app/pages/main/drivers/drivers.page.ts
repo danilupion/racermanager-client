@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { observe } from 'mobx';
+import { reaction } from 'mobx';
 
 import { ChampionshipsService } from '../../../services/championships.service';
 import { SeasonsService } from '../../../services/seasons.service';
@@ -9,22 +9,14 @@ import { SeasonsService } from '../../../services/seasons.service';
   styleUrls: ['./drivers.page.scss'],
 })
 export class DriversPageComponent implements OnInit, OnDestroy {
-  private selectedChampionshipObserverDisposer;
-  private seasonTeamsObserverDisposer;
+  private selectedSeasonReactionDisposer;
 
   public drivers = [];
   public displayedColumns = ['Driver', 'Points', 'Price'];
 
   constructor(
     public seasonsService: SeasonsService,
-    private championshipsService: ChampionshipsService,
   ) { }
-
-  private async update() {
-    try {
-      await this.seasonsService.update();
-    } catch (err) { }
-  }
 
   private initializeModelsFromSeasonTeams() {
     this.drivers = this.seasonsService.selected
@@ -33,23 +25,15 @@ export class DriversPageComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit(): void {
-    this.selectedChampionshipObserverDisposer = observe(
-      this.championshipsService,
-      'selected',
-      () => this.update(),
-    );
-
-    this.seasonTeamsObserverDisposer = observe(
-      this.seasonsService,
-      'selected',
-      () => this.initializeModelsFromSeasonTeams(),
+    this.selectedSeasonReactionDisposer = reaction(
+      () => this.seasonsService.selected,
+      this.initializeModelsFromSeasonTeams.bind(this),
     );
 
     this.initializeModelsFromSeasonTeams();
   }
 
   public ngOnDestroy(): void {
-    this.selectedChampionshipObserverDisposer();
-    this.seasonTeamsObserverDisposer();
+    this.selectedSeasonReactionDisposer();
   }
 }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { action, observable } from 'mobx-angular';
+import { reaction } from 'mobx';
 
 import { ChampionshipsService } from './championships.service';
 import { BaseModelType } from './abstractRestCollection.service';
@@ -9,9 +10,14 @@ import { TeamModelType } from './teams.service';
 import { CircuitModelType } from './circuits.service';
 
 export interface SeasonDriverModelType extends BaseModelType {
-  driver: DriverModelType;
+  championship: string;
+  code: string;
+  driverId: string;
+  fitness: string;
+  name: string;
+  points: string;
   initialValue: number;
-  value: number;
+  value: string;
 }
 
 export interface SeasonTeamModelType extends BaseModelType {
@@ -40,6 +46,7 @@ export interface SeasonGrandPrixModelType extends BaseModelType {
 }
 
 export interface SeasonModelType extends BaseModelType {
+  championship: string;
   name: string;
   seasonGrandPrixes: SeasonGrandPrixModelType[];
   teams: SeasonTeamModelType[];
@@ -58,6 +65,10 @@ export class SeasonsService {
     private championshipsService: ChampionshipsService,
   ) {
     this.update();
+    reaction(
+      () => this.championshipsService.selected,
+      this.update.bind(this),
+    );
   }
 
   protected getBaseUrl() {

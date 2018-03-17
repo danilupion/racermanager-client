@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { observe } from 'mobx';
+import { reaction } from 'mobx';
 
 import { CrudType } from '../../../components/crud/crud.component';
 import { TeamModelType, TeamsService } from '../../../services/teams.service';
@@ -19,7 +19,7 @@ export class TeamsAdminPageComponent implements OnInit, OnDestroy {
     },
   ];
 
-  private selectedChampionshipObserverDisposer;
+  private selectedChampionshipReactionDisposer;
 
   crud: CrudType<TeamModelType> = {
     getAll: () => this.teamsService.get(),
@@ -41,14 +41,13 @@ export class TeamsAdminPageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.update();
-    this.selectedChampionshipObserverDisposer = observe(
-      this.championshipsService,
-      'selected',
-      () => this.update(),
+    this.selectedChampionshipReactionDisposer = reaction(
+      () => this.championshipsService.selected,
+      this.update.bind(this),
     );
   }
 
   public ngOnDestroy(): void {
-    this.selectedChampionshipObserverDisposer();
+    this.selectedChampionshipReactionDisposer();
   }
 }

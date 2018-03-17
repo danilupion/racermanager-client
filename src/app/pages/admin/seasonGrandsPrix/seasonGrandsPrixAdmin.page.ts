@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { observe } from 'mobx';
+import { reaction } from 'mobx';
 import * as moment from 'moment';
 
 import { CrudType } from '../../../components/crud/crud.component';
@@ -20,7 +20,7 @@ export class SeasonGrandsPrixAdminPageComponent implements OnInit, OnDestroy {
 
   public fields = [];
 
-  private selectedChampionshipObserverDisposer;
+  private selectedChampionshipReactionDisposer;
 
   public crud: CrudType<SeasonGrandPrixModelType> = {
     getAll: () => this.seasonsService.update(),
@@ -38,10 +38,9 @@ export class SeasonGrandsPrixAdminPageComponent implements OnInit, OnDestroy {
 
   async ngOnInit(): Promise<void> {
     try {
-      this.selectedChampionshipObserverDisposer = observe(
-        this.championshipsService,
-        'selected',
-        () => this.seasonsService.update(),
+      this.selectedChampionshipReactionDisposer = reaction(
+        () => this.championshipsService.selected,
+        this.seasonsService.update.bind(this),
       );
 
       await Promise.all([this.circuitsService.get(), this.grandsPrixService.get()]);
@@ -108,6 +107,6 @@ export class SeasonGrandsPrixAdminPageComponent implements OnInit, OnDestroy {
   }
 
   public ngOnDestroy(): void {
-    this.selectedChampionshipObserverDisposer();
+    this.selectedChampionshipReactionDisposer();
   }
 }

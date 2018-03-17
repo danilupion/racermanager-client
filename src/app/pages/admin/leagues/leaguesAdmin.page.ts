@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { observe } from 'mobx';
+import { reaction } from 'mobx';
 
 import { CrudType } from '../../../components/crud/crud.component';
 import { LeagueModelType, LeaguesService } from '../../../services/leagues.service';
@@ -30,7 +30,7 @@ export class LeaguesAdminPageComponent implements OnInit, OnDestroy {
     },
   ];
 
-  private selectedChampionshipObserverDisposer;
+  private selectedChampionshipReactionDisposer;
 
   public crud: CrudType<LeagueModelType> = {
     getAll: () => this.leaguesService.get(),
@@ -53,14 +53,13 @@ export class LeaguesAdminPageComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this.update();
-    this.selectedChampionshipObserverDisposer = observe(
-      this.championshipsService,
-      'selected',
-      () => this.update(),
+    this.selectedChampionshipReactionDisposer = reaction(
+      () => this.championshipsService.selected,
+      this.update.bind(this),
     );
   }
 
   public ngOnDestroy(): void {
-    this.selectedChampionshipObserverDisposer();
+    this.selectedChampionshipReactionDisposer();
   }
 }
