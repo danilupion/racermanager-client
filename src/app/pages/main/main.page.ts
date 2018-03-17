@@ -18,12 +18,12 @@ export class MainPageComponent {
     },
     {
       icon: 'face',
-      text: 'Drivers',
+      text: 'Pilotos',
       url: '/drivers',
     },
     {
       icon: 'fa-flag-checkered',
-      text: 'Grands Prix',
+      text: 'Grandes Premios',
       url: '/grandsPrix',
     },
   ];
