@@ -1,4 +1,6 @@
+@import "../../../theme.variables";
+
 .content {
   margin: 20px auto;
-  max-width: 1200px;
+  max-width: $content-wrapper-width;
 }
