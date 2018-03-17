@@ -40,6 +40,7 @@ import { LoadingButtonComponent } from './components/loadingButton/loadingButton
 import { CrudComponent } from './components/crud/crud.component';
 import { EditorDialogComponent } from './components/crud/editorDialog/editorDialog.component';
 import { ChangePilotDialogComponent } from './components/driver/changePilotDialog/changePilotDialog.component';
+import { LeagueManagerComponent } from './components/leagueManager/leagueManager.component';
 
 import { MainPageComponent } from './pages/main/main.page';
 import { TeamsPageComponent } from './pages/main/teams/teams.page';
@@ -65,6 +66,7 @@ import { DriversService } from './services/drivers.service';
 import { CircuitsService } from './services/circuits.service';
 import { GrandsPrixService } from './services/grandsPrix.service';
 import { LeaguesService } from './services/leagues.service';
+import { MyLeaguesService } from './services/myLeagues.service';
 
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 
@@ -105,6 +107,7 @@ registerLocaleData(localeEs, 'es-ES');
     CapitalizePipe,
     DriverComponent,
     ChangePilotDialogComponent,
+    LeagueManagerComponent,
   ],
   imports: [
     BrowserModule,
@@ -143,6 +146,7 @@ registerLocaleData(localeEs, 'es-ES');
     CircuitsService,
     GrandsPrixService,
     LeaguesService,
+    MyLeaguesService,
     AuthGuard,
     AdminGuard,
     {

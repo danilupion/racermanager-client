@@ -70,7 +70,7 @@ export class AuthService {
 
   @computed
   public get isLoggedIn() {
-    return this.token !== null;
+    return !!this.token;
   }
 
   @computed
