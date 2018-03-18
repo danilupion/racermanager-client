@@ -52,7 +52,7 @@ export class LeagueUsersAdminDialogComponent implements OnInit, OnDestroy {
       .sort((user1, user2) => alphabeticalOrder(user1.text, user2.text));
   }
 
-  private close(): void {
+  public close(): void {
     this.dialogRef.close();
   }
 

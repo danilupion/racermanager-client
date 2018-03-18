@@ -1,18 +1,18 @@
 <div class="driverImage">
-  <button mat-fab *ngIf="authService.token" class="shadowOption">
-    <div class="fabArea">
-      <mat-icon class="material-icons"
-        [matMenuTriggerFor]='menuPilots'
-        >more_vert
-      </mat-icon>
-    </div>
-  </button>
-  <mat-menu #menuPilots="matMenu">
-    <button *ngFor="let pilot of pilots"
-      mat-menu-item
-      (click)="changePilot(pilot.code, driverCode)"
-      >{{pilot.name}}
+  <div *ngIf="authService.isLoggedIn">
+    <mat-menu #menuPilots="matMenu">
+      <button *ngFor="let pilot of myLeaguesService.myUser && myLeaguesService.myUser.pilots"
+        mat-menu-item
+        (click)="changePilot(pilot.code, driverCode)"
+        >{{pilot}}
+      </button>
+    </mat-menu>
+
+    <button mat-fab [matMenuTriggerFor]='menuPilots' class="shadowOption">
+      <div class="fabArea">
+        <mat-icon class="material-icons">more_vert</mat-icon>
+      </div>
     </button>
-  </mat-menu>
-  <img [src]="urlDriver">
+  </div>
+  <img [src]="getDriverImageUrl()">
 </div>

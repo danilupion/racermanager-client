@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { computed } from 'mobx-angular';
 
 import { MyLeaguesService } from '../../services/myLeagues.service';
 import { AuthService } from '../../services/auth.service';
@@ -9,9 +10,8 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./leagueManager.component.scss'],
 })
 export class LeagueManagerComponent {
-
   constructor(
-    public myLeagueService: MyLeaguesService,
+    public myLeaguesService: MyLeaguesService,
     public authService: AuthService,
   ) {}
 }

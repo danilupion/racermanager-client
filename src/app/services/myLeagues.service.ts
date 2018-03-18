@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { action, observable } from 'mobx-angular';
-import { reaction } from 'mobx';
+import { computed, reaction} from 'mobx';
 
 import { SeasonsService } from './seasons.service';
 import { BaseModelType } from './abstractRestCollection.service';
@@ -19,6 +19,12 @@ export class MyLeaguesService {
 
   @observable
   public selected;
+
+  @computed
+  get myUser() {
+    return this.selected && this.selected.users
+      .find(candidate => candidate.userId === this.authService.userId);
+  }
 
   constructor(
     protected http: HttpClient,

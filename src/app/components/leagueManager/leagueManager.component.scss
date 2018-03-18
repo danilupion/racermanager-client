@@ -2,7 +2,9 @@
 
 .league {
   margin: 0 auto;
-  height: 100px;
   max-width: $content-wrapper-width;
   background-color: $primary;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
