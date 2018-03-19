@@ -1,10 +1,10 @@
 <div class="driverImage">
-  <div *ngIf="authService.isLoggedIn">
+  <div *ngIf="authService.isLoggedIn && showMenu">
     <mat-menu #menuPilots="matMenu">
-      <button *ngFor="let pilot of myLeaguesService.myUser && myLeaguesService.myUser.pilots"
+      <button *ngFor="let myDriver of myLeaguesService.myDrivers; let i = index"
         mat-menu-item
-        (click)="changePilot(pilot.code, driverCode)"
-        >{{pilot}}
+        (click)="myLeaguesService.setDriver(i, driver)"
+        >{{ myDriver && myDriver.name || 'Piloto ' + (i + 1) }}
       </button>
     </mat-menu>
 

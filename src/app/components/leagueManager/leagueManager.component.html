@@ -1,5 +1,9 @@
 <div *ngIf="authService.isLoggedIn" class="league">
-  <rm-driver *ngFor="let driver of myLeaguesService.myUser && myLeaguesService.myUser.drivers" [driver]="driver"></rm-driver>
+  <rm-driver *ngFor="let driver of myLeaguesService.myDrivers" [driver]="driver" [showMenu]="false"></rm-driver>
+  <div>
+    Dinero: {{ myLeaguesService.myMoney }} <br>
+    Total: {{ myLeaguesService.myTotal }}
+  </div>
   <div *ngIf="myLeaguesService.items && myLeaguesService.items.length > 1" >
     <mat-menu #leaguesMenu="matMenu">
       <button

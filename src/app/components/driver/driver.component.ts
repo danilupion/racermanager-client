@@ -3,7 +3,6 @@ import { MatDialog } from '@angular/material';
 
 import { AuthService } from '../../services/auth.service';
 import { DriverModelType } from '../../services/drivers.service';
-import { ChangePilotDialogComponent } from './changePilotDialog/changePilotDialog.component';
 import { MyLeaguesService } from '../../services/myLeagues.service';
 
 @Component({
@@ -14,6 +13,9 @@ import { MyLeaguesService } from '../../services/myLeagues.service';
 export class DriverComponent {
   @Input()
   public driver: DriverModelType;
+
+  @Input()
+  public showMenu = true;
 
   constructor(
     public authService: AuthService,

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { action, observable } from 'mobx-angular';
-import { computed, reaction } from 'mobx';
+import { action, observable, computed } from 'mobx-angular';
+import { reaction } from 'mobx';
 
 import { ChampionshipsService } from './championships.service';
 import { BaseModelType } from './abstractRestCollection.service';

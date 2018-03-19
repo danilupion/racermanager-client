@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { action, observable } from 'mobx-angular';
-import { computed, reaction} from 'mobx';
+import { action, observable, computed } from 'mobx-angular';
+import { reaction, toJS } from 'mobx';
 
 import { SeasonsService } from './seasons.service';
 import { BaseModelType } from './abstractRestCollection.service';
 import { AuthService } from './auth.service';
+import { DriverModelType } from './drivers.service';
 
 export interface LeagueModelType extends BaseModelType {
   name: string;
@@ -20,10 +21,49 @@ export class MyLeaguesService {
   @observable
   public selected;
 
+  @observable
+  protected wantedDrivers = [null, null];
+
+  @computed
+  get hasPendingChanges() {
+    return this.wantedDrivers.some(driver => driver !== null);
+  }
+
   @computed
   get myUser() {
-    return this.selected && this.selected.users
+    if (!this.selected) {
+      return null;
+    }
+
+    const user = this.selected && this.selected.users
       .find(candidate => candidate.userId === this.authService.userId);
+
+    return toJS(user);
+  }
+
+  @computed
+  get myDrivers() {
+    if (!this.myUser) {
+      return [];
+    }
+
+    return this.myUser && this.myUser.drivers.reduce(
+      (accumulated, current, index) => [...accumulated, this.wantedDrivers[index] ? this.wantedDrivers[index] : current],
+      [],
+    );
+  }
+
+  @computed
+  get myMoney() {
+    return this.myUser && this.myUser.money;
+  }
+
+  @computed
+  get myTotal() {
+    return this.myDrivers.reduce(
+      (accumulated, current) => accumulated + (current && current.value || 0),
+      this.myMoney,
+    );
   }
 
   constructor(
@@ -57,6 +97,11 @@ export class MyLeaguesService {
   }
 
   @action
+  public setDriver(position: number, driver: DriverModelType) {
+    this.wantedDrivers[position] = driver;
+  }
+
+  @action
   protected async getLeagues() {
     try {
       this.items = await this.http.get<LeagueModelType>(this.getBaseUrl())
@@ -74,5 +119,6 @@ export class MyLeaguesService {
   @action
   public setSelected(league: LeagueModelType) {
     this.selected = league;
+    this.wantedDrivers = [null, null];
   }
 }
