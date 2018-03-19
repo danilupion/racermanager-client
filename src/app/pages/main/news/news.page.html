@@ -1,0 +1,43 @@
+<mat-card>
+  <mat-card-title>Noticias</mat-card-title>
+
+  <mat-card class="newsEntry">
+    <mat-card-header>
+      <div mat-card-avatar class="userImage"></div>
+      <mat-card-title>Victor Fernandez</mat-card-title>
+      <mat-card-subtitle>Realizó cambios en su equipo antes del GP de XXX</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content class="contentNews">
+      <mat-card class="driverChanges">
+        <img src="../../../../assets/icons/out.png" alt="outDriver" class="arrowImage">
+        <rm-driver [driverCode]="'ALO'"></rm-driver>
+        <rm-driver [driverCode]="'HAM'"></rm-driver>
+      </mat-card>
+      <mat-card class="driverChanges">
+        <img src="../../../../assets/icons/in.png" alt="inDriver" class="arrowImage">
+        <rm-driver [driverCode]="'VAN'"></rm-driver>
+        <rm-driver [driverCode]="'STR'"></rm-driver>
+      </mat-card>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="newsEntry">
+    <mat-card-header>
+      <div mat-card-avatar class="userImage"></div>
+      <mat-card-title>Daniel Lupión</mat-card-title>
+      <mat-card-subtitle>Realizó cambios en su equipo antes del GP de XXX</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content class="contentNews">
+      <mat-card class="driverChanges">
+        <img src="../../../../assets/icons/out.png" alt="outDriver" class="arrowImage">
+        <rm-driver [driverCode]="'BOT'"></rm-driver>
+        <rm-driver [driverCode]="'PER'"></rm-driver>
+      </mat-card>
+      <mat-card class="driverChanges">
+        <img src="../../../../assets/icons/in.png" alt="inDriver" class="arrowImage">
+        <rm-driver [driverCode]="'RIC'"></rm-driver>
+        <rm-driver [driverCode]="'RAI'"></rm-driver>
+      </mat-card>
+    </mat-card-content>
+  </mat-card>
+</mat-card>

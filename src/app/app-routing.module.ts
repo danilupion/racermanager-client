@@ -8,6 +8,7 @@ import { MainPageComponent } from './pages/main/main.page';
 import { TeamsPageComponent } from './pages/main/teams/teams.page';
 import { DriversPageComponent } from './pages/main/drivers/drivers.page';
 import { AdminPageComponent } from './pages/admin/admin.page';
+import { NewsPageComponent } from './pages/main/news/news.page';
 import { TeamsAdminPageComponent } from './pages/admin/teams/teamsAdmin.page';
 import { DriversAdminPageComponent } from './pages/admin/drivers/driversAdmin.page';
 import { CircuitsAdminPageComponent } from './pages/admin/circuits/circuitsAdmin.page';
@@ -22,6 +23,7 @@ const appRoutes: Routes = [
   {
     path: '', component: MainPageComponent,
     children: [
+      { path: '', component: NewsPageComponent },
       { path: 'teams', component: TeamsPageComponent },
       { path: 'drivers', component: DriversPageComponent },
       { path: 'grandsPrix', component: GrandsPrixComponent },

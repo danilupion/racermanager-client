@@ -44,6 +44,7 @@ import { ChangePilotDialogComponent } from './components/driver/changePilotDialo
 import { MainPageComponent } from './pages/main/main.page';
 import { TeamsPageComponent } from './pages/main/teams/teams.page';
 import { DriversPageComponent } from './pages/main/drivers/drivers.page';
+import { NewsPageComponent } from './pages/main/news/news.page';
 
 import { AdminPageComponent } from './pages/admin/admin.page';
 import { TeamsAdminPageComponent } from './pages/admin/teams/teamsAdmin.page';
@@ -91,6 +92,7 @@ registerLocaleData(localeEs, 'es-ES');
     MainPageComponent,
     TeamsPageComponent,
     DriversPageComponent,
+    NewsPageComponent,
     GrandsPrixComponent,
     AdminPageComponent,
     TeamsAdminPageComponent,
