@@ -2,7 +2,7 @@
   <mat-card-title>Escuderías</mat-card-title>
 
   <mat-card-content>
-    <mat-table #table [dataSource]="teams">
+    <mat-table #table [dataSource]="seasonsService.teams">
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
 
@@ -15,21 +15,21 @@
       </ng-container>
       <ng-container matColumnDef="TeamName">
         <mat-header-cell *matHeaderCellDef> Nombre </mat-header-cell>
-        <mat-cell *matCellDef="let team"> {{team.name}} </mat-cell>
+        <mat-cell *matCellDef="let team"> {{ team.name }} </mat-cell>
       </ng-container>
       <ng-container matColumnDef="Drivers">
         <mat-header-cell *matHeaderCellDef> Pilotos </mat-header-cell>
         <mat-cell *matCellDef="let team">
-          <rm-driver *ngFor="let driverId of team.driverIds" [driverCode]="getDriverCode(driverId)"></rm-driver>
+          <rm-driver *ngFor="let driver of team.drivers" [driver]="driver"></rm-driver>
         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="Points">
         <mat-header-cell *matHeaderCellDef> Puntos </mat-header-cell>
-        <mat-cell *matCellDef="let team"> {{getTeamPoints(team.driverIds)}} </mat-cell>
+        <mat-cell *matCellDef="let team"> {{ team.points }} </mat-cell>
       </ng-container>
       <ng-container matColumnDef="Factor">
-        <mat-header-cell *matHeaderCellDef> Factor </mat-header-cell>
-        <mat-cell *matCellDef="let team"> {{getTeamFactor(team.driverIds)}} </mat-cell>
+        <mat-header-cell *matHeaderCellDef> Bonus de Equipo </mat-header-cell>
+        <mat-cell *matCellDef="let team"> {{ team.bonus }} </mat-cell>
       </ng-container>
     </mat-table>
   </mat-card-content>

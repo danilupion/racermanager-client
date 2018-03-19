@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { action, observable } from 'mobx-angular';
-import { reaction } from 'mobx';
+import { computed, reaction } from 'mobx';
 
 import { ChampionshipsService } from './championships.service';
 import { BaseModelType } from './abstractRestCollection.service';
@@ -23,6 +23,7 @@ export interface SeasonDriverModelType extends BaseModelType {
 export interface SeasonTeamModelType extends BaseModelType {
   team: TeamModelType;
   drivers: SeasonDriverModelType[];
+  bonus: number;
 }
 
 export interface ResultModelType extends BaseModelType {
@@ -59,6 +60,39 @@ export class SeasonsService {
 
   @observable
   selected;
+
+  @computed
+  get drivers() {
+    return this.selected && this.selected.drivers.toJS() || [];
+  }
+
+  @computed
+  get teams() {
+    if (!this.selected) {
+      return [];
+    }
+
+    return this.selected.teams.map(
+      (team) => {
+        const { driverIds, ...rest} = team;
+
+        const drivers = team.driverIds.map(
+          driverId => this.selected.drivers.find(candidate => candidate.driverId === driverId),
+        );
+
+        return {
+          ...rest,
+          drivers,
+          points: drivers.reduce((accumulated, current) => accumulated + (current && current.points || 0), 0),
+        };
+      },
+    );
+  }
+
+  @computed
+  get grandsPrix() {
+    return this.selected && this.selected.grandsPrix.toJS() || [];
+  }
 
   constructor(
     protected http: HttpClient,

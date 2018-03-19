@@ -2,7 +2,7 @@
   <mat-card-title>Grandes Premios</mat-card-title>
 
   <mat-card-content>
-    <mat-table #table [dataSource]="grandsPrix">
+    <mat-table #table [dataSource]="seasonsService.grandsPrix">
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
 

@@ -1,5 +1,5 @@
 <div *ngIf="authService.isLoggedIn" class="league">
-  <rm-driver *ngFor="let pilot of myLeaguesService.myUser && myLeaguesService.myUser.pilots"></rm-driver>
+  <rm-driver *ngFor="let driver of myLeaguesService.myUser && myLeaguesService.myUser.drivers" [driver]="driver"></rm-driver>
   <div *ngIf="myLeaguesService.items && myLeaguesService.items.length > 1" >
     <mat-menu #leaguesMenu="matMenu">
       <button
