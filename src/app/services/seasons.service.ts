@@ -61,12 +61,12 @@ export class SeasonsService {
   @observable
   selected;
 
-  @computed
+  @computed({keepAlive: true})
   get drivers() {
     return this.selected && this.selected.drivers.toJS() || [];
   }
 
-  @computed
+  @computed({keepAlive: true})
   get teams() {
     if (!this.selected) {
       return [];
@@ -89,7 +89,7 @@ export class SeasonsService {
     );
   }
 
-  @computed
+  @computed({keepAlive: true})
   get grandsPrix() {
     return this.selected && this.selected.grandsPrix.toJS() || [];
   }

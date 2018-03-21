@@ -20,7 +20,7 @@
       <ng-container matColumnDef="Drivers">
         <mat-header-cell *matHeaderCellDef> Pilotos </mat-header-cell>
         <mat-cell *matCellDef="let team">
-          <rm-driver *ngFor="let driver of team.drivers" [driver]="driver" id></rm-driver>
+          <rm-driver *ngFor="let driver of team.drivers" [driver]="driver"></rm-driver>
         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="Points">

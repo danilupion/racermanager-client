@@ -24,12 +24,12 @@ export class MyLeaguesService {
   @observable
   protected wantedDrivers = [null, null];
 
-  @computed
+  @computed({keepAlive: true})
   get hasPendingChanges() {
     return this.wantedDrivers.some(driver => driver !== null);
   }
 
-  @computed
+  @computed({keepAlive: true})
   get myUser() {
     if (!this.selected) {
       return null;
@@ -41,24 +41,24 @@ export class MyLeaguesService {
     return toJS(user);
   }
 
-  @computed
+  @computed({keepAlive: true})
   get myDrivers() {
     if (!this.myUser) {
       return [];
     }
 
-    return this.myUser && this.myUser.drivers.reduce(
+    return this.myUser.drivers.reduce(
       (accumulated, current, index) => [...accumulated, this.wantedDrivers[index] ? this.wantedDrivers[index] : current],
       [],
     );
   }
 
-  @computed
+  @computed({keepAlive: true})
   get myMoney() {
     return this.myUser && this.myUser.money;
   }
 
-  @computed
+  @computed({keepAlive: true})
   get myTotal() {
     return this.myDrivers.reduce(
       (accumulated, current) => accumulated + (current && current.value || 0),
@@ -90,6 +90,10 @@ export class MyLeaguesService {
       this.items = [];
       this.selected = null;
     }
+  }
+
+  public canBuyDriver(driver: DriverModelType) {
+    return !this.myDrivers.some(candidate => candidate && candidate.driverId === driver.driverId);
   }
 
   protected getBaseUrl() {

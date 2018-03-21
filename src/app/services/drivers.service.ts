@@ -5,6 +5,7 @@ import { ChampionshipsService } from './championships.service';
 import { AbstractRestCollectionService, BaseModelType } from './abstractRestCollection.service';
 
 export interface DriverModelType extends BaseModelType {
+  driverId: string;
   name: string;
   code: string;
   countryCode: string;
