@@ -72,6 +72,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { AuthGuard } from './guards/auth.guard';
 import { AdminGuard } from './guards/admin.guard';
 import { DriverComponent } from './components/driver/driver.component';
+import { NewsComponent } from './components/news/news.component';
 
 import { CapitalizePipe } from './pipes/capitalize.pipe';
 import { GrandsPrixComponent } from './pages/main/grandsPrix/grandsPrix.page';
@@ -107,6 +108,7 @@ registerLocaleData(localeEs, 'es-ES');
     CapitalizePipe,
     DriverComponent,
     ChangePilotDialogComponent,
+    NewsComponent,
   ],
   imports: [
     BrowserModule,

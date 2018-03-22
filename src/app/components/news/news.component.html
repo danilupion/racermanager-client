@@ -1,0 +1,20 @@
+<mat-card class="newsEntry">
+  <mat-card-header>
+    <div mat-card-avatar class="userImage"></div>
+    <mat-card-title>Victor Fernandez</mat-card-title>
+    <mat-card-subtitle>Realizó cambios en su equipo antes del GP de XXX</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content class="contentNews">
+    <div class="driverChangesContainer">
+      <img src="../../../../assets/icons/out.png" alt="outDriver" class="arrowImage arrowImage-out">
+      <rm-driver [driverCode]="'ALO'"></rm-driver>
+      <rm-driver [driverCode]="'HAM'"></rm-driver>
+    </div>
+    <div class="driverChangesContainer">
+      <img src="../../../../assets/icons/in.png" alt="inDriver" class="arrowImage">
+      <rm-driver [driverCode]="'VAN'"></rm-driver>
+      <rm-driver [driverCode]="'STR'"></rm-driver>
+    </div>
+  </mat-card-content>
+  <span class="updateDate">22/03/18 20:26</span>
+</mat-card>
