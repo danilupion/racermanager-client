@@ -1,4 +1,4 @@
-<div *ngIf="authService.isLoggedIn" class="league">
+<div *ngIf="myLeaguesService.hasLeagues" class="league">
   <rm-driver *ngFor="let driver of myLeaguesService.myDrivers" [driver]="driver" [showMenu]="false"></rm-driver>
   <div>
     Dinero: {{ myLeaguesService.myMoney }} <br>

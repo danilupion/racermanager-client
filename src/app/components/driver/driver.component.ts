@@ -18,7 +18,6 @@ export class DriverComponent {
   public showMenu = true;
 
   constructor(
-    public authService: AuthService,
     public myLeaguesService: MyLeaguesService,
     private dialog: MatDialog,
   ) { }

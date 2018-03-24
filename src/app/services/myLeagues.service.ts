@@ -66,6 +66,11 @@ export class MyLeaguesService {
     );
   }
 
+  @computed({keepAlive: true})
+  get hasLeagues() {
+    return this.items.length > 0;
+  }
+
   constructor(
     protected http: HttpClient,
     private authService: AuthService,

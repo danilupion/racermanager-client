@@ -12,6 +12,5 @@ import { AuthService } from '../../services/auth.service';
 export class LeagueManagerComponent {
   constructor(
     public myLeaguesService: MyLeaguesService,
-    public authService: AuthService,
   ) {}
 }
