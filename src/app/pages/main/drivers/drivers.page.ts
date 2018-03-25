@@ -7,7 +7,7 @@ import { SeasonsService } from '../../../services/seasons.service';
   styleUrls: ['./drivers.page.scss'],
 })
 export class DriversPageComponent {
-  public displayedColumns = ['Driver', 'Points', 'Price'];
+  public displayedColumns = ['Driver', 'Initial Price', 'Points', 'Price'];
 
   constructor(
     public seasonsService: SeasonsService,

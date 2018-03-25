@@ -54,8 +54,8 @@ export class SeasonDriversAdminPageComponent implements OnInit, OnDestroy {
           listValueGetter: (model) => this.driversService.items.find(candidate => candidate.id === model.driverId).name,
         },
         {
-          property: 'initialValue',
-          name: 'Initial Value',
+          property: 'initialPrice',
+          name: 'Initial Price',
         },
       ];
     } catch (err) { }

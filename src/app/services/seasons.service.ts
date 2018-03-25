@@ -16,7 +16,7 @@ export interface SeasonDriverModelType extends BaseModelType {
   fitness: string;
   name: string;
   points: string;
-  initialValue: number;
+  initialPrice: number;
   value: string;
 }
 

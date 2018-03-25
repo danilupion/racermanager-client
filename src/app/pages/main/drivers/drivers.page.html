@@ -13,13 +13,17 @@
           <rm-driver [driver]="driver"></rm-driver>
         </mat-cell>
       </ng-container>
+      <ng-container matColumnDef="Initial Price">
+        <mat-header-cell *matHeaderCellDef> Precio Inicial </mat-header-cell>
+        <mat-cell *matCellDef="let driver"> {{driver.initialPrice}} </mat-cell>
+      </ng-container>
       <ng-container matColumnDef="Points">
         <mat-header-cell *matHeaderCellDef> Puntos </mat-header-cell>
         <mat-cell *matCellDef="let driver"> {{driver.points}} </mat-cell>
       </ng-container>
       <ng-container matColumnDef="Price">
         <mat-header-cell *matHeaderCellDef> Precio </mat-header-cell>
-        <mat-cell *matCellDef="let driver"> {{driver.value}} </mat-cell>
+        <mat-cell *matCellDef="let driver"> {{driver.price}} </mat-cell>
       </ng-container>
     </mat-table>
   </mat-card-content>
