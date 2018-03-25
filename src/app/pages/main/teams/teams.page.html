@@ -10,7 +10,7 @@
         <mat-header-cell *matHeaderCellDef> Team </mat-header-cell>
         <mat-cell class="teamColumn" *matCellDef="let team">
           <img class="flagImg" src="../../../../assets/icons/flags/{{team.countryCode}}.png" alt="flag">
-          <img class="seasonTeamImg" [src]="getTeamImg(team.code)">
+          <img class="seasonTeamImg" [src]="getTeamImg(team)">
         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="TeamName">

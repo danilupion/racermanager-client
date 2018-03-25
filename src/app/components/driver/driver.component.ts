@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material';
 
-import { AuthService } from '../../services/auth.service';
 import { DriverModelType } from '../../services/drivers.service';
 import { MyLeaguesService } from '../../services/myLeagues.service';
 
@@ -24,7 +23,7 @@ export class DriverComponent {
 
   public getDriverImageUrl() {
     if (this.driver) {
-      return `/assets/pilots/${this.driver.code}.jpg`;
+      return `/assets/pilots/${this.driver.championship}/${this.driver.code}.jpg`;
     }
 
     return `/assets/pilot.jpg`;

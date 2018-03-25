@@ -26,7 +26,7 @@ export class MyLeaguesService {
 
   @computed({keepAlive: true})
   get hasPendingChanges() {
-    return this.wantedDrivers.some(driver => driver !== null);
+    return this.wantedDrivers && this.wantedDrivers.some(driver => driver !== null);
   }
 
   @computed({keepAlive: true})
@@ -68,7 +68,17 @@ export class MyLeaguesService {
 
   @computed({keepAlive: true})
   get hasLeagues() {
-    return this.items.length > 0;
+    return this.items && this.items.length > 0;
+  }
+
+  @computed({keepAlive: true})
+  get currentTradePercentageFee() {
+    return this.seasonsService.selected && this.seasonsService.selected.currentTradePercentageFee;
+  }
+
+  @computed({keepAlive: true})
+  get currentTradePercentageCost() {
+    return this.seasonsService.selected && this.seasonsService.selected.currentTradePercentageFee * this.myMoney;
   }
 
   constructor(

@@ -9,6 +9,7 @@ export interface DriverModelType extends BaseModelType {
   name: string;
   code: string;
   countryCode: string;
+  championship: string;
 }
 
 @Injectable()

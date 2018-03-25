@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import { SeasonsService } from '../../../services/seasons.service';
+import { TeamModelType } from '../../../services/teams.service';
 
 @Component({
   templateUrl: './teams.page.html',
@@ -14,9 +15,9 @@ export class TeamsPageComponent {
     public seasonsService: SeasonsService,
   ) { }
 
-  public getTeamImg(teamCode: string) {
-    const teamAsset = teamCode.replace(/ /g, '').toLowerCase();
-    return `../../../../assets/teams/${teamAsset}.jpg`;
+  public getTeamImg(team: TeamModelType) {
+    const teamAsset = team.code.replace(/ /g, '').toLowerCase();
+    return `../../../../assets/teams/${team.championship}/${teamAsset}.jpg`;
   }
 
   private async update() {

@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
-import { computed } from 'mobx-angular';
 
 import { MyLeaguesService } from '../../services/myLeagues.service';
-import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'rm-league-manager',
