@@ -21,6 +21,6 @@ export class GrandsPrixComponent {
   }
 
   public getLocalTime(utcTime: string) {
-    return moment(utcTime).local().format('DD-MM-YYYY HH:mm:ss');
+    return moment(utcTime).local().format('DD/MM/YYYY HH:mm');
   }
 }
