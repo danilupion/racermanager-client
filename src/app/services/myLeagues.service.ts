@@ -161,7 +161,7 @@ export class MyLeaguesService {
       }
     } catch (err) {
       this.items = null;
-      throw new Error(`Leagues retrieval failed`);
+      throw new Error('Leagues retrieval failed');
     }
   }
 
@@ -169,5 +169,17 @@ export class MyLeaguesService {
   public setSelected(league: LeagueModelType) {
     this.selected = league;
     this.wantedDrivers = [null, null];
+  }
+
+  public async saveDrivers() {
+    try {
+      await this.http.put<LeagueUserModelType>(`${this.getBaseUrl()}/${this.selected.id}/drivers`, {
+        drivers: this.myDrivers.map(driver => driver.id),
+        tradeFee: this.currentTradePercentageCost,
+        resultingMoney: this.myMoney - this.currentTradePercentageCost,
+      }).toPromise();
+    } catch (err) {
+      throw new Error('Unable to save drivers');
+    }
   }
 }

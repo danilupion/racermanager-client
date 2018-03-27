@@ -23,7 +23,13 @@
       <span>{{ myLeaguesService.selected.name }}</span>
     </button>
   </div>
-  <button *ngIf="myLeaguesService.hasPendingChanges" mat-raised-button color="accent" [disabled]="!canSave()">
+  <button
+    *ngIf="myLeaguesService.hasPendingChanges"
+    [disabled]="!canSave()"
+    (click)="myLeaguesService.saveDrivers()"
+    mat-raised-button
+    color="accent"
+  >
     <span>Guardar Cambios</span>
   </button>
 </div>
