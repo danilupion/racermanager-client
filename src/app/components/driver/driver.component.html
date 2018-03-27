@@ -3,7 +3,7 @@
     <mat-menu #menuPilots="matMenu">
       <button *ngFor="let myDriver of myLeaguesService.myDrivers; let i = index"
         mat-menu-item
-        [disabled]="!myLeaguesService.canBuyDriver(driver)"
+        [disabled]="!myLeaguesService.canBuyDriver(driver, i)"
         (click)="myLeaguesService.setDriver(i, driver)"
         >{{ myDriver && myDriver.name || 'Piloto ' + (i + 1) }}
       </button>

@@ -11,4 +11,8 @@ export class LeagueManagerComponent {
   constructor(
     public myLeaguesService: MyLeaguesService,
   ) {}
+
+  public canSave() {
+    return this.myLeaguesService.myDrivers.filter(driver => driver !== null).length === 2;
+  }
 }

@@ -62,13 +62,23 @@ export class MyLeaguesService {
 
   @computed({keepAlive: true})
   get myMoney() {
-    return this.myUser && this.myUser.money;
+    if (!this.myUser) {
+      return 0;
+    }
+
+    return this.myUser.drivers.reduce(
+      (accumulated, current, index) => {
+        const wantedDriver = this.wantedDrivers[index];
+        return accumulated - (current && current.price || 0) - (wantedDriver && wantedDriver.price || 0);
+      },
+      this.myUser.money,
+    );
   }
 
   @computed({keepAlive: true})
-  get myTotal() {
+  get myBroker() {
     return this.myDrivers.reduce(
-      (accumulated, current) => accumulated + (current && current.value || 0),
+      (accumulated, current) => accumulated + (current && current.price || 0),
       this.myMoney,
     );
   }
@@ -85,12 +95,17 @@ export class MyLeaguesService {
 
   @computed({keepAlive: true})
   get currentTradePercentageFee() {
-    return this.seasonsService.selected && this.seasonsService.selected.currentTradePercentageFee;
+    return this.seasonsService.selected && this.seasonsService.selected.currentTradePercentageFee || 0;
   }
 
   @computed({keepAlive: true})
   get currentTradePercentageCost() {
-    return this.seasonsService.selected && this.seasonsService.selected.currentTradePercentageFee * this.myMoney;
+    return this.currentTradePercentageFee * this.myBroker;
+  }
+
+  @computed({keepAlive: true})
+  get availableMoney() {
+    return this.myMoney - this.currentTradePercentageCost;
   }
 
   constructor(
@@ -119,8 +134,11 @@ export class MyLeaguesService {
     }
   }
 
-  public canBuyDriver(driver: DriverModelType) {
-    return !this.myDrivers.some(candidate => candidate && candidate.driverId === driver.driverId);
+  public canBuyDriver(driver: DriverModelType, position: number) {
+    const investableMoney = this.myMoney - this.currentTradePercentageCost;
+
+    return !this.myDrivers.some(candidate => candidate && candidate.driverId === driver.driverId)
+      && investableMoney - driver.price + (this.myDrivers[position] && this.myDrivers[position].price || 0) >= 0;
   }
 
   protected getBaseUrl() {
