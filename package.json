@@ -39,7 +39,7 @@
     "mobx-angular": "^3.0.1",
     "mobx-utils": "^4.0.0",
     "moment": "^2.21.0",
-    "rxjs": "^5.5.7",
+    "rxjs": "^5.5.8",
     "zone.js": "^0.8.19"
   },
   "devDependencies": {

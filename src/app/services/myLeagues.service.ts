@@ -8,9 +8,16 @@ import { BaseModelType } from './abstractRestCollection.service';
 import { AuthService } from './auth.service';
 import { DriverModelType } from './drivers.service';
 
+export interface LeagueUserModelType extends BaseModelType {
+  money: number;
+  points: number;
+  userId: string;
+  drivers: string|null[];
+}
+
 export interface LeagueModelType extends BaseModelType {
   name: string;
-  users: any;
+  users: LeagueUserModelType;
 }
 
 @Injectable()
@@ -64,6 +71,11 @@ export class MyLeaguesService {
       (accumulated, current) => accumulated + (current && current.value || 0),
       this.myMoney,
     );
+  }
+
+  @computed({keepAlive: true})
+  get myPoints() {
+    return this.myUser && this.myUser.points;
   }
 
   @computed({keepAlive: true})

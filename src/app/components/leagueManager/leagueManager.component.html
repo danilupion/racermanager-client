@@ -4,6 +4,7 @@
   </div>
   <rm-driver *ngFor="let driver of myLeaguesService.myDrivers" [driver]="driver" [showMenu]="false"></rm-driver>
   <div>
+    Puntos: {{ myLeaguesService.myPoints }} <br>
     Dinero: {{ myLeaguesService.myMoney }} <br>
     Total: {{ myLeaguesService.myTotal }}
   </div>
@@ -18,8 +19,11 @@
       </button>
     </mat-menu>
 
-    <button mat-button [matMenuTriggerFor]="leaguesMenu">
+    <button mat-raised-button color="primary" [matMenuTriggerFor]="leaguesMenu">
       <span>{{ myLeaguesService.selected.name }}</span>
     </button>
   </div>
+  <button mat-raised-button color="accent">
+    <span>Guardar Cambios</span>
+  </button>
 </div>
