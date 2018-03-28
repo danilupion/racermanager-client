@@ -11,7 +11,7 @@ import { DriversService } from '../../../services/drivers.service';
   templateUrl: './seasonDriversAdmin.page.html',
 })
 export class SeasonDriversAdminPageComponent implements OnInit, OnDestroy {
-  public title = 'Season Teams';
+  public title = 'Season Drivers';
 
   public fields = [];
 
