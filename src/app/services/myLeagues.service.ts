@@ -114,18 +114,18 @@ export class MyLeaguesService {
   }
 
   @computed({ keepAlive: true })
-  get currentTradeFeePercentage() {
-    return this.seasonsService.selected && this.seasonsService.selected.currentTradeFeePercentage || 0;
+  get currentTransactionFeePercentage() {
+    return this.seasonsService.selected && this.seasonsService.selected.currentTransactionFeePercentage || 0;
   }
 
   @computed({ keepAlive: true })
-  get currentTradeFeeCost() {
-    return Number.parseFloat((this.currentTradeFeePercentage * this.myBroker).toFixed(3));
+  get currentTransactionFeeCost() {
+    return Number.parseFloat((this.currentTransactionFeePercentage * this.myBroker).toFixed(3));
   }
 
   @computed({ keepAlive: true })
   get availableMoney() {
-    return this.myMoney - this.currentTradeFeeCost;
+    return this.myMoney - this.currentTransactionFeeCost;
   }
 
   constructor(
@@ -169,7 +169,7 @@ export class MyLeaguesService {
   }
 
   public canBuyDriver(driver: DriverModelType, position: number) {
-    const investableMoney = this.myMoney - this.currentTradeFeeCost;
+    const investableMoney = this.myMoney - this.currentTransactionFeeCost;
 
     return !this.myDrivers.some(candidate => candidate && candidate.driverId === driver.driverId)
       && investableMoney - driver.price + (this.myDrivers[position] && this.myDrivers[position].price || 0) >= 0;
@@ -217,8 +217,8 @@ export class MyLeaguesService {
     try {
       const league = await this.http.put<LeagueModelType>(`${this.getBaseUrl()}/${this.selected.id}/drivers`, {
         drivers: this.myDrivers.map(driver => driver.driverId),
-        tradeFee: this.currentTradeFeeCost,
-        resultingMoney: Number.parseFloat((this.myMoney - this.currentTradeFeeCost).toFixed(3)),
+        transactionFee: this.currentTransactionFeeCost,
+        resultingMoney: Number.parseFloat((this.myMoney - this.currentTransactionFeeCost).toFixed(3)),
       }).toPromise();
 
       this.items.set(this.selectedIndex, this.parseLeague(league));

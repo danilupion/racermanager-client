@@ -1,6 +1,8 @@
 <div *ngIf="myLeaguesService.hasLeagues" class="league">
   <mat-chip-list>
-    <mat-chip *ngIf="myLeaguesService.currentTradeFeeCost !== 0">Penalización: {{ myLeaguesService.currentTradeFeeCost }}</mat-chip>
+    <mat-chip *ngIf="myLeaguesService.currentTransactionFeeCost !== 0">
+      Penalización: {{ myLeaguesService.currentTransactionFeeCost }}
+    </mat-chip>
     <mat-chip *ngIf="!myLeaguesService.tradingAllowed">Mercado de pilotos cerrado</mat-chip>
   </mat-chip-list>
   <rm-driver *ngFor="let driver of myLeaguesService.myDrivers" [driver]="driver" [showMenu]="false"></rm-driver>
