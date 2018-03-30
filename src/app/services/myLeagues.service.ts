@@ -108,6 +108,11 @@ export class MyLeaguesService {
     return this.items && this.items.length > 0;
   }
 
+  @computed({ keepAlive: true})
+  get tradingAllowed() {
+    return this.seasonsService.selected && this.seasonsService.selected.marketOpen && this.hasLeagues;
+  }
+
   @computed({ keepAlive: true })
   get currentTradeFeePercentage() {
     return this.seasonsService.selected && this.seasonsService.selected.currentTradeFeePercentage || 0;

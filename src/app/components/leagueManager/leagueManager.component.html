@@ -1,7 +1,8 @@
 <div *ngIf="myLeaguesService.hasLeagues" class="league">
-  <div>
-    Penalización: {{ myLeaguesService.currentTradeFeeCost }} <br>
-  </div>
+  <mat-chip-list>
+    <mat-chip *ngIf="myLeaguesService.currentTradeFeeCost !== 0">Penalización: {{ myLeaguesService.currentTradeFeeCost }}</mat-chip>
+    <mat-chip *ngIf="!myLeaguesService.tradingAllowed">Mercado de pilotos cerrado</mat-chip>
+  </mat-chip-list>
   <rm-driver *ngFor="let driver of myLeaguesService.myDrivers" [driver]="driver" [showMenu]="false"></rm-driver>
   <div>
     Puntos: {{ myLeaguesService.myPoints }} <br>

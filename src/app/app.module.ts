@@ -10,6 +10,7 @@ import { MatListModule } from '@angular/material';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
+import { MatChipsModule } from '@angular/material/chips';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import {
   MatDialogModule,
@@ -122,6 +123,7 @@ registerLocaleData(localeEs, 'es-ES');
     MatCardModule,
     MatCheckboxModule,
     MatTableModule,
+    MatChipsModule,
     MatTooltipModule,
     MatDialogModule,
     MatTabsModule,

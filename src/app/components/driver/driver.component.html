@@ -1,5 +1,5 @@
 <div class="driverImage">
-  <div *ngIf="myLeaguesService.hasLeagues && showMenu">
+  <div *ngIf="myLeaguesService.tradingAllowed && showMenu">
     <mat-menu #menuPilots="matMenu">
       <button *ngFor="let myDriver of myLeaguesService.myDrivers; let i = index"
         mat-menu-item

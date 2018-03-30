@@ -52,6 +52,8 @@ export interface SeasonModelType extends BaseModelType {
   seasonGrandPrixes: SeasonGrandPrixModelType[];
   teams: SeasonTeamModelType[];
   grandsPrix: SeasonGrandPrixModelType[];
+  marketOpen: boolean;
+  currentTradeFeePercentage: number;
 }
 
 @Injectable()
