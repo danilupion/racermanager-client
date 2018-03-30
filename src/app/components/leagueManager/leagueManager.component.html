@@ -1,6 +1,6 @@
 <div *ngIf="myLeaguesService.hasLeagues" class="league">
   <div>
-    Penalización: {{ myLeaguesService.currentTradePercentageCost }} <br>
+    Penalización: {{ myLeaguesService.currentTradeFeeCost }} <br>
   </div>
   <rm-driver *ngFor="let driver of myLeaguesService.myDrivers" [driver]="driver" [showMenu]="false"></rm-driver>
   <div>
@@ -23,13 +23,21 @@
       <span>{{ myLeaguesService.selected.name }}</span>
     </button>
   </div>
-  <button
-    *ngIf="myLeaguesService.hasPendingChanges"
-    [disabled]="!canSave()"
-    (click)="myLeaguesService.saveDrivers()"
-    mat-raised-button
-    color="accent"
-  >
-    <span>Guardar Cambios</span>
-  </button>
+  <div *ngIf="myLeaguesService.hasPendingChanges">
+    <button
+      [disabled]="!canSave()"
+      (click)="myLeaguesService.saveDrivers()"
+      mat-raised-button
+      color="accent"
+    >
+      <span>Guardar Cambios</span>
+    </button>
+    <br>
+    <button
+      (click)="myLeaguesService.discard()"
+      mat-raised-button
+    >
+      <span>Descartar Cambios</span>
+    </button>
+  </div>
 </div>

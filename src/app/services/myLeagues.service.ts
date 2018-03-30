@@ -12,12 +12,12 @@ export interface LeagueUserModelType extends BaseModelType {
   money: number;
   points: number;
   userId: string;
-  drivers: string|null[];
+  drivers: (string|null)[];
 }
 
 export interface LeagueModelType extends BaseModelType {
   name: string;
-  users: LeagueUserModelType;
+  users: LeagueUserModelType[];
 }
 
 @Injectable()
@@ -26,17 +26,24 @@ export class MyLeaguesService {
   public items;
 
   @observable
-  public selected;
+  public selectedIndex = null;
 
   @observable
   protected wantedDrivers = [null, null];
 
-  @computed({keepAlive: true})
+  @computed({ keepAlive: true})
+  get selected() {
+    return this.items && this.selectedIndex !== null
+      ? this.items[this.selectedIndex]
+      : null;
+  }
+
+  @computed({ keepAlive: true })
   get hasPendingChanges() {
     return this.wantedDrivers && this.wantedDrivers.some(driver => driver !== null);
   }
 
-  @computed({keepAlive: true})
+  @computed({ keepAlive: true })
   get myUser() {
     if (!this.selected) {
       return null;
@@ -48,7 +55,7 @@ export class MyLeaguesService {
     return toJS(user);
   }
 
-  @computed({keepAlive: true})
+  @computed({ keepAlive: true })
   get myDrivers() {
     if (!this.myUser) {
       return [];
@@ -60,52 +67,60 @@ export class MyLeaguesService {
     );
   }
 
-  @computed({keepAlive: true})
+  @computed({ keepAlive: true })
   get myMoney() {
     if (!this.myUser) {
       return 0;
     }
 
-    return this.myUser.drivers.reduce(
-      (accumulated, current, index) => {
-        const wantedDriver = this.wantedDrivers[index];
-        return accumulated - (current && current.price || 0) - (wantedDriver && wantedDriver.price || 0);
-      },
-      this.myUser.money,
+    return Number.parseFloat(
+      this.myUser.drivers.reduce(
+        (accumulated, current, index) => {
+          const wantedDriver = this.wantedDrivers[index];
+          const diff = wantedDriver
+            ? wantedDriver.price - (current && current.price || 0)
+            : 0;
+
+          return accumulated - diff;
+        },
+        this.myUser.money,
+      ).toFixed(3),
     );
   }
 
-  @computed({keepAlive: true})
+  @computed({ keepAlive: true })
   get myBroker() {
-    return this.myDrivers.reduce(
-      (accumulated, current) => accumulated + (current && current.price || 0),
-      this.myMoney,
+    return Number.parseFloat(
+      this.myDrivers.reduce(
+        (accumulated, driver) => accumulated + (driver && driver.price || 0),
+        this.myMoney,
+      ).toFixed(3),
     );
   }
 
-  @computed({keepAlive: true})
+  @computed({ keepAlive: true })
   get myPoints() {
     return this.myUser && this.myUser.points;
   }
 
-  @computed({keepAlive: true})
+  @computed({ keepAlive: true })
   get hasLeagues() {
     return this.items && this.items.length > 0;
   }
 
-  @computed({keepAlive: true})
-  get currentTradePercentageFee() {
-    return this.seasonsService.selected && this.seasonsService.selected.currentTradePercentageFee || 0;
+  @computed({ keepAlive: true })
+  get currentTradeFeePercentage() {
+    return this.seasonsService.selected && this.seasonsService.selected.currentTradeFeePercentage || 0;
   }
 
-  @computed({keepAlive: true})
-  get currentTradePercentageCost() {
-    return this.currentTradePercentageFee * this.myBroker;
+  @computed({ keepAlive: true })
+  get currentTradeFeeCost() {
+    return Number.parseFloat((this.currentTradeFeePercentage * this.myBroker).toFixed(3));
   }
 
-  @computed({keepAlive: true})
+  @computed({ keepAlive: true })
   get availableMoney() {
-    return this.myMoney - this.currentTradePercentageCost;
+    return this.myMoney - this.currentTradeFeeCost;
   }
 
   constructor(
@@ -125,17 +140,31 @@ export class MyLeaguesService {
     this.update();
   }
 
+  private parseLeague(league: LeagueModelType) {
+    return {
+      ...league,
+      users: league.users.map(user => ({
+        ...user,
+        drivers: user.drivers.map(
+          driverId => driverId === null
+            ? null
+            : this.seasonsService.selected.drivers.find(candidate => candidate.driverId === driverId),
+        ),
+      })),
+    };
+  }
+
   public async update() {
     if (this.authService.isLoggedIn && this.seasonsService.selected) {
       await this.getLeagues();
     } else {
       this.items = [];
-      this.selected = null;
+      this.selectedIndex = null;
     }
   }
 
   public canBuyDriver(driver: DriverModelType, position: number) {
-    const investableMoney = this.myMoney - this.currentTradePercentageCost;
+    const investableMoney = this.myMoney - this.currentTradeFeeCost;
 
     return !this.myDrivers.some(candidate => candidate && candidate.driverId === driver.driverId)
       && investableMoney - driver.price + (this.myDrivers[position] && this.myDrivers[position].price || 0) >= 0;
@@ -153,11 +182,13 @@ export class MyLeaguesService {
   @action
   protected async getLeagues() {
     try {
-      this.items = await this.http.get<LeagueModelType>(this.getBaseUrl())
-        .toPromise();
+      this.items = (
+        await this.http.get<LeagueModelType[]>(this.getBaseUrl())
+        .toPromise()
+      ).map(this.parseLeague.bind(this));
 
       if (this.items.length > 0) {
-        this.selected = this.items[0];
+        this.selectedIndex = 0;
       }
     } catch (err) {
       this.items = null;
@@ -167,17 +198,26 @@ export class MyLeaguesService {
 
   @action
   public setSelected(league: LeagueModelType) {
-    this.selected = league;
+    this.selectedIndex = this.items.findIndex(candidate => candidate === league);
+    this.discard();
+  }
+
+  @action
+  public discard() {
     this.wantedDrivers = [null, null];
   }
 
+  @action
   public async saveDrivers() {
     try {
-      await this.http.put<LeagueUserModelType>(`${this.getBaseUrl()}/${this.selected.id}/drivers`, {
-        drivers: this.myDrivers.map(driver => driver.id),
-        tradeFee: this.currentTradePercentageCost,
-        resultingMoney: this.myMoney - this.currentTradePercentageCost,
+      const league = await this.http.put<LeagueModelType>(`${this.getBaseUrl()}/${this.selected.id}/drivers`, {
+        drivers: this.myDrivers.map(driver => driver.driverId),
+        tradeFee: this.currentTradeFeeCost,
+        resultingMoney: Number.parseFloat((this.myMoney - this.currentTradeFeeCost).toFixed(3)),
       }).toPromise();
+
+      this.items.set(this.selectedIndex, this.parseLeague(league));
+      this.discard();
     } catch (err) {
       throw new Error('Unable to save drivers');
     }

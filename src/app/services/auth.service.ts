@@ -68,12 +68,12 @@ export class AuthService {
       .toPromise();
   }
 
-  @computed({keepAlive: true})
+  @computed({ keepAlive: true })
   public get isLoggedIn() {
     return !!this.token;
   }
 
-  @computed({keepAlive: true})
+  @computed({ keepAlive: true })
   public get isAdmin() {
     return this.role === Role.Admin;
   }
