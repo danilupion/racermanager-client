@@ -7,6 +7,8 @@ import { AbstractRestCollectionService, BaseModelType } from './abstractRestColl
 export interface TeamModelType extends BaseModelType {
   name: string;
   countryCode: string;
+  code: string;
+  championship: string;
 }
 
 @Injectable()

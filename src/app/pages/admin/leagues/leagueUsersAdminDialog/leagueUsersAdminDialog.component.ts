@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
-import { observe } from 'mobx';
+import { reaction } from 'mobx';
 
 import { UsersService } from '../../../../services/users.service';
 import { LeaguesService } from '../../../../services/leagues.service';
@@ -27,7 +27,7 @@ export class LeagueUsersAdminDialogComponent implements OnInit, OnDestroy {
     Validators.pattern(/^(\d+(\.\d+)?)$/i),
   ]);
 
-  private userItemsObserverDisposer;
+  private userItemsReactionDisposer;
 
   constructor(
     private dialogRef: MatDialogRef<LeagueUsersAdminDialogComponent>,
@@ -52,14 +52,14 @@ export class LeagueUsersAdminDialogComponent implements OnInit, OnDestroy {
       .sort((user1, user2) => alphabeticalOrder(user1.text, user2.text));
   }
 
-  private close(): void {
+  public close(): void {
     this.dialogRef.close();
   }
 
   ngOnInit(): void {
-    this.userItemsObserverDisposer = observe(
-      this.usersService.items,
-      () => this.refreshUserOptions(),
+    this.userItemsReactionDisposer = reaction(
+      () => this.usersService.items.map(i => i),
+      this.refreshUserOptions.bind(this),
     );
 
     this.usersService.get();
@@ -90,7 +90,6 @@ export class LeagueUsersAdminDialogComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    console.log('destroying');
-    this.userItemsObserverDisposer();
+    this.userItemsReactionDisposer();
   }
 }

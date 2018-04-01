@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { observe } from 'mobx';
+import { reaction } from 'mobx';
 
 import { CrudType } from '../../../components/crud/crud.component';
 import { SeasonTeamModelType, SeasonsService } from '../../../services/seasons.service';
@@ -11,11 +11,11 @@ import { DriversService } from '../../../services/drivers.service';
   templateUrl: './seasonDriversAdmin.page.html',
 })
 export class SeasonDriversAdminPageComponent implements OnInit, OnDestroy {
-  public title = 'Season Teams';
+  public title = 'Season Drivers';
 
   public fields = [];
 
-  private selectedChampionshipObserverDisposer;
+  private selectedChampionshipReactionDisposer;
 
   public crud: CrudType<SeasonTeamModelType> = {
     getAll: () => this.seasonsService.update(),
@@ -32,10 +32,9 @@ export class SeasonDriversAdminPageComponent implements OnInit, OnDestroy {
 
   async ngOnInit(): Promise<void> {
     try {
-      this.selectedChampionshipObserverDisposer = observe(
-        this.championshipsService,
-        'selected',
-        () => this.seasonsService.update(),
+      this.selectedChampionshipReactionDisposer = reaction(
+        () => this.championshipsService.selected,
+        this.seasonsService.update.bind(this),
       );
 
       await this.driversService.get();
@@ -55,14 +54,14 @@ export class SeasonDriversAdminPageComponent implements OnInit, OnDestroy {
           listValueGetter: (model) => this.driversService.items.find(candidate => candidate.id === model.driverId).name,
         },
         {
-          property: 'initialValue',
-          name: 'Initial Value',
+          property: 'initialPrice',
+          name: 'Initial Price',
         },
       ];
     } catch (err) { }
   }
 
   public ngOnDestroy(): void {
-    this.selectedChampionshipObserverDisposer();
+    this.selectedChampionshipReactionDisposer();
   }
 }

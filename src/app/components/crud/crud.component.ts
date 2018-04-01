@@ -32,7 +32,7 @@ export class CrudComponent extends AbstractFieldManagerComponent implements OnIn
 
   public selection = new SelectionModel(true, []);
 
-  private dataSourceObserverDisposer;
+  private dataSourceReactionDisposer;
 
   constructor(
     private dialog: MatDialog,
@@ -164,9 +164,9 @@ export class CrudComponent extends AbstractFieldManagerComponent implements OnIn
   }
 
   private disposeDataSourceObserver() {
-    if (this.dataSourceObserverDisposer) {
-      this.dataSourceObserverDisposer();
-      this.dataSourceObserverDisposer = null;
+    if (this.dataSourceReactionDisposer) {
+      this.dataSourceReactionDisposer();
+      this.dataSourceReactionDisposer = null;
     }
   }
 
@@ -174,7 +174,7 @@ export class CrudComponent extends AbstractFieldManagerComponent implements OnIn
     this.disposeDataSourceObserver();
 
     if (this.dataSource && this.dataSource.observe) {
-      this.dataSourceObserverDisposer = this.dataSource.observe(() => this.initializeModelsFromDataSource());
+      this.dataSourceReactionDisposer = this.dataSource.observe(() => this.initializeModelsFromDataSource());
     }
   }
 
