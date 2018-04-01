@@ -18,12 +18,12 @@
         *ngFor="let league of myLeaguesService.items"
         (click)="myLeaguesService.setSelected(league)"
       >
-        <span>{{ league.name }}</span>
+        {{ league.name }}
       </button>
     </mat-menu>
 
     <button mat-raised-button color="primary" [matMenuTriggerFor]="leaguesMenu">
-      <span>{{ myLeaguesService.selected.name }}</span>
+      {{ myLeaguesService.selected.name }}
     </button>
   </div>
   <div *ngIf="myLeaguesService.hasPendingChanges">
@@ -33,14 +33,14 @@
       mat-raised-button
       color="accent"
     >
-      <span>Guardar Cambios</span>
+      Guardar Cambios
     </button>
     <br>
     <button
       (click)="myLeaguesService.discard()"
       mat-raised-button
     >
-      <span>Descartar Cambios</span>
+      Descartar Cambios
     </button>
   </div>
 </div>

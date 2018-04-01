@@ -21,12 +21,12 @@
       *ngFor="let championship of championshipsService.items"
       (click)="championshipsService.setSelected(championship)"
     >
-      <span>{{ championship }}</span>
+      {{ championship }}
     </button>
   </mat-menu>
 
   <button *ngIf="championshipsService.items.length > 1" mat-raised-button color="primary" [matMenuTriggerFor]="championshipsMenu">
-    <span>{{ championshipsService.selected }}</span>
+    {{ championshipsService.selected }}
   </button>
 
 
