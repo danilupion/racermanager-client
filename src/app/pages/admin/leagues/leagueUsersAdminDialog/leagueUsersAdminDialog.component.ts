@@ -71,12 +71,14 @@ export class LeagueUsersAdminDialogComponent implements OnInit, OnDestroy {
 
   public async addUser(): Promise<void> {
     try {
+      this.setLoading(true);
       await this.leaguesService.addUser(this.league, this.selectedUser.value, this.selectedMoney.value);
       this.selectedUser.reset();
       this.selectedMoney.reset();
     } catch (err) {
       this.snackBar.open('There was a problem adding the user, make sure it is not already in the league.', null, { duration: 3000 });
     }
+    this.setLoading(false);
   }
 
   public async removeUser(user): Promise<void> {

@@ -11,7 +11,7 @@ import { alphabeticalOrder } from '../../../../utils/sorting';
 export class ResultsAdminDialogComponent implements OnInit {
   public loading = false;
 
-  public results;
+  public grandPrix;
 
   public positions = [];
 
@@ -29,7 +29,7 @@ export class ResultsAdminDialogComponent implements OnInit {
     private seasonService: SeasonsService,
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
-    this.results = data.results;
+    this.grandPrix = data.grandPrix;
   }
 
   public setLoading(loading): void {
@@ -80,7 +80,21 @@ export class ResultsAdminDialogComponent implements OnInit {
     return this.drivers.every(control => control.valid) && this.points.every(control => control.valid);
   }
 
-  public setResults() {
+  public async setResults(): Promise<void> {
+    try {
+      if (confirm(`Are you sure you want to set the results for ${this.grandPrix.name}?`)) {
+        this.setLoading(true);
+        const results = this.positions.map((position, index) => ({
+          driverId: this.drivers[index].value,
+          position,
+          points: Number.parseInt(this.points[index].value),
+        }));
 
+        await this.seasonService.setGrandPrixResults(this.grandPrix, results);
+      }
+    } catch (err) {
+      this.snackBar.open('There was a problem removing the user.', null, { duration: 3000 });
+    }
+    this.setLoading(false);
   }
 }

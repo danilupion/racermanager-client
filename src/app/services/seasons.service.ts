@@ -257,4 +257,20 @@ export class SeasonsService {
       throw new Error(`${name} grand prix deletion failed`);
     }
   }
+
+  @action
+  public async setGrandPrixResults(grandPrix: SeasonGrandPrixModelType, results) {
+    try {
+      const updatedGrandPrix = await this.http.put<SeasonGrandPrixModelType>(`${this.getGrandsPrixUrl()}/${grandPrix.id}/results`, results)
+        .toPromise();
+
+      const modelIndex = this.selected.grandsPrix.findIndex((candidate) => candidate.id === grandPrix.id);
+
+      if (modelIndex !== -1) {
+        this.selected.grandsPrix.set(modelIndex, updatedGrandPrix);
+      }
+    } catch (err) {
+      throw new Error(`${name} grand prix results  failed`);
+    }
+  }
 }

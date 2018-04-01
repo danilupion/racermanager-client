@@ -115,7 +115,7 @@ export class SeasonGrandsPrixAdminPageComponent implements OnInit, OnDestroy {
             this.dialog.open(ResultsAdminDialogComponent, {
               width: '450px',
               data: {
-                results: model.results,
+                grandPrix: model,
               },
             });
           },
