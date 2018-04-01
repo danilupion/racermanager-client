@@ -20,7 +20,7 @@ export class LeaguesAdminPageComponent implements OnInit, OnDestroy {
       editable: false,
       listValueGetter: (model) => `${model.users.length} users`,
       onListClick: (model) => {
-        const dialogRef = this.dialog.open(LeagueUsersAdminDialogComponent, {
+        this.dialog.open(LeagueUsersAdminDialogComponent, {
           width: '400px',
           data: {
             league: model,

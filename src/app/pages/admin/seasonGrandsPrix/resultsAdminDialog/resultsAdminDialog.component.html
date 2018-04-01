@@ -1,0 +1,32 @@
+<div mat-dialog-content>
+  <div *ngFor="let position of positions; index as i">
+    {{ position }}
+    <mat-form-field>
+      <mat-select
+        [formControl]="drivers[i]"
+        placeholder="Driver"
+      >
+        <mat-option></mat-option>
+        <mat-option
+          *ngFor="let driver of getAvailabledDrivers(i)"
+          [value]="driver.driverId"
+        >
+          {{ driver.name }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="drivers[i].invalid">Driver in position {{ position }} is mandatory</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        [formControl]="points[i]"
+        placeholder="Points"
+      >
+      <mat-error *ngIf="points[i].invalid">Points for position {{ position }} is mandatory</mat-error>
+    </mat-form-field>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <rm-loading-button [loading]="loading" [disabled]="!isValid()" (push)="setResults()">Submit</rm-loading-button>
+  <button mat-button (click)="close()">Close</button>
+</div>

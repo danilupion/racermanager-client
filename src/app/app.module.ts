@@ -55,6 +55,7 @@ import { GrandsPrixAdminPageComponent } from './pages/admin/grandsPrix/grandsPri
 import { SeasonTeamsAdminPageComponent } from './pages/admin/seasonTeams/seasonTeamsAdmin.page';
 import { SeasonDriversAdminPageComponent } from './pages/admin/seasonDrivers/seasonDriversAdmin.page';
 import { SeasonGrandsPrixAdminPageComponent } from './pages/admin/seasonGrandsPrix/seasonGrandsPrixAdmin.page';
+import { ResultsAdminDialogComponent } from './pages/admin/seasonGrandsPrix/resultsAdminDialog/resultsAdminDialog.component';
 import { LeaguesAdminPageComponent } from './pages/admin/leagues/leaguesAdmin.page';
 import { LeagueUsersAdminDialogComponent } from './pages/admin/leagues/leagueUsersAdminDialog/leagueUsersAdminDialog.component';
 
@@ -103,6 +104,7 @@ registerLocaleData(localeEs, 'es-ES');
     SeasonTeamsAdminPageComponent,
     SeasonDriversAdminPageComponent,
     SeasonGrandsPrixAdminPageComponent,
+    ResultsAdminDialogComponent,
     LeaguesAdminPageComponent,
     LeagueUsersAdminDialogComponent,
     CapitalizePipe,
@@ -160,6 +162,7 @@ registerLocaleData(localeEs, 'es-ES');
   entryComponents: [
     AuthDialogComponent,
     EditorDialogComponent,
+    ResultsAdminDialogComponent,
     LeagueUsersAdminDialogComponent,
     ChangePilotDialogComponent,
   ],

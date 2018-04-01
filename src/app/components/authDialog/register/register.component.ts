@@ -35,7 +35,7 @@ export class RegisterComponent {
     private snackBar: MatSnackBar,
   ) { }
 
-  public async register() {
+  public async register(): Promise<void> {
     try {
       this.loading = true;
       await this.authService.register(this.username.value, this.email.value, this.password.value);
@@ -48,7 +48,7 @@ export class RegisterComponent {
     }
   }
 
-  public submitOnEnter(event) {
+  public submitOnEnter(event): void {
     if (this.isValid() && event.keyCode === 13) {
       this.register();
     }

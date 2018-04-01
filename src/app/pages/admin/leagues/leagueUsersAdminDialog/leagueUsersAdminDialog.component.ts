@@ -39,11 +39,11 @@ export class LeagueUsersAdminDialogComponent implements OnInit, OnDestroy {
     this.league = data.league;
   }
 
-  public setLoading(loading) {
+  public setLoading(loading): void {
     this.loading = loading;
   }
 
-  public refreshUserOptions() {
+  public refreshUserOptions(): void {
     this.userOptions =  this.usersService.items
       .map(user => ({
         value: user.id,
@@ -69,7 +69,7 @@ export class LeagueUsersAdminDialogComponent implements OnInit, OnDestroy {
     return this.selectedUser.valid && this.selectedMoney.valid;
   }
 
-  public async addUser() {
+  public async addUser(): Promise<void> {
     try {
       await this.leaguesService.addUser(this.league, this.selectedUser.value, this.selectedMoney.value);
       this.selectedUser.reset();
@@ -79,7 +79,7 @@ export class LeagueUsersAdminDialogComponent implements OnInit, OnDestroy {
     }
   }
 
-  public async removeUser(user) {
+  public async removeUser(user): Promise<void> {
     try {
       if (confirm(`Are you sure you want to delete user ${user.email}`)) {
         await this.leaguesService.removeUser(this.league, user);

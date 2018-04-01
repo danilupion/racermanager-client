@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { MatDialog } from '@angular/material';
 import { reaction } from 'mobx';
 import * as moment from 'moment';
 
@@ -8,6 +9,7 @@ import { CircuitsService } from '../../../services/circuits.service';
 import { GrandsPrixService } from '../../../services/grandsPrix.service';
 import { ChampionshipsService } from '../../../services/championships.service';
 import { alphabeticalOrder } from '../../../utils/sorting';
+import { ResultsAdminDialogComponent } from './resultsAdminDialog/resultsAdminDialog.component';
 
 const formatDateString = (date) => moment(date).format('YYYY-MM-DD HH:mm:ss');
 
@@ -34,6 +36,7 @@ export class SeasonGrandsPrixAdminPageComponent implements OnInit, OnDestroy {
     private circuitsService: CircuitsService,
     private grandsPrixService: GrandsPrixService,
     private championshipsService: ChampionshipsService,
+    private dialog: MatDialog,
   ) { }
 
   async ngOnInit(): Promise<void> {
@@ -101,6 +104,21 @@ export class SeasonGrandsPrixAdminPageComponent implements OnInit, OnDestroy {
           name: 'Race',
           listValueGetter: (model) => formatDateString(model.raceUTC),
 
+        },
+        {
+          property: 'results',
+          name: 'Results',
+          listValueGetter: (model) => Date.now() > (new Date(model.raceUTC)).valueOf()
+            ? `${model.results.length} Results`
+            : null,
+          onListClick: (model) => {
+            this.dialog.open(ResultsAdminDialogComponent, {
+              width: '450px',
+              data: {
+                results: model.results,
+              },
+            });
+          },
         },
       ];
     } catch (err) { }
