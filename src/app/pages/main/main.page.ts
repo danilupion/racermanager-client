@@ -23,7 +23,7 @@ export class MainPageComponent {
     },
     {
       icon: 'fa-flag-checkered',
-      text: 'Grandes premios',
+      text: 'Grandes Premios',
       url: '/grandsPrix',
     },
   ];

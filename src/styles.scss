@@ -1,7 +1,8 @@
-@import "~@angular/material/prebuilt-themes/pink-bluegrey.css";
+@import "theme.scss";
 
 html, body {
   margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 rm-auth-dialog .mat-tab-body-content {

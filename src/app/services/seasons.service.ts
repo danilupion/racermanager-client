@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { action, observable } from 'mobx-angular';
+import { action, observable, computed } from 'mobx-angular';
+import { reaction } from 'mobx';
 
 import { ChampionshipsService } from './championships.service';
 import { BaseModelType } from './abstractRestCollection.service';
@@ -9,14 +10,20 @@ import { TeamModelType } from './teams.service';
 import { CircuitModelType } from './circuits.service';
 
 export interface SeasonDriverModelType extends BaseModelType {
-  driver: DriverModelType;
-  initialValue: number;
-  value: number;
+  championship: string;
+  code: string;
+  driverId: string;
+  fitness: string;
+  name: string;
+  points: string;
+  initialPrice: number;
+  value: string;
 }
 
 export interface SeasonTeamModelType extends BaseModelType {
   team: TeamModelType;
   drivers: SeasonDriverModelType[];
+  bonus: number;
 }
 
 export interface ResultModelType extends BaseModelType {
@@ -40,10 +47,13 @@ export interface SeasonGrandPrixModelType extends BaseModelType {
 }
 
 export interface SeasonModelType extends BaseModelType {
+  championship: string;
   name: string;
   seasonGrandPrixes: SeasonGrandPrixModelType[];
   teams: SeasonTeamModelType[];
   grandsPrix: SeasonGrandPrixModelType[];
+  marketOpen: boolean;
+  currentTransactionFeePercentage: number;
 }
 
 @Injectable()
@@ -53,11 +63,48 @@ export class SeasonsService {
   @observable
   selected;
 
+  @computed({ keepAlive: true })
+  get drivers() {
+    return this.selected && this.selected.drivers.toJS() || [];
+  }
+
+  @computed({ keepAlive: true })
+  get teams() {
+    if (!this.selected) {
+      return [];
+    }
+
+    return this.selected.teams.map(
+      (team) => {
+        const { driverIds, ...rest} = team;
+
+        const drivers = team.driverIds.map(
+          driverId => this.selected.drivers.find(candidate => candidate.driverId === driverId),
+        );
+
+        return {
+          ...rest,
+          drivers,
+          points: drivers.reduce((accumulated, current) => accumulated + (current && current.points || 0), 0),
+        };
+      },
+    );
+  }
+
+  @computed({ keepAlive: true })
+  get grandsPrix() {
+    return this.selected && this.selected.grandsPrix.toJS() || [];
+  }
+
   constructor(
     protected http: HttpClient,
     private championshipsService: ChampionshipsService,
   ) {
     this.update();
+    reaction(
+      () => this.championshipsService.selected,
+      this.update.bind(this),
+    );
   }
 
   protected getBaseUrl() {

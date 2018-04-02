@@ -1,0 +1,10 @@
+@import "../../../theme.variables";
+
+.league {
+  margin: 0 auto;
+  max-width: $content-wrapper-width;
+  background-color: $primary;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

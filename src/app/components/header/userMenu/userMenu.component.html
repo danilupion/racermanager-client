@@ -7,10 +7,10 @@
   </ng-template>
   <button mat-menu-item (click)="logout()">
     <mat-icon>power_settings_new</mat-icon>
-    <span>Salir</span>
+    Salir
   </button>
 </mat-menu>
 
-<button mat-button [matMenuTriggerFor]="userMenu">
-  <span>{{authService.username}}</span>
+<button mat-raised-button color="primary" [matMenuTriggerFor]="userMenu">
+  {{authService.username}}
 </button>

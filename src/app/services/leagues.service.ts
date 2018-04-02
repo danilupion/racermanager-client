@@ -5,7 +5,6 @@ import { ChampionshipsService } from './championships.service';
 import { AbstractRestCollectionService, BaseModelType } from './abstractRestCollection.service';
 import { action } from 'mobx-angular';
 
-
 interface LeagueUserModelType extends BaseModelType {
   money: number;
   email: string;
@@ -58,6 +57,4 @@ export class LeaguesService extends AbstractRestCollectionService<LeagueModelTyp
       throw new Error(`${name} creation failed`);
     }
   }
-
 }
-

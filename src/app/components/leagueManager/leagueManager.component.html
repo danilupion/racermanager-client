@@ -1,0 +1,46 @@
+<div *ngIf="myLeaguesService.hasLeagues" class="league">
+  <mat-chip-list>
+    <mat-chip *ngIf="myLeaguesService.currentTransactionFeeCost !== 0">
+      Penalización: {{ myLeaguesService.currentTransactionFeeCost }}
+    </mat-chip>
+    <mat-chip *ngIf="!myLeaguesService.tradingAllowed">Mercado de pilotos cerrado</mat-chip>
+  </mat-chip-list>
+  <rm-driver *ngFor="let driver of myLeaguesService.myDrivers" [driver]="driver" [showMenu]="false"></rm-driver>
+  <div>
+    Puntos: {{ myLeaguesService.myPoints }} <br>
+    Dinero: {{ myLeaguesService.myMoney }} <br>
+    Broker: {{ myLeaguesService.myBroker }}
+  </div>
+  <div *ngIf="myLeaguesService.items && myLeaguesService.items.length > 1" >
+    <mat-menu #leaguesMenu="matMenu">
+      <button
+        mat-menu-item
+        *ngFor="let league of myLeaguesService.items"
+        (click)="myLeaguesService.setSelected(league)"
+      >
+        {{ league.name }}
+      </button>
+    </mat-menu>
+
+    <button mat-raised-button color="primary" [matMenuTriggerFor]="leaguesMenu">
+      {{ myLeaguesService.selected.name }}
+    </button>
+  </div>
+  <div *ngIf="myLeaguesService.hasPendingChanges">
+    <button
+      [disabled]="!canSave()"
+      (click)="myLeaguesService.saveDrivers()"
+      mat-raised-button
+      color="accent"
+    >
+      Guardar Cambios
+    </button>
+    <br>
+    <button
+      (click)="myLeaguesService.discard()"
+      mat-raised-button
+    >
+      Descartar Cambios
+    </button>
+  </div>
+</div>

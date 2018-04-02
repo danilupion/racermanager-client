@@ -15,18 +15,18 @@
   <!-- This fills the remaining space of the current row -->
   <span class="fill-remaining-space"></span>
 
-  <mat-menu #championshipsMenu="matMenu">
+  <mat-menu *ngIf="championshipsService.items.length > 1" #championshipsMenu="matMenu">
     <button
       mat-menu-item
       *ngFor="let championship of championshipsService.items"
       (click)="championshipsService.setSelected(championship)"
     >
-      <span>{{ championship }}</span>
+      {{ championship }}
     </button>
   </mat-menu>
 
-  <button mat-button [matMenuTriggerFor]="championshipsMenu">
-    <span>{{ championshipsService.selected }}</span>
+  <button *ngIf="championshipsService.items.length > 1" mat-raised-button color="primary" [matMenuTriggerFor]="championshipsMenu">
+    {{ championshipsService.selected }}
   </button>
 
 
