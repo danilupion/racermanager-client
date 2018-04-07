@@ -8,7 +8,6 @@ import { TeamModelType } from '../../../services/teams.service';
   styleUrls: ['./teams.page.scss'],
 })
 export class TeamsPageComponent {
-  public teams = [];
   public displayedColumns = ['Team', 'TeamName', 'Drivers', 'Points', 'Factor'];
 
   constructor(
