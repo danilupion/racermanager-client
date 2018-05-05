@@ -261,13 +261,16 @@ export class SeasonsService {
   @action
   public async setGrandPrixResults(grandPrix: SeasonGrandPrixModelType, results) {
     try {
-      const updatedGrandPrix = await this.http.put<SeasonGrandPrixModelType>(`${this.getGrandsPrixUrl()}/${grandPrix.id}/results`, results)
+      const grandPrixResults = await this.http.put<SeasonGrandPrixModelType>(
+        `${this.getGrandsPrixUrl()}/${grandPrix.id}/results`,
+        { results },
+        )
         .toPromise();
 
       const modelIndex = this.selected.grandsPrix.findIndex((candidate) => candidate.id === grandPrix.id);
 
       if (modelIndex !== -1) {
-        this.selected.grandsPrix.set(modelIndex, updatedGrandPrix);
+        this.selected.grandsPrix[modelIndex].results = grandPrixResults;
       }
     } catch (err) {
       throw new Error(`${name} grand prix results  failed`);
