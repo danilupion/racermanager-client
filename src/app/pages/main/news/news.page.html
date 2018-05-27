@@ -1,2 +1,4 @@
-<rm-news></rm-news>
-<rm-news></rm-news>
+<div *ngFor="let transaction of transactions">
+  {{transaction.userId}}
+  <rm-news [transaction]='test3'></rm-news>
+</div>

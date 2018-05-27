@@ -8,9 +8,15 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class NewsComponent implements OnInit {
 
+  @Input()
+  public transaction = '';
+
   constructor(
     private authService: AuthService,
-  ) { }
+  ) {
+    console.log('TRANSACTIONsdsds', this.transaction);
+    // console.log('USER OWNER', this.transaction.userId);
+   }
 
   public ngOnInit() { }
 }
